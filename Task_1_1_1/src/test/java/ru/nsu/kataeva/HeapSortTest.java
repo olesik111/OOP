@@ -1,6 +1,7 @@
 package ru.nsu.kataeva;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
@@ -76,7 +77,6 @@ class HeapSortTest {
 
         assertArrayEquals(expected, arrRand);
     }
-
 
 
     @Test

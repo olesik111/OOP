@@ -9,11 +9,16 @@ public class HeapSort {
     /**
      * Основной метод для демонстрации работы алгоритма сортировки.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int[] arr = {1, 5, 3};
         heapSort(arr);
     }
 
+    /**
+     * Метод для основной части сортировки
+     *
+     * @param arr массив для сортировки
+     */
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 1) {
             return;
@@ -21,10 +26,10 @@ public class HeapSort {
 
         int n = arr.length;
         // Построение max-кучи: начинаем с последнего нелистового узла
-        for (int i = n / 2 - 1; i >= 0; i--){
+        for (int i = n / 2 - 1; i >= 0; i--) {
             heapify(arr, i, n);
         }
-        for (int i = n - 1; i >= 0; i--){
+        for (int i = n - 1; i >= 0; i--) {
             int swap = arr[0];
             arr[0] = arr[i];
             arr[i] = swap;
@@ -40,23 +45,23 @@ public class HeapSort {
      * Рекурсивно просеивает элемент вниз до тех пор, пока свойства кучи не будут восстановлены.
      *
      * @param arr массив-куча
-     * @param i индекс корня поддерева
-     * @param n размер кучи
+     * @param i   индекс корня поддерева
+     * @param n   размер кучи
      */
     private static void heapify(int[] arr, int i, int n) {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
         int maxi = i;
 
-        if (left < n && arr[left] > arr[maxi]){
+        if (left < n && arr[left] > arr[maxi]) {
             maxi = left;
         }
-        if (right < n && arr[right] > arr[maxi]){
+        if (right < n && arr[right] > arr[maxi]) {
             maxi = right;
         }
         // Если после сравнения с потомками максимальный элемент - не текущий корень,
         // меняем местами и рекурсивно восстанавливаем свойства для измененного поддерева
-        if (maxi != i){
+        if (maxi != i) {
             int swap = arr[maxi];
             arr[maxi] = arr[i];
             arr[i] = swap;
