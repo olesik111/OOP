@@ -9,83 +9,83 @@ import java.util.Random;
 class HeapSortTest {
 
     @Test
-    void Null() {
+    void nullCheck() {
         int[] arr = null;
-        assertDoesNotThrow(() -> HeapSort.heapsort(arr));
+        assertDoesNotThrow(() -> HeapSort.heapSort(arr));
     }
 
     @Test
-    void Empty() {
+    void empty() {
         int[] arr = {};
         int[] expected = {};
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
         assertArrayEquals(expected, arr);
     }
 
     @Test
-    void Single() {
+    void single() {
         int[] arr = {1};
         int[] expected = {1};
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
         assertArrayEquals(expected, arr);
     }
 
     @Test
-    void Sorted() {
+    void sortedArray() {
         int[] arr = {1, 2, 3};
         int[] expected = {1, 2, 3};
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
         assertArrayEquals(expected, arr);
     }
 
     @Test
-    void ReverseSorted() {
+    void reverseSorted() {
         int[] arr = {3, 2, 1};
         int[] expected = {1, 2, 3};
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
         assertArrayEquals(expected, arr);
     }
 
     @Test
-    void JustArray() {
+    void justArray() {
         int[] arr = {64, 34, 25, 12, 22, 11, 90};
         int[] expected = {11, 12, 22, 25, 34, 64, 90};
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
         assertArrayEquals(expected, arr);
     }
 
     @Test
-    void Duplicates() {
+    void duplicates() {
         int[] arr = {5, 2, 8, 2, 5, 8, 1};
         int[] expected = {1, 2, 2, 5, 5, 8, 8};
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
         assertArrayEquals(expected, arr);
     }
 
     @Test
-    void Big() {
+    void big() {
         Random random = new Random();
-        int[] arr_rand = new int[1000];
+        int[] arrRand = new int[1000];
         for (int i = 0; i < 1000; i++) {
-            arr_rand[i] = random.nextInt(100);
+            arrRand[i] = random.nextInt(100);
         }
-        int[] expected = arr_rand.clone();
+        int[] expected = arrRand.clone();
         Arrays.sort(expected);
 
-        HeapSort.heapsort(arr_rand);
+        HeapSort.heapSort(arrRand);
 
-        assertArrayEquals(expected, arr_rand);
+        assertArrayEquals(expected, arrRand);
     }
 
 
 
     @Test
-    void Minus() {
+    void minus() {
         int[] arr = {-3, 1, -4, 1, -5, 9, 2, 6};
         int[] expected = arr.clone();
         Arrays.sort(expected);
 
-        HeapSort.heapsort(arr);
+        HeapSort.heapSort(arr);
 
         assertArrayEquals(expected, arr);
     }

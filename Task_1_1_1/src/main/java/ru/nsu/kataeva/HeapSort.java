@@ -11,10 +11,10 @@ public class HeapSort {
      */
     public static void main(String[] args){
         int[] arr = {1, 5, 3};
-        heapsort(arr);
+        heapSort(arr);
     }
 
-    public static void heapsort(int[] arr) {
+    public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 1) {
             return;
         }
