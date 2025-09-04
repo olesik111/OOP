@@ -11,9 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class HeapSortTest {
 
     @Test
-    void mainTest(){
+    void mainTest() {
         HeapSort.main(new String[]{});
     }
+
     @Test
     void nullCheck() {
         int[] arr = null;
