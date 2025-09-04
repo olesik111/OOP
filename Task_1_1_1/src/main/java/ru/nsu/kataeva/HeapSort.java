@@ -12,10 +12,11 @@ public class HeapSort {
     public static void main(String[] args) {
         int[] arr = {1, 5, 3};
         heapSort(arr);
+        printArray(arr);
     }
 
     /**
-     * Метод для основной части сортировки
+     * Метод для основной части сортировки.
      *
      * @param arr массив для сортировки
      */
@@ -37,7 +38,6 @@ public class HeapSort {
             // Перемещаем текущий максимальный элемент в конец,
             // восстанавливаем свойства кучи для уменьшенного массива
         }
-        printArray(arr);
     }
 
     /**
@@ -49,24 +49,26 @@ public class HeapSort {
      * @param n   размер кучи
      */
     private static void heapify(int[] arr, int i, int n) {
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
-        int maxi = i;
+        while (true) {
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            int maxi = i;
+            if (left < n && arr[left] > arr[maxi]) {
+                maxi = left;
+            }
+            if (right < n && arr[right] > arr[maxi]) {
+                maxi = right;
+            }
+            // Если максимальный элемент - текущий, свойство кучи восстановлено
+            if (maxi == i) {
+                break;
+            }
 
-        if (left < n && arr[left] > arr[maxi]) {
-            maxi = left;
-        }
-        if (right < n && arr[right] > arr[maxi]) {
-            maxi = right;
-        }
-        // Если после сравнения с потомками максимальный элемент - не текущий корень,
-        // меняем местами и рекурсивно восстанавливаем свойства для измененного поддерева
-        if (maxi != i) {
             int swap = arr[maxi];
             arr[maxi] = arr[i];
             arr[i] = swap;
-            //down on the next level
-            heapify(arr, maxi, n);
+
+            i = maxi;
         }
 
     }
