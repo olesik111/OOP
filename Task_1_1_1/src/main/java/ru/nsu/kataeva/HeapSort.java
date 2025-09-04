@@ -53,22 +53,25 @@ public class HeapSort {
             int left = 2 * i + 1;
             int right = 2 * i + 2;
             int maxi = i;
+
             if (left < n && arr[left] > arr[maxi]) {
                 maxi = left;
             }
             if (right < n && arr[right] > arr[maxi]) {
                 maxi = right;
             }
-            // Если максимальный элемент - текущий, свойство кучи восстановлено
-            if (maxi == i) {
+            if (maxi == i){
                 break;
             }
+            // Если после сравнения с потомками максимальный элемент - не текущий корень,
+            // меняем местами и восстанавливаем свойства для измененного поддерева
 
             int swap = arr[maxi];
             arr[maxi] = arr[i];
             arr[i] = swap;
 
             i = maxi;
+
         }
 
     }
