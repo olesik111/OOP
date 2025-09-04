@@ -60,7 +60,7 @@ public class HeapSort {
             if (right < n && arr[right] > arr[maxi]) {
                 maxi = right;
             }
-            if (maxi == i){
+            if (maxi == i) {
                 break;
             }
             // Если после сравнения с потомками максимальный элемент - не текущий корень,
