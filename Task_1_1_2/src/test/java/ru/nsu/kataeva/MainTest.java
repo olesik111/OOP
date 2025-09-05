@@ -2,37 +2,92 @@ package ru.nsu.kataeva;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-/**
- * Test for main class.
- */
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 class MainTest {
 
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final java.io.InputStream originalIn = System.in;
+
+    @BeforeEach
+    void setUp() {
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setOut(originalOut);
+        System.setIn(originalIn);
+    }
+
     @Test
-    void mainTest() {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        PrintStream originalOutput = System.out;
-        System.setOut(new PrintStream(output));
+    void testMainWithImmediateExit() throws InterruptedException {
+        String input = "n\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        ByteArrayInputStream input = new ByteArrayInputStream("n".getBytes());
-        System.setIn(input);
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{});
+            } catch (Exception ignored) {
 
-        try {
-            Main.main(new String[]{});
+            }
+        });
+        gameThread.start();
 
-            String out = output.toString();
-            assertTrue(out.contains("Welcome to BlackJack!"),
-                    "Output should contain welcome message. Actual output: " + out);
+        gameThread.join(2000);
 
-        } catch (Exception e) {
-            System.err.println("Error during test: " + e.getMessage());
-        } finally {
-            System.setOut(originalOutput);
-            System.setIn(System.in);
-        }
+        String output = outputStream.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+        assertTrue(output.contains("New round? y/n"));
+        assertTrue(output.contains("Good game!"));
+    }
+
+    @Test
+    void testMainWithOneRoundAndExit() throws InterruptedException {
+        String input = "y\n0\nn\nn\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{});
+            } catch (Exception ignored) {
+
+            }
+        });
+        gameThread.start();
+
+        gameThread.join(3000);
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+        assertTrue(output.contains("Your hand:"));
+    }
+
+    @Test
+    void testMainWithMultipleRounds() throws InterruptedException {
+        String input = "y\n0\nn\ny\n0\nn\nn\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{});
+            } catch (Exception ignored) {
+
+            }
+        });
+        gameThread.start();
+
+        gameThread.join(5000);
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+        assertTrue(output.contains("New round? y/n"));
     }
 }
