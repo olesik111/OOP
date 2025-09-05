@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kataeva","l":"Blackjack"},{"p":"ru.nsu.kataeva","l":"Card"},{"p":"ru.nsu.kataeva","l":"Decision"},{"p":"ru.nsu.kataeva","l":"Deck"},{"p":"ru.nsu.kataeva","l":"Main"},{"p":"ru.nsu.kataeva","l":"Suit"},{"p":"ru.nsu.kataeva","l":"Value"}];updateSearchResults();
