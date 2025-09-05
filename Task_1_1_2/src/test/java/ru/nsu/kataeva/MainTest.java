@@ -93,4 +93,21 @@ class MainTest {
         assertTrue(output.contains("Welcome to BlackJack!"));
         assertTrue(output.contains("New round? y/n"));
     }
+
+    @Test
+    void testInvalidInputForNewRound() throws InterruptedException {
+        String input = "y\ninvalid\n0\nn\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{});
+            } catch (Exception ignored) {
+            }
+        });
+        gameThread.start();
+
+        gameThread.join(3000);
+
+    }
 }
