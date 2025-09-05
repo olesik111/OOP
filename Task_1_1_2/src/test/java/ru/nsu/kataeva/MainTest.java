@@ -10,6 +10,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Main test.
+ */
 class MainTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
