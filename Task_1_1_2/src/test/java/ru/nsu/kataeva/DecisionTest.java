@@ -58,6 +58,21 @@ public class DecisionTest {
     }
 
     @Test
+    public void testPlayerDecisionInvalidInput() {
+        String input = "error\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        int initialSize = playerHand.toString().length();
+
+        decision.playerDecision(playerHand, gameDeck);
+
+        int newSize = playerHand.toString().length();
+        assertEquals(initialSize, newSize);
+
+        System.setIn(System.in);
+    }
+
+    @Test
     public void testLess17DecisionPlayerWins() {
         Deck player = new Deck();
         player.addCardForTest(new Card(Suit.HEART, Value.KING));
