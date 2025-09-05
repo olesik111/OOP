@@ -17,8 +17,6 @@ public class Blackjack {
      * Initializes a new Blackjack game.
      */
     public Blackjack() {
-        System.out.println("Welcome to BlackJack!");
-
         this.deckForGame = new Deck();
         this.deckForPlayer = new Deck();
         this.deckForDealer = new Deck();
