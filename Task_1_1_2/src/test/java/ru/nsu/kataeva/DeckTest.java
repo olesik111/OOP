@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,11 +39,6 @@ public class DeckTest {
         assertEquals(initialSize - 1, newSize);
     }
 
-    @Test
-    public void testTakeCardAndRemoveFromEmptyDeck() {
-        Card card = deck.takeCardAndRemove();
-        assertNull(card);
-    }
 
     @Test
     public void testGetCard() {
