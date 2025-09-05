@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,7 @@ public class DecisionTest {
     private Decision decision;
     private Deck playerHand;
     private Deck gameDeck;
-
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     /**
      * New environment.
      */
@@ -25,6 +27,7 @@ public class DecisionTest {
         playerHand = new Deck();
         gameDeck = new Deck();
         gameDeck.createDeck();
+        System.setOut(new PrintStream(outputStream));
     }
 
     @Test
@@ -120,6 +123,19 @@ public class DecisionTest {
 
         int sum = playerHand.cardsInHand(playerHand);
         assertTrue(sum >= 21, "Player should bust or reach 21");
+
+        System.setIn(System.in);
+    }
+
+    @Test
+    public void testPlayerDecisionTakeCardAndCheckOutput() {
+        String input = "1\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        decision.playerDecision(playerHand, gameDeck);
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Your cards:") || output.contains("Your score:"));
 
         System.setIn(System.in);
     }
