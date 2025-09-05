@@ -17,7 +17,7 @@ public class DecisionTest {
     private Deck gameDeck;
 
     /**
-     * new environment
+     * New environment.
      */
     @BeforeEach
     public void setUp() {

@@ -69,7 +69,6 @@ public class DeckTest {
     public void testShuffle() {
         deck.createDeck();
         String originalOrder = deck.toString();
-
         deck.shuffle();
         String shuffledOrder = deck.toString();
 
