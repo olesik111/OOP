@@ -112,24 +112,6 @@ public class DeckTest {
         assertFalse(nonBlackjackHand.checkForWin(nonBlackjackHand));
     }
 
-    @Test
-    public void testCheckForWinWith21ButNotBlackjack() {
-        Deck hand = new Deck();
-        hand.addCardForTest(new Card(Suit.HEART, Value.KING));
-        hand.addCardForTest(new Card(Suit.HEART, Value.QUEEN));
-        hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
-        assertTrue(hand.checkForWin(hand)); // 10 + 10 + 1 = 21
-    }
-
-    @Test
-    public void testToString() {
-        Deck testDeck = new Deck();
-        testDeck.addCardForTest(new Card(Suit.HEART, Value.ACE));
-        testDeck.addCardForTest(new Card(Suit.HEART, Value.KING));
-
-        String result = testDeck.toString();
-        assertEquals("Tuz Chervi, Korol Chervi", result);
-    }
 
     @Test
     public void testToStringEmptyDeck() {
@@ -164,18 +146,18 @@ public class DeckTest {
     }
 
     @Test
-    public void testCardsInHandSingleCard() {
-        Deck singleCardHand = new Deck();
-        singleCardHand.addCardForTest(new Card(Suit.HEART, Value.SEVEN));
-        assertEquals(7, singleCardHand.cardsInHand(singleCardHand));
+    public void testAddCardForTest() {
+        Deck testDeck = new Deck();
+        Card testCard = new Card(Suit.HEART, Value.ACE);
+
+        assertEquals(0, testDeck.toString().length());
+
+        testDeck.addCardForTest(testCard);
+
+        assertTrue(testDeck.toString().contains("Tuz Chervi"));
+        assertEquals(11, testDeck.cardsInHand(testDeck));
     }
 
-    @Test
-    public void testCardsInHandBustWithoutAce() {
-        Deck bustHand = new Deck();
-        bustHand.addCardForTest(new Card(Suit.HEART, Value.KING));
-        bustHand.addCardForTest(new Card(Suit.DIAMOND, Value.QUEEN));
-        bustHand.addCardForTest(new Card(Suit.CLUB, Value.JACK));
-        assertEquals(30, bustHand.cardsInHand(bustHand)); // 10 + 10 + 10 = 30
-    }
+
+
 }

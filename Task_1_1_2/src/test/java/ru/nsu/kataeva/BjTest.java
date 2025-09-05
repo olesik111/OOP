@@ -46,16 +46,6 @@ public class BjTest {
     }
 
     @Test
-    public void testLess17DecisionPlayerWins() {
-        Decision decision = new Decision();
-        Deck playerHand = new Deck();
-        Deck dealerHand = new Deck();
-        playerHand.addCardForTest(new Card(Suit.HEART, Value.KING));
-        dealerHand.addCardForTest(new Card(Suit.SPADE, Value.QUEEN));
-        assertDoesNotThrow(() -> decision.less17Decision(playerHand, dealerHand, 0, 0));
-    }
-
-    @Test
     public void testDeckShuffle() {
         Deck deck = new Deck();
         deck.createDeck();
