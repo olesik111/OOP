@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for Deck class.
+ * Test class for Deck Class.
  */
 public class DeckTest {
 
