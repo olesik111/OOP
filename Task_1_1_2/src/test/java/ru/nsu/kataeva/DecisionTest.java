@@ -112,16 +112,16 @@ public class DecisionTest {
     }
 
     @Test
-    public void testLess17DecisionWithAces() {
-        Deck player = new Deck();
-        player.addCardForTest(new Card(Suit.HEART, Value.ACE));
-        player.addCardForTest(new Card(Suit.SPADE, Value.ACE)); // 11 + 1 = 12
+    public void testPlayerDecisionTakeUntilBust() {
+        String input = "1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        Deck dealer = new Deck();
-        dealer.addCardForTest(new Card(Suit.DIAMOND, Value.KING));
-        dealer.addCardForTest(new Card(Suit.CLUB, Value.SEVEN)); // 10 + 7 = 17
+        decision.playerDecision(playerHand, gameDeck);
 
-        assertTrue(dealer.cardsInHand(dealer) > player.cardsInHand(player));
+        int sum = playerHand.cardsInHand(playerHand);
+        assertTrue(sum >= 21, "Player should bust or reach 21");
+
+        System.setIn(System.in);
     }
 
 
