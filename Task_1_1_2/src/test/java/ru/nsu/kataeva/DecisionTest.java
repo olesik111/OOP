@@ -3,9 +3,9 @@ package ru.nsu.kataeva;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
 
 /**
  * Test class for Decision class.
@@ -16,6 +16,9 @@ public class DecisionTest {
     private Deck playerHand;
     private Deck gameDeck;
 
+    /**
+     * new environment
+     */
     @BeforeEach
     public void setUp() {
         decision = new Decision();
