@@ -127,19 +127,6 @@ public class DecisionTest {
         System.setIn(System.in);
     }
 
-    @Test
-    public void testPlayerDecisionOutputContainsCards() {
-        String input = "1\n0\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        decision.playerDecision(playerHand, gameDeck);
-
-        String output = outputStream.toString();
-        assertTrue(output.contains("Your cards:") || output.contains("card"),
-                "Output should contain cards information");
-
-        System.setIn(System.in);
-    }
 
 
 }

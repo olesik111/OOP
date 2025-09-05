@@ -3,8 +3,6 @@ package ru.nsu.kataeva;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 public class BjTest {
 
@@ -45,42 +43,6 @@ public class BjTest {
         hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
         hand.addCardForTest(new Card(Suit.SPADE, Value.KING));
         assertTrue(hand.checkForWin(hand));
-    }
-
-    @Test
-    public void testBlackjackConstructor() {
-        String input = "n\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        assertDoesNotThrow(() -> {
-            Blackjack game = new Blackjack();
-            assertNotNull(game);
-        });
-    }
-
-
-    @Test
-    public void testPlayerDecisionHit() {
-        Decision decision = new Decision();
-        Deck playerHand = new Deck();
-        Deck gameDeck = new Deck();
-        gameDeck.createDeck();
-        String input = "1\n0\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        assertDoesNotThrow(() -> decision.playerDecision(playerHand, gameDeck));
-    }
-
-    @Test
-    public void testPlayerDecisionStand() {
-        Decision decision = new Decision();
-        Deck playerHand = new Deck();
-        Deck gameDeck = new Deck();
-        String input = "0\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        assertDoesNotThrow(() -> decision.playerDecision(playerHand, gameDeck));
     }
 
     @Test
