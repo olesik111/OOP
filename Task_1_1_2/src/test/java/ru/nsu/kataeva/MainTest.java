@@ -110,4 +110,61 @@ class MainTest {
         gameThread.join(3000);
 
     }
+
+    @Test
+    void testMainWithEmptyArgs() throws InterruptedException {
+        String input = "n\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{});
+            } catch (Exception ignored) {
+            }
+        });
+        gameThread.start();
+
+        gameThread.join(2000);
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+    }
+
+    @Test
+    void testMainWithNullArgs() throws InterruptedException {
+        String input = "n\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(null);
+            } catch (Exception ignored) {
+            }
+        });
+        gameThread.start();
+
+        gameThread.join(2000);
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+    }
+
+    @Test
+    void testMainWithActualArgs() throws InterruptedException {
+        String input = "n\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Thread gameThread = new Thread(() -> {
+            try {
+                Main.main(new String[]{"test"});
+            } catch (Exception ignored) {
+            }
+        });
+        gameThread.start();
+
+        gameThread.join(2000);
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+    }
 }
