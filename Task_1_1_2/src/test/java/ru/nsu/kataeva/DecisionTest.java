@@ -111,5 +111,18 @@ public class DecisionTest {
         assertEquals(player.cardsInHand(player), dealer.cardsInHand(dealer));
     }
 
+    @Test
+    public void testLess17DecisionWithAces() {
+        Deck player = new Deck();
+        player.addCardForTest(new Card(Suit.HEART, Value.ACE));
+        player.addCardForTest(new Card(Suit.SPADE, Value.ACE)); // 11 + 1 = 12
+
+        Deck dealer = new Deck();
+        dealer.addCardForTest(new Card(Suit.DIAMOND, Value.KING));
+        dealer.addCardForTest(new Card(Suit.CLUB, Value.SEVEN)); // 10 + 7 = 17
+
+        assertTrue(dealer.cardsInHand(dealer) > player.cardsInHand(player));
+    }
+
 
 }
