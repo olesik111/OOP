@@ -52,7 +52,8 @@ public class Decision {
      * @param winPlayer number of player's wins
      */
 
-    public void less17Decision(Deck deckForPlayer, Deck deckForDealer, int winDealer, int winPlayer) {
+    public void less17Decision(Deck deckForPlayer,
+                               Deck deckForDealer, int winDealer, int winPlayer) {
         int dealerSum = deckForDealer.cardsInHand(deckForDealer);
         int playerSum = deckForPlayer.cardsInHand(deckForPlayer);
 

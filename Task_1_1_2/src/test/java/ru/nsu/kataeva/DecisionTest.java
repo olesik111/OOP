@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 
+/**
+ * Test class for Decision class.
+ */
 public class DecisionTest {
 
     private Decision decision;

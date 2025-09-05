@@ -65,12 +65,12 @@ public class Blackjack {
         try {
             deckForPlayer = new Deck();
             deckForDealer = new Deck();
-            Decision playerDecision = new Decision();
-            Decision forDealer = new Decision();
 
             dealInitialCards(deckForPlayer, deckForDealer);
             showInitialHands(deckForPlayer, deckForDealer);
 
+            Decision playerDecision = new Decision();
+            Decision forDealer = new Decision();
 
             if (deckForDealer.checkForWin(deckForDealer)) {
                 if (deckForPlayer.checkForWin(deckForPlayer)) {

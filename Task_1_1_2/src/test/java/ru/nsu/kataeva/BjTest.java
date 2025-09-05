@@ -1,10 +1,15 @@
 package ru.nsu.kataeva;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class BJTest {
+/**
+ * Test class for Blackjack game components.
+ */
+public class BjTest {
 
     @Test
     public void testDeckCreation() {
