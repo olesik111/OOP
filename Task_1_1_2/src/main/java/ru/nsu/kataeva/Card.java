@@ -3,7 +3,7 @@ package ru.nsu.kataeva;
 /**
  * Card constructor.
  *
- * @param suit suit of card.
+ * @param suit  suit of card.
  * @param value value of card.
  */
 public record Card(Suit suit, Value value) {

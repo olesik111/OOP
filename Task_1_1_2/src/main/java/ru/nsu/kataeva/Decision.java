@@ -10,7 +10,7 @@ public class Decision {
      * The player's turn to take or pass.
      *
      * @param playerHand player's hand.
-     * @param gameDeck the main deck.
+     * @param gameDeck   the main deck.
      */
     public void playerDecision(Deck playerHand, Deck gameDeck) {
         Scanner scanner = new Scanner(System.in);
@@ -48,8 +48,8 @@ public class Decision {
      *
      * @param deckForPlayer player's deck
      * @param deckForDealer dealer's deck
-     * @param winDealer number of dealer's wins
-     * @param winPlayer number of player's wins
+     * @param winDealer     number of dealer's wins
+     * @param winPlayer     number of player's wins
      */
 
     public void less17Decision(Deck deckForPlayer,
