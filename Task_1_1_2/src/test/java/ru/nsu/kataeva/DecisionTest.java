@@ -3,6 +3,10 @@ package ru.nsu.kataeva;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Scanner;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +15,7 @@ public class DecisionTest {
     private Deck playerHand;
     private Deck dealerHand;
     private Deck gameDeck;
+    private final InputStream standardIn = System.in;
 
     @BeforeEach
     void setUp() {
@@ -18,6 +23,11 @@ public class DecisionTest {
         playerHand = new Deck();
         dealerHand = new Deck();
         gameDeck = new Deck();
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setIn(standardIn);
     }
 
     @Test
@@ -28,10 +38,11 @@ public class DecisionTest {
 
         gameDeck.addCardForTest(new Card(Suit.DIAMOND, Value.FIVE));
 
-        java.io.ByteArrayInputStream in = new java.io.ByteArrayInputStream("1\n0\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n0\n".getBytes());
         System.setIn(in);
+        Scanner scanner = new Scanner(in);
 
-        decision.playerDecision(playerHand, gameDeck);
+        decision.playerDecision(playerHand, gameDeck, scanner);
 
         assertEquals(3, playerHand.toString().split(", ").length);
         assertEquals(21, playerHand.cardsInHand(playerHand));
@@ -40,16 +51,16 @@ public class DecisionTest {
 
     @Test
     void testPlayerDecisionStand() {
-        // Setup initial hand
         playerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.SEVEN));
         int initialPoints = playerHand.cardsInHand(playerHand);
 
 
-        java.io.ByteArrayInputStream in = new java.io.ByteArrayInputStream("0\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("0\n".getBytes());
         System.setIn(in);
+        Scanner scanner = new Scanner(in);
 
-        decision.playerDecision(playerHand, gameDeck);
+        decision.playerDecision(playerHand, gameDeck, scanner);
 
         assertEquals(2, playerHand.toString().split(", ").length);
         assertEquals(initialPoints, playerHand.cardsInHand(playerHand));
@@ -60,7 +71,6 @@ public class DecisionTest {
         int winDealer = 0;
         int winPlayer = 0;
 
-        // Dealer has higher score (18 vs 17)
         dealerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         dealerHand.addCardForTest(new Card(Suit.CLUB, Value.EIGHT));
         playerHand.addCardForTest(new Card(Suit.DIAMOND, Value.TEN));

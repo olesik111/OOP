@@ -7,8 +7,8 @@ import java.util.Scanner;
  */
 public class Blackjack {
     int playFlag;
-    int winPlayer;
-    int winDealer;
+    int winPlayer = 0;
+    int winDealer = 0;
     Deck deckForGame;
     Deck deckForPlayer;
     Deck deckForDealer;
@@ -20,14 +20,25 @@ public class Blackjack {
         this.deckForGame = new Deck();
         this.deckForPlayer = new Deck();
         this.deckForDealer = new Deck();
+        deckForGame.createDeck();
+        deckForGame.shuffle();
+    }
+
+    /**
+     * Initializes a new Blackjack game with a specific deck for testing.
+     *
+     * @param deck the deck to use.
+     */
+    public Blackjack(Deck deck) {
+        this.deckForGame = deck;
+        this.deckForPlayer = new Deck();
+        this.deckForDealer = new Deck();
     }
 
     /**
      * Game loop for one deck.
      */
     public void game() {
-        deckForGame.createDeck();
-        deckForGame.shuffle();
         playFlag = 1;
 
         Scanner userInput = new Scanner(System.in);
@@ -39,7 +50,7 @@ public class Blackjack {
             String answer = userInput.next();
 
             if (answer.equals("y")) {
-                roundPlay();
+                roundPlay(userInput);
             } else if (answer.equals("n")) {
                 System.out.println("Good game!");
                 playFlag = 0;
@@ -55,7 +66,7 @@ public class Blackjack {
     /**
      * Round till BlackJack.
      */
-    private void roundPlay() {
+    private void roundPlay(Scanner userInput) {
         try {
             deckForPlayer = new Deck();
             deckForDealer = new Deck();
@@ -93,7 +104,7 @@ public class Blackjack {
                 return;
             }
 
-            playerDecision.playerDecision(deckForPlayer, deckForGame);
+            playerDecision.playerDecision(deckForPlayer, deckForGame, userInput);
 
             int playerSum = deckForPlayer.cardsInHand(deckForPlayer);
 

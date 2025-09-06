@@ -8,58 +8,162 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BlackJackTest {
+public class BlackjackTest {
 
-    private final InputStream systemIn = System.in;
-    private final PrintStream systemOut = System.out;
-
-    private ByteArrayOutputStream testOut;
+    private final PrintStream standardOut = System.out;
+    private final InputStream standardIn = System.in;
+    private ByteArrayOutputStream outputStreamCaptor;
 
     @BeforeEach
-    public void setUpOutput() {
-        testOut = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(testOut));
-    }
-
-    private void provideInput(String data) {
-        System.setIn(new ByteArrayInputStream(data.getBytes()));
+    public void setUp() {
+        outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @AfterEach
-    public void restoreSystemInputOutput() {
-        System.setIn(systemIn);
-        System.setOut(systemOut);
+    public void tearDown() {
+        System.setOut(standardOut);
+        System.setIn(standardIn);
     }
 
     @Test
-    void testBlackjackConstructor() {
-        Blackjack game = new Blackjack();
-        assertEquals(0, game.winPlayer);
-        assertEquals(0, game.winDealer);
-        assertNotNull(game.deckForGame);
+    public void testConstructor() {
+        Blackjack blackjack = new Blackjack();
+
+        assertNotNull(blackjack.deckForGame);
+        assertNotNull(blackjack.deckForPlayer);
+        assertNotNull(blackjack.deckForDealer);
+        assertEquals(0, blackjack.winPlayer);
+        assertEquals(0, blackjack.winDealer);
     }
 
     @Test
-    void testGameEndsOnN() {
-        provideInput("n");
-        Blackjack game = new Blackjack();
-        game.game();
-        assertTrue(testOut.toString().contains("Good game!"));
-        assertEquals(0, game.playFlag);
+    void testGameStartAndFinish() {
+        String input = "n\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Blackjack blackjack = new Blackjack();
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+
+        assertTrue(output.contains("New round?"));
+        assertTrue(output.contains("Good game!"));
     }
 
     @Test
-    void testGameWithInvalidInputThenExit() {
-        provideInput("invalid\nn");
-        Blackjack game = new Blackjack();
-        game.game();
-        String output = testOut.toString();
+    void testGameInvalidInput() {
+        String input = "invalid\nn\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Blackjack blackjack = new Blackjack();
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+
         assertTrue(output.contains("Please answer y/n"));
         assertTrue(output.contains("Good game!"));
     }
 
+    @Test
+    void testGameOneRoundThenExit() {
+        String input = "y\n0\nn\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Blackjack blackjack = new Blackjack();
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+
+        assertTrue(output.contains("New round?"));
+        assertTrue(output.contains("Your hand:"));
+        assertTrue(output.contains("Dealer's hand:"));
+        assertTrue(output.contains("Good game!"));
+    }
+
+    @Test
+    void testPlayerBust() {
+        String input = "y\n1\n0\nn\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Deck testDeck = new Deck();
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.EIGHT));
+        testDeck.addCardForTest(new Card(Suit.CLUB, Value.QUEEN));
+        testDeck.addCardForTest(new Card(Suit.DIAMOND, Value.TEN));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.KING));
+
+        Blackjack blackjack = new Blackjack(testDeck);
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("You lost! Bust!"));
+    }
+
+
+    @Test
+    void testPlayerWin() {
+        String input = "y\n0\nn\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Deck testDeck = new Deck();
+        testDeck.addCardForTest(new Card(Suit.SPADE, Value.KING));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.SEVEN));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
+        testDeck.addCardForTest(new Card(Suit.DIAMOND, Value.TEN));
+
+        Blackjack blackjack = new Blackjack(testDeck);
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("You won!"));
+    }
+
+    @Test
+    void testDealerWin() {
+        String input = "y\n0\nn\n"; // Start round, stand, end game
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Deck testDeck = new Deck();
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
+        testDeck.addCardForTest(new Card(Suit.CLUB, Value.ACE));
+        testDeck.addCardForTest(new Card(Suit.DIAMOND, Value.TWO));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.KING));
+
+        Blackjack blackjack = new Blackjack(testDeck);
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("You lost!"));
+    }
+
+    @Test
+    void testPlayerBlackjack() {
+        String input = "y\n0\nn\n"; // Start round, end game
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Deck testDeck = new Deck();
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.ACE));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.KING));
+        testDeck.addCardForTest(new Card(Suit.CLUB, Value.TEN));
+        testDeck.addCardForTest(new Card(Suit.DIAMOND, Value.NINE));
+
+        Blackjack blackjack = new Blackjack(testDeck);
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("You won!"));
+    }
 }

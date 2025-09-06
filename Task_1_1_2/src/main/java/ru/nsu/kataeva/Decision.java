@@ -12,8 +12,7 @@ public class Decision {
      * @param playerHand player's hand.
      * @param gameDeck   the main deck.
      */
-    public void playerDecision(Deck playerHand, Deck gameDeck) {
-        Scanner scanner = new Scanner(System.in);
+    public void playerDecision(Deck playerHand, Deck gameDeck, Scanner scanner) {
         int decision = 1;
         while (decision == 1) {
             System.out.println("\nWant to take a card? 1-Take, 0-Pass");
