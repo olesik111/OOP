@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Dealer turn test.
+ */
 public class DealerTest {
     private Deck deck;
     private Deck playerHand;

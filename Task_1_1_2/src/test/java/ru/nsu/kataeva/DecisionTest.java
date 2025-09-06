@@ -10,6 +10,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Decision Test.
+ */
 public class DecisionTest {
     private Decision decision;
     private Deck playerHand;
@@ -53,7 +56,7 @@ public class DecisionTest {
     void testPlayerDecisionStand() {
         playerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.SEVEN));
-        int initialPoints = playerHand.cardsInHand(playerHand);
+        final int initialPoints = playerHand.cardsInHand(playerHand);
 
 
         ByteArrayInputStream in = new ByteArrayInputStream("0\n".getBytes());
@@ -68,8 +71,8 @@ public class DecisionTest {
 
     @Test
     void testLess17DecisionDealerWins() {
-        int winDealer = 0;
-        int winPlayer = 0;
+        final int winDealer = 0;
+        final int winPlayer = 0;
 
         dealerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         dealerHand.addCardForTest(new Card(Suit.CLUB, Value.EIGHT));
@@ -87,8 +90,8 @@ public class DecisionTest {
 
     @Test
     void testLess17DecisionPlayerWins() {
-        int winDealer = 0;
-        int winPlayer = 0;
+        final int winDealer = 0;
+        final int winPlayer = 0;
 
         playerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.NINE));
