@@ -1,46 +1,65 @@
 package ru.nsu.kataeva;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class BlackjackTest {
-    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+class BlackJackTest {
+
+    private final InputStream systemIn = System.in;
+    private final PrintStream systemOut = System.out;
+
+    private ByteArrayOutputStream testOut;
 
     @BeforeEach
-    void setUp() {
-        System.setOut(new PrintStream(outputStream));
+    public void setUpOutput() {
+        testOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testOut));
+    }
+
+    private void provideInput(String data) {
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+    }
+
+    @AfterEach
+    public void restoreSystemInputOutput() {
+        System.setIn(systemIn);
+        System.setOut(systemOut);
     }
 
     @Test
     void testBlackjackConstructor() {
-        String input = "n\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        Blackjack blackjack = new Blackjack();
-
-        assertNotNull(blackjack);
-        assertEquals(0, blackjack.playFlag);
-        assertNotNull(blackjack.deckForGame);
-        assertNotNull(blackjack.deckForPlayer);
-        assertNotNull(blackjack.deckForDealer);
-        assertEquals(0, blackjack.winPlayer);
-        assertEquals(0, blackjack.winDealer);
+        Blackjack game = new Blackjack();
+        assertEquals(0, game.winPlayer);
+        assertEquals(0, game.winDealer);
+        assertNotNull(game.deckForGame);
     }
 
     @Test
-    void testGameWithImmediateQuit() {
-        String input = "n\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        assertDoesNotThrow(Blackjack::new);
-
-        String output = outputStream.toString();
-        assertTrue(output.contains("New round?"));
-
-        System.setIn(System.in);
+    void testGameEndsOnN() {
+        provideInput("n");
+        Blackjack game = new Blackjack();
+        game.game();
+        assertTrue(testOut.toString().contains("Good game!"));
+        assertEquals(0, game.playFlag);
     }
+
+    @Test
+    void testGameWithInvalidInputThenExit() {
+        provideInput("invalid\nn");
+        Blackjack game = new Blackjack();
+        game.game();
+        String output = testOut.toString();
+        assertTrue(output.contains("Please answer y/n"));
+        assertTrue(output.contains("Good game!"));
+    }
+
 }

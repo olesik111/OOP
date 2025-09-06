@@ -20,20 +20,16 @@ public class Blackjack {
         this.deckForGame = new Deck();
         this.deckForPlayer = new Deck();
         this.deckForDealer = new Deck();
-
-        deckForGame.createDeck();
-        deckForGame.shuffle();
-
-        playFlag = 1;
-
-        game();
-
     }
 
     /**
      * Game loop for one deck.
      */
-    private void game() {
+    public void game() {
+        deckForGame.createDeck();
+        deckForGame.shuffle();
+        playFlag = 1;
+
         Scanner userInput = new Scanner(System.in);
 
         while (playFlag == 1) {
