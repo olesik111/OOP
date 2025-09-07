@@ -48,12 +48,16 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/nsu/kataeva/Value.html#ACE" class="member-name-link">ACE</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Value.html" title="enum class in ru.nsu.kataeva">Value</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kataeva/Deck.html#addCardForTest(ru.nsu.kataeva.Card)" class="member-name-link">addCardForTest(Card)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dd>
+<div class="block">Adds a specific card for testing purposes.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#addCardForTest(ru.nsu.kataeva.Card)" class="member-name-link">addCardForTest(Card)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
 <dd>
 <div class="block">Adds a specific card for testing purposes.</div>
 </dd>
@@ -83,11 +87,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>Card</code> record class.</div>
 </dd>
-<dt><a href="ru/nsu/kataeva/Deck.html#cardsInHand(ru.nsu.kataeva.Deck)" class="member-name-link">cardsInHand(Deck)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dt><a href="ru/nsu/kataeva/Hand.html#cardsInHand()" class="member-name-link">cardsInHand()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
 <dd>
 <div class="block">Calculates the total value of cards in hand, handling aces.</div>
 </dd>
-<dt><a href="ru/nsu/kataeva/Deck.html#checkForWin(ru.nsu.kataeva.Deck)" class="member-name-link">checkForWin(Deck)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dt><a href="ru/nsu/kataeva/Hand.html#checkForWin()" class="member-name-link">checkForWin()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
 <dd>
 <div class="block">Checks for blackjack.</div>
 </dd>
@@ -112,10 +116,38 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/kataeva/Deck.html#%3Cinit%3E()" class="member-name-link">Deck()</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
 <dd>
-<div class="block">Creates an empty deck.</div>
+<div class="block">Creates a standard 52-card deck for game and shuffles it.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Deck.html#%3Cinit%3E(boolean)" class="member-name-link">Deck(boolean)</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dd>
+<div class="block">Creates an empty deck for testing.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Suit.html#DIAMOND" class="member-name-link">DIAMOND</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Suit.html" title="enum class in ru.nsu.kataeva">Suit</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#displayBust(int,int)" class="member-name-link">displayBust(int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>
+<div class="block">Displays "You lost! Bust!" message with score.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#displayDealerBlackjack(int,int)" class="member-name-link">displayDealerBlackjack(int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>
+<div class="block">Displays "You lost! Dealer has Blackjack!" message with score.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#displayDraw(int,int)" class="member-name-link">displayDraw(int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>
+<div class="block">Displays "It's a draw!" message with score.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#displayScore(int,int)" class="member-name-link">displayScore(int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>
+<div class="block">Displays the current score.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#displayYouLose(int,int)" class="member-name-link">displayYouLose(int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>
+<div class="block">Displays "You lost!" message with score.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#displayYouWin(int,int)" class="member-name-link">displayYouWin(int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>
+<div class="block">Displays "You won!" message with score.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
@@ -143,6 +175,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Gets specific card.</div>
 </dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#getCard(int)" class="member-name-link">getCard(int)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
+<dd>
+<div class="block">Gets specific card.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#getCardCount()" class="member-name-link">getCardCount()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/kataeva/Deck.html#getRemainingCards()" class="member-name-link">getRemainingCards()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kataeva/Card.html#getValue()" class="member-name-link">getValue()</a> - Method in record class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Card.html" title="class in ru.nsu.kataeva">Card</a></dt>
 <dd>
 <div class="block">Returns the value of the card.</div>
@@ -150,12 +190,31 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
+<dt><a href="ru/nsu/kataeva/Hand.html" class="type-name-link" title="class in ru.nsu.kataeva">Hand</a> - Class in <a href="ru/nsu/kataeva/package-summary.html">ru.nsu.kataeva</a></dt>
+<dd>
+<div class="block">Represents a hand of playing cards.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#%3Cinit%3E()" class="member-name-link">Hand()</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
+<dd>
+<div class="block">Creates an empty hand.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#hasBlackjack()" class="member-name-link">hasBlackjack()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
+<dd>
+<div class="block">Checks for blackjack (exactly 21 with 2 cards).</div>
+</dd>
 <dt><a href="ru/nsu/kataeva/Card.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Card.html" title="class in ru.nsu.kataeva">Card</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Suit.html#HEART" class="member-name-link">HEART</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Suit.html" title="enum class in ru.nsu.kataeva">Suit</a></dt>
 <dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:I">I</h2>
+<dl class="index">
+<dt><a href="ru/nsu/kataeva/Hand.html#isBust()" class="member-name-link">isBust()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
+<dd>
+<div class="block">Checks if hand is bust (over 21).</div>
+</dd>
 </dl>
 <h2 class="title" id="I:J">J</h2>
 <dl class="index">
@@ -169,21 +228,17 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kataeva/Decision.html#less17Decision(ru.nsu.kataeva.Deck,ru.nsu.kataeva.Deck,int,int)" class="member-name-link">less17Decision(Deck, Deck, int, int)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
+<dt><a href="ru/nsu/kataeva/Decision.html#less17Decision(ru.nsu.kataeva.Hand,ru.nsu.kataeva.Hand,int,int)" class="member-name-link">less17Decision(Hand, Hand, int, int)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
 <dd>
 <div class="block">Comparing values to decide who won without blackjack.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kataeva/Main.html#main(java.lang.String%5B%5D)" class="member-name-link">main(String[])</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Main.html" title="class in ru.nsu.kataeva">Main</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="ru/nsu/kataeva/Main.html" class="type-name-link" title="class in ru.nsu.kataeva">Main</a> - Class in <a href="ru/nsu/kataeva/package-summary.html">ru.nsu.kataeva</a></dt>
+<dt><a href="ru/nsu/kataeva/Blackjack.html#main(java.lang.String%5B%5D)" class="member-name-link">main(String[])</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Blackjack.html" title="class in ru.nsu.kataeva">Blackjack</a></dt>
 <dd>
-<div class="block">Main class to start the Blackjack game.</div>
+<div class="block">Main method to start the Blackjack game.</div>
 </dd>
-<dt><a href="ru/nsu/kataeva/Main.html#%3Cinit%3E()" class="member-name-link">Main()</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Main.html" title="class in ru.nsu.kataeva">Main</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
@@ -192,7 +247,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kataeva/Decision.html#playerDecision(ru.nsu.kataeva.Deck,ru.nsu.kataeva.Deck,java.util.Scanner)" class="member-name-link">playerDecision(Deck, Deck, Scanner)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
+<dt><a href="ru/nsu/kataeva/Decision.html#playerDecision(ru.nsu.kataeva.Hand,ru.nsu.kataeva.Deck,java.util.Scanner)" class="member-name-link">playerDecision(Hand, Deck, Scanner)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
 <dd>
 <div class="block">The player's turn to take or pass.</div>
 </dd>
@@ -209,6 +264,12 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html" class="type-name-link" title="class in ru.nsu.kataeva">ScoreDisplay</a> - Class in <a href="ru/nsu/kataeva/package-summary.html">ru.nsu.kataeva</a></dt>
+<dd>
+<div class="block">Class for displaying game messages.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/ScoreDisplay.html#%3Cinit%3E()" class="member-name-link">ScoreDisplay()</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/ScoreDisplay.html" title="class in ru.nsu.kataeva">ScoreDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kataeva/Value.html#SEVEN" class="member-name-link">SEVEN</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Value.html" title="enum class in ru.nsu.kataeva">Value</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kataeva/Deck.html#shuffle()" class="member-name-link">shuffle()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
@@ -234,9 +295,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Draws and removes the top card from the deck.</div>
 </dd>
-<dt><a href="ru/nsu/kataeva/Deck.html#takeForRound(ru.nsu.kataeva.Deck)" class="member-name-link">takeForRound(Deck)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dt><a href="ru/nsu/kataeva/Hand.html#takeForRound(ru.nsu.kataeva.Deck)" class="member-name-link">takeForRound(Deck)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
 <dd>
-<div class="block">Takes a card from another deck and adds to this one.</div>
+<div class="block">Takes a card from another deck and adds to this hand.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Value.html#TEN" class="member-name-link">TEN</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Value.html" title="enum class in ru.nsu.kataeva">Value</a></dt>
 <dd>&nbsp;</dd>
@@ -247,6 +308,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Deck.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/kataeva/Suit.html#toString()" class="member-name-link">toString()</a> - Method in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Suit.html" title="enum class in ru.nsu.kataeva">Suit</a></dt>
 <dd>&nbsp;</dd>
@@ -284,7 +347,7 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:Q">Q</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>
