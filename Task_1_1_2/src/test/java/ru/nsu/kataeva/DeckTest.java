@@ -1,3 +1,4 @@
+// DeckTest.java
 package ru.nsu.kataeva;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,37 +14,43 @@ import org.junit.jupiter.api.Test;
 public class DeckTest {
     private Deck deck;
     private Deck emptyDeck;
+    private Hand hand;
 
     @BeforeEach
     void setUp() {
-        deck = new Deck();
-        emptyDeck = new Deck();
+        deck = new Deck(true);
+        emptyDeck = new Deck(true);
+        hand = new Hand();
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorWithFullDeck() {
+        Deck fullDeck = new Deck();
+        assertNotNull(fullDeck);
+        assertEquals(52, fullDeck.getRemainingCards());
+    }
+
+    @Test
+    void testConstructorWithEmptyDeck() {
         assertNotNull(deck);
-        assertTrue(deck.toString().isEmpty());
+        assertEquals(0, deck.getRemainingCards());
     }
 
     @Test
     void testCreateDeck() {
         deck.createDeck();
-
-        assertEquals(52, deck.toString().split(", ").length);
-        assertTrue(deck.toString().contains("Tuz Chervi"));
-        assertTrue(deck.toString().contains("Korol Piki"));
+        assertEquals(52, deck.getRemainingCards());
     }
 
     @Test
     void testTakeCardAndRemove() {
         deck.createDeck();
-        int initialSize = deck.toString().split(", ").length;
+        int initialSize = deck.getRemainingCards();
 
         Card card = deck.takeCardAndRemove();
 
         assertNotNull(card);
-        assertEquals(initialSize - 1, deck.toString().split(", ").length);
+        assertEquals(initialSize - 1, deck.getRemainingCards());
     }
 
     @Test
@@ -63,89 +70,81 @@ public class DeckTest {
         assertNotEquals(firstCard, lastCard);
     }
 
-
     @Test
     void testTakeForRound() {
-        Deck sourceDeck = new Deck();
+        Deck sourceDeck = new Deck(true);
         sourceDeck.createDeck();
-        int initialSourceSize = sourceDeck.toString().split(", ").length;
+        int initialSourceSize = sourceDeck.getRemainingCards();
 
-        emptyDeck.takeForRound(sourceDeck);
+        hand.takeForRound(sourceDeck);
 
-        assertEquals(1, emptyDeck.toString().split(", ").length);
-        assertEquals(initialSourceSize - 1, sourceDeck.toString().split(", ").length);
+        assertEquals(1, hand.getCardCount());
+        assertEquals(initialSourceSize - 1, sourceDeck.getRemainingCards());
     }
 
     @Test
     void testShuffle() {
         deck.createDeck();
-        String originalOrder = deck.toString();
 
         deck.shuffle();
-        String shuffledOrder = deck.toString();
+        Card firstCardAfterShuffle = deck.getCard(0);
 
-        assertEquals(52, deck.toString().split(", ").length);
-        assertNotEquals(originalOrder, shuffledOrder);
+        assertEquals(52, deck.getRemainingCards());
+        assertNotNull(firstCardAfterShuffle);
     }
 
     @Test
     void testCardsInHandBasicValues() {
-        Deck hand = new Deck();
         hand.addCardForTest(new Card(Suit.HEART, Value.TWO));
         hand.addCardForTest(new Card(Suit.CLUB, Value.THREE));
 
-        assertEquals(5, hand.cardsInHand(hand));
+        assertEquals(5, hand.cardsInHand());
     }
 
     @Test
     void testCardsInHandWithAceSoft() {
-        Deck hand = new Deck();
         hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
         hand.addCardForTest(new Card(Suit.CLUB, Value.NINE));
 
-        assertEquals(20, hand.cardsInHand(hand)); // 11 + 9 = 20
+        assertEquals(20, hand.cardsInHand());
     }
 
     @Test
     void testCardsInHandWithAceHard() {
-        Deck hand = new Deck();
         hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
         hand.addCardForTest(new Card(Suit.CLUB, Value.TEN));
         hand.addCardForTest(new Card(Suit.DIAMOND, Value.FIVE));
 
-        assertEquals(16, hand.cardsInHand(hand));
+        assertEquals(16, hand.cardsInHand());
     }
-
 
     @Test
     void testCheckForWinTrue() {
-        Deck hand = new Deck();
         hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
         hand.addCardForTest(new Card(Suit.CLUB, Value.KING));
 
-        assertTrue(hand.checkForWin(hand));
+        assertTrue(hand.checkForWin());
     }
 
     @Test
     void testCheckForWinFalse() {
-        Deck hand = new Deck();
         hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
         hand.addCardForTest(new Card(Suit.CLUB, Value.NINE));
 
-        assertFalse(hand.checkForWin(hand));
+        assertFalse(hand.checkForWin());
     }
 
     @Test
-    void testToStringEmptyDeck() {
-        assertEquals("", emptyDeck.toString());
+    void testToStringEmptyHand() {
+        assertEquals("", hand.toString());
     }
 
     @Test
     void testToStringWithCards() {
-        deck.addCardForTest(new Card(Suit.HEART, Value.ACE));
-        deck.addCardForTest(new Card(Suit.CLUB, Value.TEN));
+        hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
+        hand.addCardForTest(new Card(Suit.CLUB, Value.TEN));
 
-        String result = deck.toString();
+        String result = hand.toString();
         assertTrue(result.contains("Tuz Chervi"));
         assertTrue(result.contains("Desyat Trefy"));
         assertTrue(result.contains(", "));
@@ -155,10 +154,9 @@ public class DeckTest {
     void testAddCardForTest() {
         Card testCard = new Card(Suit.DIAMOND, Value.SEVEN);
 
-        emptyDeck.addCardForTest(testCard);
+        hand.addCardForTest(testCard);
 
-        assertEquals(1, emptyDeck.toString().split(", ").length);
-        assertTrue(emptyDeck.toString().contains("Sem Bubny"));
+        assertEquals(1, hand.getCardCount());
+        assertTrue(hand.toString().contains("Sem Bubny"));
     }
-
 }

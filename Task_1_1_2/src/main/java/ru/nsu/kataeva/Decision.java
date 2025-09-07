@@ -12,7 +12,7 @@ public class Decision {
      * @param playerHand player's hand.
      * @param gameDeck   the main deck.
      */
-    public void playerDecision(Deck playerHand, Deck gameDeck, Scanner scanner) {
+    public void playerDecision(Hand playerHand, Deck gameDeck, Scanner scanner) {
         int decision = 1;
         while (decision == 1) {
             System.out.println("\nWant to take a card? 1-Take, 0-Pass");
@@ -25,7 +25,7 @@ public class Decision {
                     System.out.println("Your cards:");
                     System.out.println(playerHand);
 
-                    int currentSum = playerHand.cardsInHand(playerHand);
+                    int currentSum = playerHand.cardsInHand();
                     System.out.println("Your score: " + currentSum);
 
                     if (currentSum >= 21) {
@@ -50,26 +50,17 @@ public class Decision {
      * @param winDealer     number of dealer's wins
      * @param winPlayer     number of player's wins
      */
-
-    public void less17Decision(Deck deckForPlayer,
-                               Deck deckForDealer, int winDealer, int winPlayer) {
-        int dealerSum = deckForDealer.cardsInHand(deckForDealer);
-        int playerSum = deckForPlayer.cardsInHand(deckForPlayer);
+    public void less17Decision(Hand deckForPlayer,
+                               Hand deckForDealer, int winDealer, int winPlayer) {
+        int dealerSum = deckForDealer.cardsInHand();
+        int playerSum = deckForPlayer.cardsInHand();
 
         if (dealerSum > playerSum) {
-            System.out.println("You lost!");
-            winDealer++;
-            System.out.println("Score: " + winPlayer + ":" + winDealer);
-
+            ScoreDisplay.displayYouLose(winPlayer, winDealer);
         } else if (dealerSum < playerSum) {
-            System.out.println("You won!");
-            winPlayer++;
-            System.out.println("Score: " + winPlayer + ":" + winDealer);
+            ScoreDisplay.displayYouWin(winPlayer, winDealer);
         } else {
-            System.out.println("It's a draw!");
-            winDealer++;
-            winPlayer++;
-            System.out.println("Score: " + winPlayer + ":" + winDealer);
+            ScoreDisplay.displayDraw(winPlayer, winDealer);
         }
     }
 }

@@ -34,6 +34,20 @@ public class BlackjackTest {
     }
 
     @Test
+    public void testMainMethod() {
+        String input = "n\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Blackjack.main(new String[]{});
+
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("Welcome to BlackJack!"));
+        assertTrue(output.contains("New round?"));
+        assertTrue(output.contains("Good game!"));
+    }
+
+    @Test
     public void testConstructor() {
         Blackjack blackjack = new Blackjack();
 
@@ -97,7 +111,7 @@ public class BlackjackTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        Deck testDeck = new Deck();
+        Deck testDeck = new Deck(true);
         testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
         testDeck.addCardForTest(new Card(Suit.HEART, Value.EIGHT));
         testDeck.addCardForTest(new Card(Suit.CLUB, Value.QUEEN));
@@ -118,7 +132,7 @@ public class BlackjackTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        Deck testDeck = new Deck();
+        Deck testDeck = new Deck(true);
         testDeck.addCardForTest(new Card(Suit.SPADE, Value.KING));
         testDeck.addCardForTest(new Card(Suit.HEART, Value.SEVEN));
         testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
@@ -137,7 +151,7 @@ public class BlackjackTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        Deck testDeck = new Deck();
+        Deck testDeck = new Deck(true);
         testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
         testDeck.addCardForTest(new Card(Suit.CLUB, Value.ACE));
         testDeck.addCardForTest(new Card(Suit.DIAMOND, Value.TWO));
@@ -156,7 +170,7 @@ public class BlackjackTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        Deck testDeck = new Deck();
+        Deck testDeck = new Deck(true);
         testDeck.addCardForTest(new Card(Suit.HEART, Value.ACE));
         testDeck.addCardForTest(new Card(Suit.HEART, Value.KING));
         testDeck.addCardForTest(new Card(Suit.CLUB, Value.TEN));
