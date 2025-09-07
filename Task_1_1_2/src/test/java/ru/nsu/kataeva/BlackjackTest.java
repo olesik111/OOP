@@ -182,4 +182,23 @@ public class BlackjackTest {
         String output = outputStreamCaptor.toString();
         assertTrue(output.contains("You won!"));
     }
+
+    @Test
+    void testDraw() {
+        String input = "y\n0\nn\n"; // Start round, stand, end game
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Deck testDeck = new Deck(true);
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
+        testDeck.addCardForTest(new Card(Suit.CLUB, Value.SEVEN));
+        testDeck.addCardForTest(new Card(Suit.DIAMOND, Value.SEVEN));
+        testDeck.addCardForTest(new Card(Suit.HEART, Value.TEN));
+
+        Blackjack blackjack = new Blackjack(testDeck);
+        blackjack.game();
+
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("It's a draw!"));
+    }
 }
