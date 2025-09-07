@@ -109,8 +109,8 @@ public class DecisionTest {
 
     @Test
     void testLess17DecisionDraw() {
-        int winDealer = 0;
-        int winPlayer = 0;
+        final int winDealer = 0;
+        final int winPlayer = 0;
 
         playerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.EIGHT));

@@ -1,4 +1,3 @@
-// DeckTest.java
 package ru.nsu.kataeva;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Deck tests.
+ */
 public class DeckTest {
     private Deck deck;
     private Deck emptyDeck;

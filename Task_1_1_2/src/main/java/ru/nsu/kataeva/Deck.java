@@ -1,4 +1,3 @@
-// Deck.java
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;

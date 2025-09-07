@@ -1,4 +1,3 @@
-// Blackjack.java
 package ru.nsu.kataeva;
 
 import java.util.Scanner;
