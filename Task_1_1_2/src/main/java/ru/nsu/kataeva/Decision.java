@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class Decision {
     private static final int BLACKJACK = 21;
+
     /**
      * The player's turn to take or pass.
      *
