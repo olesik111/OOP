@@ -53,6 +53,10 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="ru/nsu/kataeva/Value.html#ACE" class="member-name-link">ACE</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Value.html" title="enum class in ru.nsu.kataeva">Value</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/kataeva/Deck.html#addAll(java.util.ArrayList)" class="member-name-link">addAll(ArrayList&lt;Card&gt;)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dd>
+<div class="block">Adds all cards from another collection to this deck.</div>
+</dd>
 <dt><a href="ru/nsu/kataeva/Deck.html#addCardForTest(ru.nsu.kataeva.Card)" class="member-name-link">addCardForTest(Card)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
 <dd>
 <div class="block">Adds a specific card for testing purposes.</div>
@@ -87,17 +91,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>Card</code> record class.</div>
 </dd>
-<dt><a href="ru/nsu/kataeva/Hand.html#cardsInHand()" class="member-name-link">cardsInHand()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
-<dd>
-<div class="block">Calculates the total value of cards in hand, handling aces.</div>
-</dd>
 <dt><a href="ru/nsu/kataeva/Hand.html#checkForWin()" class="member-name-link">checkForWin()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
 <dd>
 <div class="block">Checks for blackjack.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Suit.html#CLUB" class="member-name-link">CLUB</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Suit.html" title="enum class in ru.nsu.kataeva">Suit</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/kataeva/Deck.html#createDeck()" class="member-name-link">createDeck()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
+<dt><a href="ru/nsu/kataeva/Deck.html#createDeck(java.util.ArrayList)" class="member-name-link">createDeck(ArrayList&lt;Card&gt;)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Deck.html" title="class in ru.nsu.kataeva">Deck</a></dt>
 <dd>
 <div class="block">Creates a standard 52-card deck.</div>
 </dd>
@@ -228,7 +228,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kataeva/Decision.html#less17Decision(ru.nsu.kataeva.Hand,ru.nsu.kataeva.Hand,int,int)" class="member-name-link">less17Decision(Hand, Hand, int, int)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
+<dt><a href="ru/nsu/kataeva/Decision.html#less17Decision(ru.nsu.kataeva.Hand,ru.nsu.kataeva.Hand,int,int)" class="member-name-link">less17Decision(Hand, Hand, int, int)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
 <dd>
 <div class="block">Comparing values to decide who won without blackjack.</div>
 </dd>
@@ -247,7 +247,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="ru/nsu/kataeva/Decision.html#playerDecision(ru.nsu.kataeva.Hand,ru.nsu.kataeva.Deck,java.util.Scanner)" class="member-name-link">playerDecision(Hand, Deck, Scanner)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
+<dt><a href="ru/nsu/kataeva/Decision.html#playerDecision(ru.nsu.kataeva.Hand,ru.nsu.kataeva.Deck,java.util.Scanner)" class="member-name-link">playerDecision(Hand, Deck, Scanner)</a> - Static method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Decision.html" title="class in ru.nsu.kataeva">Decision</a></dt>
 <dd>
 <div class="block">The player's turn to take or pass.</div>
 </dd>
@@ -327,6 +327,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/kataeva/Value.html" class="type-name-link" title="enum class in ru.nsu.kataeva">Value</a> - Enum Class in <a href="ru/nsu/kataeva/package-summary.html">ru.nsu.kataeva</a></dt>
 <dd>
 <div class="block">Represents card values with Russian names and numerical values.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Hand.html#valueInHands()" class="member-name-link">valueInHands()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Hand.html" title="class in ru.nsu.kataeva">Hand</a></dt>
+<dd>
+<div class="block">Calculates the total value of cards in hand, handling aces.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Suit.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Suit.html" title="enum class in ru.nsu.kataeva">Suit</a></dt>
 <dd>
