@@ -6,12 +6,12 @@ import java.util.Scanner;
  * Main Blackjack game class.
  */
 public class Blackjack {
-    private int playFlag;
-    int winPlayer = 0;
-    int winDealer = 0;
-    Deck deckForGame;
-    Hand deckForPlayer;
-    Hand deckForDealer;
+    private boolean playFlag;
+    private int winPlayer = 0;
+    private int winDealer = 0;
+    private final Deck deckForGame;
+    private Hand deckForPlayer;
+    private Hand deckForDealer;
 
     /**
      * Main method to start the Blackjack game.
@@ -46,11 +46,11 @@ public class Blackjack {
      * Game loop for one deck.
      */
     public void game() {
-        playFlag = 1;
+        playFlag = true;
 
         Scanner userInput = new Scanner(System.in);
 
-        while (playFlag == 1) {
+        while (playFlag) {
             System.out.println();
             System.out.println("New round? y/n");
 
@@ -60,7 +60,7 @@ public class Blackjack {
                 roundPlay(userInput);
             } else if (answer.equals("n")) {
                 System.out.println("Good game!");
-                playFlag = 0;
+                playFlag = false;
                 break;
             } else {
                 System.out.println("Please answer y/n");
@@ -81,14 +81,12 @@ public class Blackjack {
             dealInitialCards(deckForPlayer, deckForDealer);
             showInitialHands(deckForPlayer, deckForDealer);
 
-            Decision playerDecision = new Decision();
-
             // Check for instant win conditions (blackjacks)
             if (checkInstantWin()) {
                 return;
             }
 
-            playerDecision.playerDecision(deckForPlayer, deckForGame, userInput);
+            Decision.playerDecision(deckForPlayer, deckForGame, userInput);
 
             if (deckForPlayer.isBust()) {
                 winDealer++;
@@ -110,7 +108,7 @@ public class Blackjack {
         } catch (IllegalStateException e) {
             System.out.println(e.getMessage());
             System.out.println("Final Score: " + winPlayer + ":" + winDealer);
-            playFlag = 0;
+            playFlag = false;
         }
     }
 
@@ -148,19 +146,19 @@ public class Blackjack {
      * Dealer's turn to take cards.
      */
     private void dealerTurn() {
-        int dealerSum = deckForDealer.cardsInHand();
+        int dealerSum = deckForDealer.valueInHands();
 
         if (dealerSum < 17) {
-            while (deckForDealer.cardsInHand() < 17) {
+            while (deckForDealer.valueInHands() < 17) {
                 deckForDealer.takeForRound(deckForGame);
                 System.out.println("Dealer opened a card. His cards:");
                 System.out.println(deckForDealer);
-                System.out.println(deckForDealer.cardsInHand());
+                System.out.println(deckForDealer.valueInHands());
             }
         } else {
             System.out.println("Dealer's cards:");
             System.out.println(deckForDealer);
-            System.out.println(deckForDealer.cardsInHand());
+            System.out.println(deckForDealer.valueInHands());
         }
     }
 
@@ -168,8 +166,8 @@ public class Blackjack {
      * Compares player and dealer hands to determine winner.
      */
     private void compareHands() {
-        int playerSum = deckForPlayer.cardsInHand();
-        int dealerSum = deckForDealer.cardsInHand();
+        int playerSum = deckForPlayer.valueInHands();
+        int dealerSum = deckForDealer.valueInHands();
 
         if (dealerSum > playerSum) {
             winDealer++;
@@ -206,7 +204,7 @@ public class Blackjack {
     private void showInitialHands(Hand player, Hand dealer) {
         System.out.println("Your hand:");
         System.out.println(player);
-        System.out.println("Your score: " + player.cardsInHand());
+        System.out.println("Your score: " + player.valueInHands());
 
         System.out.println("\nDealer's hand:");
         System.out.println(dealer.getCard(0) + ", <Hidden Card>");

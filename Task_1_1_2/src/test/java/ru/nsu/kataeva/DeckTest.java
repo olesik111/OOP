@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,13 +41,25 @@ public class DeckTest {
 
     @Test
     void testCreateDeck() {
-        deck.createDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        deck.addAll(cards);
+        assertEquals(52, deck.getRemainingCards());
+    }
+
+    @Test
+    void testAddAll() {
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        deck.addAll(cards);
         assertEquals(52, deck.getRemainingCards());
     }
 
     @Test
     void testTakeCardAndRemove() {
-        deck.createDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        deck.addAll(cards);
         int initialSize = deck.getRemainingCards();
 
         Card card = deck.takeCardAndRemove();
@@ -62,7 +75,9 @@ public class DeckTest {
 
     @Test
     void testGetCard() {
-        deck.createDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        deck.addAll(cards);
 
         Card firstCard = deck.getCard(0);
         Card lastCard = deck.getCard(51);
@@ -75,7 +90,9 @@ public class DeckTest {
     @Test
     void testTakeForRound() {
         Deck sourceDeck = new Deck(true);
-        sourceDeck.createDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        sourceDeck.addAll(cards);
         int initialSourceSize = sourceDeck.getRemainingCards();
 
         hand.takeForRound(sourceDeck);
@@ -86,7 +103,9 @@ public class DeckTest {
 
     @Test
     void testShuffle() {
-        deck.createDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        deck.addAll(cards);
 
         deck.shuffle();
         Card firstCardAfterShuffle = deck.getCard(0);
@@ -100,7 +119,7 @@ public class DeckTest {
         hand.addCardForTest(new Card(Suit.HEART, Value.TWO));
         hand.addCardForTest(new Card(Suit.CLUB, Value.THREE));
 
-        assertEquals(5, hand.cardsInHand());
+        assertEquals(5, hand.valueInHands());
     }
 
     @Test
@@ -108,7 +127,7 @@ public class DeckTest {
         hand.addCardForTest(new Card(Suit.HEART, Value.ACE));
         hand.addCardForTest(new Card(Suit.CLUB, Value.NINE));
 
-        assertEquals(20, hand.cardsInHand());
+        assertEquals(20, hand.valueInHands());
     }
 
     @Test
@@ -117,7 +136,7 @@ public class DeckTest {
         hand.addCardForTest(new Card(Suit.CLUB, Value.TEN));
         hand.addCardForTest(new Card(Suit.DIAMOND, Value.FIVE));
 
-        assertEquals(16, hand.cardsInHand());
+        assertEquals(16, hand.valueInHands());
     }
 
     @Test

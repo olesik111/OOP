@@ -3,6 +3,7 @@ package ru.nsu.kataeva;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,9 @@ public class PlayerTest {
     void setUp() {
         playerHand = new Hand();
         gameDeck = new Deck(true);
-        gameDeck.createDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck.createDeck(cards);
+        gameDeck.addAll(cards);
     }
 
     @Test
@@ -38,7 +41,7 @@ public class PlayerTest {
         // Setup hand with 10 points
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.FIVE));
         playerHand.addCardForTest(new Card(Suit.DIAMOND, Value.FIVE));
-        assertEquals(10, playerHand.cardsInHand());
+        assertEquals(10, playerHand.valueInHands());
 
         gameDeck = new Deck(true);
         gameDeck.addCardForTest(new Card(Suit.HEART, Value.ACE));
@@ -46,7 +49,7 @@ public class PlayerTest {
         playerHand.takeForRound(gameDeck);
 
         assertEquals(3, playerHand.toString().split(", ").length);
-        assertEquals(21, playerHand.cardsInHand());
+        assertEquals(21, playerHand.valueInHands());
         assertTrue(playerHand.checkForWin());
     }
 
@@ -55,7 +58,7 @@ public class PlayerTest {
 
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.KING));
         playerHand.addCardForTest(new Card(Suit.DIAMOND, Value.QUEEN));
-        assertEquals(20, playerHand.cardsInHand());
+        assertEquals(20, playerHand.valueInHands());
 
         gameDeck = new Deck(true);
         gameDeck.addCardForTest(new Card(Suit.HEART, Value.TWO));
@@ -63,8 +66,8 @@ public class PlayerTest {
         playerHand.takeForRound(gameDeck);
 
         assertEquals(3, playerHand.toString().split(", ").length);
-        assertEquals(22, playerHand.cardsInHand());
-        assertTrue(playerHand.cardsInHand() > 21);
+        assertEquals(22, playerHand.valueInHands());
+        assertTrue(playerHand.valueInHands() > 21);
         assertTrue(gameDeck.toString().isEmpty());
     }
 }

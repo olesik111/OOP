@@ -14,7 +14,7 @@ public class Deck {
      */
     public Deck() {
         this.cards = new ArrayList<>();
-        createDeck();
+        createDeck(cards);
         shuffle();
     }
 
@@ -29,10 +29,10 @@ public class Deck {
     /**
      * Creates a standard 52-card deck.
      */
-    public void createDeck() {
+    public static void createDeck(ArrayList<Card> cards) {
         for (Suit suit : Suit.values()) {
             for (Value value : Value.values()) {
-                this.cards.add(new Card(suit, value));
+                cards.add(new Card(suit, value));
             }
         }
     }
@@ -73,6 +73,15 @@ public class Deck {
      */
     public void addCardForTest(Card card) {
         this.cards.add(card);
+    }
+
+    /**
+     * Adds all cards from another collection to this deck.
+     *
+     * @param cards the collection of cards to add
+     */
+    public void addAll(ArrayList<Card> cards) {
+        this.cards.addAll(cards);
     }
 
     public int getRemainingCards() {

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
  * Decision Test.
  */
 public class DecisionTest {
-    private Decision decision;
     private Hand playerHand;
     private Hand dealerHand;
     private Deck gameDeck;
@@ -22,7 +21,6 @@ public class DecisionTest {
 
     @BeforeEach
     void setUp() {
-        decision = new Decision();
         playerHand = new Hand();
         dealerHand = new Hand();
         gameDeck = new Deck(true);
@@ -37,7 +35,7 @@ public class DecisionTest {
     void testPlayerDecisionHit() {
         playerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.SIX));
-        assertEquals(16, playerHand.cardsInHand());
+        assertEquals(16, playerHand.valueInHands());
 
         gameDeck.addCardForTest(new Card(Suit.DIAMOND, Value.FIVE));
 
@@ -45,10 +43,10 @@ public class DecisionTest {
         System.setIn(in);
         Scanner scanner = new Scanner(in);
 
-        decision.playerDecision(playerHand, gameDeck, scanner);
+        Decision.playerDecision(playerHand, gameDeck, scanner);
 
         assertEquals(3, playerHand.toString().split(", ").length);
-        assertEquals(21, playerHand.cardsInHand());
+        assertEquals(21, playerHand.valueInHands());
         assertTrue(gameDeck.toString().isEmpty());
     }
 
@@ -56,17 +54,17 @@ public class DecisionTest {
     void testPlayerDecisionStand() {
         playerHand.addCardForTest(new Card(Suit.HEART, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.CLUB, Value.SEVEN));
-        final int initialPoints = playerHand.cardsInHand();
+        final int initialPoints = playerHand.valueInHands();
 
 
         ByteArrayInputStream in = new ByteArrayInputStream("0\n".getBytes());
         System.setIn(in);
         Scanner scanner = new Scanner(in);
 
-        decision.playerDecision(playerHand, gameDeck, scanner);
+        Decision.playerDecision(playerHand, gameDeck, scanner);
 
         assertEquals(2, playerHand.toString().split(", ").length);
-        assertEquals(initialPoints, playerHand.cardsInHand());
+        assertEquals(initialPoints, playerHand.valueInHands());
     }
 
     @Test
@@ -79,13 +77,13 @@ public class DecisionTest {
         playerHand.addCardForTest(new Card(Suit.DIAMOND, Value.TEN));
         playerHand.addCardForTest(new Card(Suit.SPADE, Value.SEVEN));
 
-        assertEquals(18, dealerHand.cardsInHand());
-        assertEquals(17, playerHand.cardsInHand());
+        assertEquals(18, dealerHand.valueInHands());
+        assertEquals(17, playerHand.valueInHands());
 
-        decision.less17Decision(playerHand, dealerHand, winDealer, winPlayer);
+        Decision.less17Decision(playerHand, dealerHand, winDealer, winPlayer);
 
-        assertEquals(18, dealerHand.cardsInHand());
-        assertEquals(17, playerHand.cardsInHand());
+        assertEquals(18, dealerHand.valueInHands());
+        assertEquals(17, playerHand.valueInHands());
     }
 
     @Test
@@ -98,13 +96,13 @@ public class DecisionTest {
         dealerHand.addCardForTest(new Card(Suit.DIAMOND, Value.TEN));
         dealerHand.addCardForTest(new Card(Suit.SPADE, Value.SEVEN));
 
-        assertEquals(19, playerHand.cardsInHand());
-        assertEquals(17, dealerHand.cardsInHand());
+        assertEquals(19, playerHand.valueInHands());
+        assertEquals(17, dealerHand.valueInHands());
 
-        decision.less17Decision(playerHand, dealerHand, winDealer, winPlayer);
+        Decision.less17Decision(playerHand, dealerHand, winDealer, winPlayer);
 
-        assertEquals(19, playerHand.cardsInHand());
-        assertEquals(17, dealerHand.cardsInHand());
+        assertEquals(19, playerHand.valueInHands());
+        assertEquals(17, dealerHand.valueInHands());
     }
 
     @Test
@@ -117,13 +115,13 @@ public class DecisionTest {
         dealerHand.addCardForTest(new Card(Suit.DIAMOND, Value.NINE));
         dealerHand.addCardForTest(new Card(Suit.SPADE, Value.NINE));
 
-        assertEquals(18, playerHand.cardsInHand());
-        assertEquals(18, dealerHand.cardsInHand());
+        assertEquals(18, playerHand.valueInHands());
+        assertEquals(18, dealerHand.valueInHands());
 
-        decision.less17Decision(playerHand, dealerHand, winDealer, winPlayer);
+        Decision.less17Decision(playerHand, dealerHand, winDealer, winPlayer);
 
-        assertEquals(18, playerHand.cardsInHand());
-        assertEquals(18, dealerHand.cardsInHand());
+        assertEquals(18, playerHand.valueInHands());
+        assertEquals(18, dealerHand.valueInHands());
     }
 
 }

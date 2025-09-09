@@ -1,7 +1,5 @@
 package ru.nsu.kataeva;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -47,16 +45,6 @@ public class BlackjackTest {
         assertTrue(output.contains("Good game!"));
     }
 
-    @Test
-    public void testConstructor() {
-        Blackjack blackjack = new Blackjack();
-
-        assertNotNull(blackjack.deckForGame);
-        assertNotNull(blackjack.deckForPlayer);
-        assertNotNull(blackjack.deckForDealer);
-        assertEquals(0, blackjack.winPlayer);
-        assertEquals(0, blackjack.winDealer);
-    }
 
     @Test
     void testGameStartAndFinish() {

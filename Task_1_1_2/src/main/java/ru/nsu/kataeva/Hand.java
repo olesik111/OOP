@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Hand {
     private final ArrayList<Card> cards;
+    private static final int BLACKJACK = 21;
 
     /**
      * Creates an empty hand.
@@ -39,7 +40,7 @@ public class Hand {
      *
      * @return sum
      */
-    public int cardsInHand() {
+    public int valueInHands() {
         int sum = 0;
         int ace = 0;
 
@@ -50,8 +51,8 @@ public class Hand {
             }
         }
 
-        if (sum > 21 && ace > 0) {
-            while (ace > 0 && sum > 21) {
+        if (sum > BLACKJACK && ace > 0) {
+            while (ace > 0 && sum > BLACKJACK) {
                 ace--;
                 sum -= 10;
             }
@@ -66,7 +67,7 @@ public class Hand {
      * @return bj or not.
      */
     public boolean checkForWin() {
-        return this.cardsInHand() == 21;
+        return this.valueInHands() == BLACKJACK;
     }
 
     /**
@@ -75,7 +76,7 @@ public class Hand {
      * @return true if blackjacked.
      */
     public boolean hasBlackjack() {
-        return this.cardsInHand() == 21 && this.cards.size() == 2;
+        return this.valueInHands() == BLACKJACK && this.cards.size() == 2;
     }
 
     /**
@@ -84,7 +85,7 @@ public class Hand {
      * @return true if bust.
      */
     public boolean isBust() {
-        return this.cardsInHand() > 21;
+        return this.valueInHands() > BLACKJACK;
     }
 
     /**
