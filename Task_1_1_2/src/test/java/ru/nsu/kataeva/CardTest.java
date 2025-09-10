@@ -1,6 +1,7 @@
 package ru.nsu.kataeva;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -37,5 +38,17 @@ public class CardTest {
 
         Card seven = new Card(Suit.DIAMOND, Value.SEVEN);
         assertEquals(7, seven.getValue());
+    }
+
+    @Test
+    public void testEquals() {
+        Card card1 = new Card(Suit.HEART, Value.ACE);
+        Card card2 = new Card(Suit.HEART, Value.ACE);
+        Card card3 = new Card(Suit.SPADE, Value.KING);
+
+        assertEquals(card1, card2);
+        assertEquals(card1.hashCode(), card2.hashCode());
+
+        assertNotEquals(card1, card3);
     }
 }
