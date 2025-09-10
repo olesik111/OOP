@@ -1,6 +1,7 @@
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a hand of playing cards.
@@ -99,6 +100,14 @@ public class Hand {
 
     public int getCardCount() {
         return this.cards.size();
+    }
+
+    public List<Card> getCards() {
+        return new ArrayList<>(cards);
+    }
+
+    public int size() {
+        return cards.size();
     }
 
     @Override

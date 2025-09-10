@@ -28,17 +28,17 @@ public class DealerTest {
         ArrayList<Card> cards = new ArrayList<>();
         Deck.createDeck(cards);
         deck.addAll(cards);
-        assertFalse(deck.toString().isEmpty());
-        assertEquals(52, deck.toString().split(",").length);
+        assertFalse(deck.isEmpty());
+        assertEquals(52, deck.size());
 
         for (int i = 0; i < 2; i++) {
             playerHand.takeForRound(deck);
             dealerHand.takeForRound(deck);
         }
 
-        assertEquals(2, playerHand.toString().split(", ").length);
-        assertEquals(2, dealerHand.toString().split(", ").length);
-        assertEquals(48, deck.toString().split(",").length);
+        assertEquals(2, playerHand.getCards().size());
+        assertEquals(2, dealerHand.getCards().size());
+        assertEquals(48, deck.size());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class DealerTest {
 
         playerHand.takeForRound(deck);
 
-        assertEquals(3, playerHand.toString().split(", ").length);
+        assertEquals(3, playerHand.getCards().size());
         assertEquals(21, playerHand.valueInHands());
         assertTrue(playerHand.checkForWin());
     }
@@ -66,10 +66,8 @@ public class DealerTest {
 
         playerHand.takeForRound(deck);
 
-        assertEquals(3, playerHand.toString().split(", ").length);
+        assertEquals(3, playerHand.getCards().size());
         assertTrue(playerHand.valueInHands() > 21);
         assertEquals(26, playerHand.valueInHands());
     }
-
-
 }

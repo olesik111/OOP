@@ -88,6 +88,14 @@ public class Deck {
         return this.cards.size();
     }
 
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
+
+    public int size() {
+        return cards.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder deck = new StringBuilder();
