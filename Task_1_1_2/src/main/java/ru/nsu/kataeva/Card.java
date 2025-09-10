@@ -23,21 +23,25 @@ public record Card(Suit suit, Value value) {
     }
 
     /**
-     * function to compare
+     * function to compare.
      *
      * @param o   the reference object with which to compare.
      * @return true or false
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Card card = (Card) o;
         return suit == card.suit && value == card.value;
     }
 
     /**
-     * function for hash code
+     * function for hash code.
      *
      * @return hash
      */
