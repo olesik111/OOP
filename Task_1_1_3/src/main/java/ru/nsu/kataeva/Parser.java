@@ -42,9 +42,12 @@ public class Parser {
             };
         } else {
             StringBuilder token = new StringBuilder();
-            while (index < input.length() &&
-                    (Character.isLetterOrDigit(input.charAt(index)) ||
-                            input.charAt(index) == '.' ||
+            while (index < input.length()
+                    &&
+                    (Character.isLetterOrDigit(input.charAt(index))
+                            ||
+                            input.charAt(index) == '.'
+                            ||
                             input.charAt(index) == '-')) {
                 token.append(input.charAt(index));
                 index++;

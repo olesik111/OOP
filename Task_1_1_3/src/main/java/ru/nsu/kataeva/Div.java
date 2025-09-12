@@ -56,7 +56,8 @@ public class Div extends Expression {
         }
 
         if (simplifiedLeft instanceof Number && simplifiedRight instanceof Number) {
-            return new Number(((Number) simplifiedLeft).getValue() / ((Number) simplifiedRight).getValue());
+            return new Number(((Number) simplifiedLeft).getValue()
+                    / ((Number) simplifiedRight).getValue());
         }
 
         return new Div(simplifiedLeft, simplifiedRight);

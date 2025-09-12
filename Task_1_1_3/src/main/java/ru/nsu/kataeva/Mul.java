@@ -41,7 +41,8 @@ public class Mul extends Expression {
         Expression simplifiedRight = right.doSimple();
 
         if ((simplifiedLeft instanceof Number && ((Number) simplifiedLeft).getValue() == 0)
-                || (simplifiedRight instanceof Number && ((Number) simplifiedRight).getValue() == 0)) {
+                || (simplifiedRight instanceof Number
+                && ((Number) simplifiedRight).getValue() == 0)) {
             return new Number(0);
         }
         if (simplifiedRight instanceof Number && ((Number) simplifiedRight).getValue() == 1) {
@@ -51,8 +52,10 @@ public class Mul extends Expression {
             return simplifiedRight;
         }
 
-        if (simplifiedLeft instanceof Number && simplifiedRight instanceof Number) {
-            return new Number(((Number) simplifiedLeft).getValue() * ((Number) simplifiedRight).getValue());
+        if (simplifiedLeft instanceof Number
+                && simplifiedRight instanceof Number) {
+            return new Number(((Number) simplifiedLeft).getValue()
+                    * ((Number) simplifiedRight).getValue());
         }
 
         return new Mul(simplifiedLeft, simplifiedRight);

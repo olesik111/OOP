@@ -41,7 +41,8 @@ public class Add extends Expression {
         Expression simplifiedRight = right.doSimple();
 
         if (simplifiedLeft instanceof Number && simplifiedRight instanceof Number) {
-            return new Number(((Number) simplifiedLeft).getValue() + ((Number) simplifiedRight).getValue());
+            return new Number(((Number) simplifiedLeft).getValue()
+                    + ((Number) simplifiedRight).getValue());
         }
 
         if (simplifiedLeft instanceof Number && ((Number) simplifiedLeft).getValue() == 0) {
