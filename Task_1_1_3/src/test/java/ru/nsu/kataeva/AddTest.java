@@ -58,7 +58,7 @@ class AddTest {
     }
 
     @Test
-    void testAddEqualsAndHashCode() {
+    void testAddEquals() {
         Add add1 = new Add(new Number(1), new Number(2));
         Add add2 = new Add(new Number(1), new Number(2));
         Add add3 = new Add(new Number(1), new Number(3));

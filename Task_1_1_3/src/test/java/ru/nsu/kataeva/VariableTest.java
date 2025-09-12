@@ -46,7 +46,7 @@ class VariableTest {
     }
 
     @Test
-    void testVariableEvalThrowsException() {
+    void testException() {
         Variable variable = new Variable("undefinedVar");
 
         assertThrows(IllegalArgumentException.class, () -> variable.eval("x=5; y=10"));
@@ -57,7 +57,7 @@ class VariableTest {
     }
 
     @Test
-    void testVariableDoSimple() {
+    void testDoSimple() {
         Variable variable = new Variable("x");
         Expression simplified = variable.doSimple();
         assertSame(variable, simplified);

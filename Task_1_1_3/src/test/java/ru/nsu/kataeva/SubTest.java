@@ -51,7 +51,7 @@ class SubTest {
     }
 
     @Test
-    void testSubEqualsAndHashCode() {
+    void testSubEquals() {
         Sub sub1 = new Sub(new Number(5), new Number(3));
         Sub sub2 = new Sub(new Number(5), new Number(3));
         Sub sub3 = new Sub(new Number(5), new Number(2));

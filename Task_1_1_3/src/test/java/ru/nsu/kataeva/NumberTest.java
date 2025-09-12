@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class NumberTest {
 
     @Test
-    void testNumberCreationAndGetters() {
+    void testNumber() {
         Number number = new Number(42.5);
         assertEquals(42.5, number.getValue(), 0.001);
     }
@@ -50,7 +50,7 @@ class NumberTest {
     }
 
     @Test
-    void testNumberEqualsAndHashCode() {
+    void testNumberEquals() {
         Number num1 = new Number(10.0);
         Number num2 = new Number(10.0);
         Number num3 = new Number(20.0);

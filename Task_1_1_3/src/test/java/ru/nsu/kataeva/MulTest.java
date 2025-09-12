@@ -66,7 +66,7 @@ class MulTest {
     }
 
     @Test
-    void testMulEqualsAndHashCode() {
+    void testMulEquals() {
         Mul mul1 = new Mul(new Number(2), new Number(3));
         Mul mul2 = new Mul(new Number(2), new Number(3));
         Mul mul3 = new Mul(new Number(2), new Number(4));

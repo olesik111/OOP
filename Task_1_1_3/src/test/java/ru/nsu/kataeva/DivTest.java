@@ -32,7 +32,7 @@ class DivTest {
     }
 
     @Test
-    void testDivEvalThrowsException() {
+    void testException() {
         Div divByZero = new Div(new Number(1), new Number(0));
 
         assertThrows(ArithmeticException.class, () -> divByZero.eval("x=1"));
@@ -78,7 +78,7 @@ class DivTest {
     }
 
     @Test
-    void testDivEqualsAndHashCode() {
+    void testDivEquals() {
         Div div1 = new Div(new Number(4), new Number(2));
         Div div2 = new Div(new Number(4), new Number(2));
         Div div3 = new Div(new Number(4), new Number(3));
