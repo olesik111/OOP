@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,11 +25,11 @@ class AddTest {
     void testAddEval() {
         Add add = new Add(new Number(2), new Number(3));
         double result = add.eval("x=1");
-        assertEquals(5.0, result, 0.001);
+        assertEquals(5.0, result);
 
         Add withVariables = new Add(new Variable("x"), new Number(5));
         result = withVariables.eval("x=10");
-        assertEquals(15.0, result, 0.001);
+        assertEquals(15.0, result);
     }
 
     @Test
@@ -40,21 +41,33 @@ class AddTest {
         assertEquals(new Add(new Number(1), new Number(0)), derivative);
     }
 
-    @Test
-    void testAddDoSimple() {
-        Add numericAdd = new Add(new Number(2), new Number(3));
-        Expression simplified = numericAdd.doSimple();
-        assertEquals(new Number(5), simplified);
+    @Nested
+    class testAddDoSimple {
+        @Test
+        void numeric() {
+            Add numericAdd = new Add(new Number(2), new Number(3));
+            Expression simplified = numericAdd.doSimple();
+            assertEquals(new Number(5), simplified);
+        }
 
-        Add withZeroLeft = new Add(new Number(0), new Variable("x"));
-        assertEquals(new Variable("x"), withZeroLeft.doSimple());
+        @Test
+        void zeroLeft() {
+            Add withZeroLeft = new Add(new Number(0), new Variable("x"));
+            assertEquals(new Variable("x"), withZeroLeft.doSimple());
+        }
 
-        Add withZeroRight = new Add(new Variable("x"), new Number(0));
-        assertEquals(new Variable("x"), withZeroRight.doSimple());
+        @Test
+        void zeroRight() {
+            Add withZeroRight = new Add(new Variable("x"), new Number(0));
+            assertEquals(new Variable("x"), withZeroRight.doSimple());
+        }
 
-        Add complex = new Add(new Variable("x"), new Variable("y"));
-        Expression complexSimplified = complex.doSimple();
-        assertEquals(complex, complexSimplified);
+        @Test
+        void twoVar() {
+            Add complex = new Add(new Variable("x"), new Variable("y"));
+            Expression complexSimplified = complex.doSimple();
+            assertEquals(complex, complexSimplified);
+        }
     }
 
     @Test

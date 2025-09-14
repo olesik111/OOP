@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -40,14 +41,20 @@ class SubTest {
         assertEquals(new Sub(new Number(1), new Number(0)), derivative);
     }
 
-    @Test
-    void testSubDoSimple() {
-        Sub numericSub = new Sub(new Number(10), new Number(3));
-        Expression simplified = numericSub.doSimple();
-        assertEquals(new Number(7), simplified);
+    @Nested
+    class testSubDoSimple {
+        @Test
+        void numeric() {
+            Sub numericSub = new Sub(new Number(10), new Number(3));
+            Expression simplified = numericSub.doSimple();
+            assertEquals(new Number(7), simplified);
+        }
 
-        Sub withZeroRight = new Sub(new Variable("x"), new Number(0));
-        assertEquals(new Variable("x"), withZeroRight.doSimple());
+        @Test
+        void zeroRight() {
+            Sub withZeroRight = new Sub(new Variable("x"), new Number(0));
+            assertEquals(new Variable("x"), withZeroRight.doSimple());
+        }
     }
 
     @Test

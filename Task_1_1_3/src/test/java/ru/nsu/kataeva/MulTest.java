@@ -3,6 +3,7 @@ package ru.nsu.kataeva;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -42,27 +43,39 @@ class MulTest {
         assertEquals(expected, derivative);
     }
 
-    @Test
-    void testMulDoSimple() {
-        Mul numericMul = new Mul(new Number(4), new Number(3));
-        Expression simplified = numericMul.doSimple();
-        assertEquals(new Number(12), simplified);
+    @Nested
+    class testMulDoSimple {
+        @Test
+        void numeric() {
+            Mul numericMul = new Mul(new Number(4), new Number(3));
+            Expression simplified = numericMul.doSimple();
+            assertEquals(new Number(12), simplified);
+        }
 
-        Mul withZeroLeft = new Mul(new Number(0), new Variable("x"));
-        assertEquals(new Number(0), withZeroLeft.doSimple());
+        @Test
+        void zero() {
+            Mul withZeroLeft = new Mul(new Number(0), new Variable("x"));
+            assertEquals(new Number(0), withZeroLeft.doSimple());
 
-        Mul withZeroRight = new Mul(new Variable("x"), new Number(0));
-        assertEquals(new Number(0), withZeroRight.doSimple());
+            Mul withZeroRight = new Mul(new Variable("x"), new Number(0));
+            assertEquals(new Number(0), withZeroRight.doSimple());
+        }
 
-        Mul withOneRight = new Mul(new Variable("x"), new Number(1));
-        assertEquals(new Variable("x"), withOneRight.doSimple());
+        @Test
+        void one() {
+            Mul withOneRight = new Mul(new Variable("x"), new Number(1));
+            assertEquals(new Variable("x"), withOneRight.doSimple());
 
-        Mul withOneLeft = new Mul(new Number(1), new Variable("x"));
-        assertEquals(new Variable("x"), withOneLeft.doSimple());
+            Mul withOneLeft = new Mul(new Number(1), new Variable("x"));
+            assertEquals(new Variable("x"), withOneLeft.doSimple());
+        }
 
-        Mul complex = new Mul(new Variable("x"), new Variable("y"));
-        Expression complexSimplified = complex.doSimple();
-        assertEquals(complex, complexSimplified);
+        @Test
+        void complex() {
+            Mul complex = new Mul(new Variable("x"), new Variable("y"));
+            Expression complexSimplified = complex.doSimple();
+            assertEquals(complex, complexSimplified);
+        }
     }
 
     @Test

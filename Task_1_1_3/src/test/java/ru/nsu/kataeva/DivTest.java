@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -57,24 +58,39 @@ class DivTest {
         assertEquals(expected, derivative);
     }
 
-    @Test
-    void testDivDoSimple() {
-        Div numericDiv = new Div(new Number(10), new Number(2));
-        Expression simplified = numericDiv.doSimple();
-        assertEquals(new Number(5), simplified);
+    @Nested
+    class testDivDoSimple {
+        @Test
+        void numeric() {
+            Div numericDiv = new Div(new Number(10), new Number(2));
+            Expression simplified = numericDiv.doSimple();
+            assertEquals(new Number(5), simplified);
+        }
 
-        Div zeroNumerator = new Div(new Number(0), new Variable("x"));
-        assertEquals(new Number(0), zeroNumerator.doSimple());
+        @Test
+        void zeroUp() {
+            Div zeroNumerator = new Div(new Number(0), new Variable("x"));
+            assertEquals(new Number(0), zeroNumerator.doSimple());
+        }
 
-        Div denominatorOne = new Div(new Variable("x"), new Number(1));
-        assertEquals(new Variable("x"), denominatorOne.doSimple());
+        @Test
+        void one() {
+            Div denominatorOne = new Div(new Variable("x"), new Number(1));
+            assertEquals(new Variable("x"), denominatorOne.doSimple());
+        }
 
-        Div divByZero = new Div(new Number(1), new Number(0));
-        assertThrows(ArithmeticException.class, divByZero::doSimple);
+        @Test
+        void zeroDown() {
+            Div divByZero = new Div(new Number(1), new Number(0));
+            assertThrows(ArithmeticException.class, divByZero::doSimple);
+        }
 
-        Div complex = new Div(new Variable("x"), new Variable("y"));
-        Expression complexSimplified = complex.doSimple();
-        assertEquals(complex, complexSimplified);
+        @Test
+        void comp() {
+            Div complex = new Div(new Variable("x"), new Variable("y"));
+            Expression complexSimplified = complex.doSimple();
+            assertEquals(complex, complexSimplified);
+        }
     }
 
     @Test
