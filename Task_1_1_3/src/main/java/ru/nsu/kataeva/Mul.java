@@ -1,5 +1,6 @@
 package ru.nsu.kataeva;
 
+
 /**
  * Represents multiplication operation between two expressions.
  */
@@ -40,15 +41,14 @@ public class Mul extends Expression {
         Expression simplifiedLeft = left.doSimple();
         Expression simplifiedRight = right.doSimple();
 
-        if ((simplifiedLeft instanceof Number && ((Number) simplifiedLeft).getValue() == 0)
-                || (simplifiedRight instanceof Number
-                && ((Number) simplifiedRight).getValue() == 0)) {
+        if ((simplifiedLeft.equals(new Number(0)))
+                || (simplifiedRight.equals(new Number(0)))) {
             return new Number(0);
         }
-        if (simplifiedRight instanceof Number && ((Number) simplifiedRight).getValue() == 1) {
+        if (simplifiedRight.equals(new Number(1))) {
             return simplifiedLeft;
         }
-        if (simplifiedLeft instanceof Number && ((Number) simplifiedLeft).getValue() == 1) {
+        if (simplifiedLeft.equals(new Number(1))) {
             return simplifiedRight;
         }
 
