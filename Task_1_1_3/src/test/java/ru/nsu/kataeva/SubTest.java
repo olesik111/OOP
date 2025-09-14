@@ -42,7 +42,7 @@ class SubTest {
     }
 
     @Nested
-    class testSubDoSimple {
+    class TestSubDoSimple {
         @Test
         void numeric() {
             Sub numericSub = new Sub(new Number(10), new Number(3));

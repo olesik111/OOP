@@ -59,7 +59,7 @@ class DivTest {
     }
 
     @Nested
-    class testDivDoSimple {
+    class TestDivDoSimple {
         @Test
         void numeric() {
             Div numericDiv = new Div(new Number(10), new Number(2));

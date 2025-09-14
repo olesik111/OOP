@@ -42,7 +42,7 @@ class AddTest {
     }
 
     @Nested
-    class testAddDoSimple {
+    class TestAddDoSimple {
         @Test
         void numeric() {
             Add numericAdd = new Add(new Number(2), new Number(3));

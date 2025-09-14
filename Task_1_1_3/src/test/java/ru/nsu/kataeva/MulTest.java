@@ -44,7 +44,7 @@ class MulTest {
     }
 
     @Nested
-    class testMulDoSimple {
+    class TestMulDoSimple {
         @Test
         void numeric() {
             Mul numericMul = new Mul(new Number(4), new Number(3));
