@@ -29,7 +29,8 @@ class ExpressionTest {
 
         Expression derivative = expr.derivative("x");
         Expression expected = new Add(
-                new Add(new Mul(new Number(1), new Number(2)), new Mul(new Number(0), new Variable("x"))),
+                new Add(new Mul(new Number(1), new Number(2)),
+                        new Mul(new Number(0), new Variable("x"))),
                 new Div(
                         new Sub(
                                 new Mul(new Number(0), new Variable("x")),
