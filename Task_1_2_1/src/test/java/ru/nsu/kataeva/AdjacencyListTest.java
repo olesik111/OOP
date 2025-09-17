@@ -3,10 +3,15 @@ package ru.nsu.kataeva;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Path;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  * AdjacencyListTest.
@@ -117,4 +122,32 @@ class AdjacencyListTest {
         assertTrue(result.contains("2 -> [1]"));
         assertTrue(result.contains("3 -> []"));
     }
+
+    @TempDir
+    Path tempDir;
+
+    @Test
+    void readValidGraphTest() throws Exception {
+        Graph graph = new AdjacencyList();
+        File testFile = tempDir.resolve("graph.txt").toFile();
+
+        try (FileWriter writer = new FileWriter(testFile)) {
+            writer.write("1 2\n");
+            writer.write("2 3\n");
+        }
+
+        GraphFileReader.readFromFile(graph, testFile.getAbsolutePath());
+        assertNotNull(graph.toString());
+    }
+
+    @Test
+    void readEmptyFileTest() throws Exception {
+        Graph graph = new AdjacencyList();
+        File testFile = tempDir.resolve("empty.txt").toFile();
+        testFile.createNewFile();
+
+        GraphFileReader.readFromFile(graph, testFile.getAbsolutePath());
+        assertNotNull(graph.toString());
+    }
+
 }

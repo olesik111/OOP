@@ -134,7 +134,8 @@ public class AdjacencyMatrix implements Graph {
         for (int i = 0; i < maxSize; i++) {
             for (int j = 0; j < maxSize; j++) {
                 int thisVal = (i < matrix.length && j < matrix.length) ? matrix[i][j] : 0;
-                int otherVal = (i < other.matrix.length && j < other.matrix.length) ? other.matrix[i][j] : 0;
+                int otherVal = (i < other.matrix.length && j < other.matrix.length)
+                        ? other.matrix[i][j] : 0;
                 if (thisVal != otherVal) {
                     return false;
                 }

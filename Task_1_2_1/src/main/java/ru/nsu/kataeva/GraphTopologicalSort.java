@@ -112,6 +112,7 @@ public class GraphTopologicalSort {
 
     /**
      * Checks if a vertex has any incoming edges.
+     *
      * @param graph the graph to check
      * @param vertex the vertex to check
      * @return true if vertex has incoming edges
