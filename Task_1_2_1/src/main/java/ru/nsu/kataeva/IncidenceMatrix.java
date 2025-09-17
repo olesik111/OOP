@@ -22,6 +22,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Adds a vertex to the graph.
+     *
      * @param vertex the vertex to add
      */
     @Override
@@ -31,6 +32,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Removes a vertex and all edges connected to it.
+     *
      * @param vertex the vertex to remove
      */
     @Override
@@ -50,6 +52,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Adds a directed edge between two vertices.
+     *
      * @param from the source vertex
      * @param to the target vertex
      */
@@ -62,6 +65,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Removes edge between two vertices.
+     *
      * @param from the source vertex
      * @param to the target vertex
      */
@@ -80,6 +84,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Gets all neighbors of a vertex.
+     *
      * @param vertex the vertex to check
      * @return list of neighboring vertices
      */
@@ -96,6 +101,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Performs topological sorting of the graph.
+     *
      * @return vertices in topological order
      */
     @Override
@@ -105,28 +111,41 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Compares two graphs for equality.
+     *
      * @param obj the graph to compare with
      * @return true if graphs have same vertices and edges
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         IncidenceMatrix other = (IncidenceMatrix) obj;
 
-        if (!vertices.equals(other.vertices)) return false;
-        if (edges.size() != other.edges.size()) return false;
+        if (!vertices.equals(other.vertices)) {
+            return false;
+        }
+        if (edges.size() != other.edges.size()) {
+            return false;
+        }
 
         List<int[]> sortedEdges = new ArrayList<>(edges);
         List<int[]> otherSortedEdges = new ArrayList<>(other.edges);
 
         sortedEdges.sort((a, b) -> {
-            if (a[0] != b[0]) return Integer.compare(a[0], b[0]);
+            if (a[0] != b[0]) {
+                return Integer.compare(a[0], b[0]);
+            }
             return Integer.compare(a[1], b[1]);
         });
 
         otherSortedEdges.sort((a, b) -> {
-            if (a[0] != b[0]) return Integer.compare(a[0], b[0]);
+            if (a[0] != b[0]) {
+                return Integer.compare(a[0], b[0]);
+            }
             return Integer.compare(a[1], b[1]);
         });
 
@@ -143,6 +162,7 @@ public class IncidenceMatrix implements Graph {
 
     /**
      * Returns string representation of the graph.
+     *
      * @return formatted vertices and edges
      */
     @Override
@@ -154,7 +174,9 @@ public class IncidenceMatrix implements Graph {
 
         List<int[]> sortedEdges = new ArrayList<>(edges);
         sortedEdges.sort((a, b) -> {
-            if (a[0] != b[0]) return Integer.compare(a[0], b[0]);
+            if (a[0] != b[0]) {
+                return Integer.compare(a[0], b[0]);
+            }
             return Integer.compare(a[1], b[1]);
         });
 

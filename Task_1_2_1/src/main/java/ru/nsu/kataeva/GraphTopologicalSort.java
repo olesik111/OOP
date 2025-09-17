@@ -16,6 +16,7 @@ public class GraphTopologicalSort {
 
     /**
      * Performs topological sort on a directed graph.
+     *
      * @param graph the graph to sort
      * @return vertices in topological order
      * @throws IllegalArgumentException if graph contains cycles
@@ -63,6 +64,7 @@ public class GraphTopologicalSort {
 
     /**
      * Collects all vertices present in the graph.
+     *
      * @param graph the graph to analyze
      * @return set of all vertices
      */
@@ -88,6 +90,7 @@ public class GraphTopologicalSort {
 
     /**
      * Finds the maximum possible vertex index by checking neighbors.
+     *
      * @param graph the graph to analyze
      * @return maximum vertex index found
      */

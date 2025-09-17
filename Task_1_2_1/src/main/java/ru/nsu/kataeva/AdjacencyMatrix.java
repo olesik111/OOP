@@ -19,6 +19,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Ensures matrix can store up to given vertex index.
+     *
      * @param vertex the vertex index to accommodate
      */
     private void ensureCapacity(int vertex) {
@@ -34,6 +35,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Adds a vertex to the graph.
+     *
      * @param vertex the vertex to add
      */
     @Override
@@ -44,6 +46,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Removes a vertex and all its edges.
+     *
      * @param vertex the vertex to remove
      */
     @Override
@@ -58,6 +61,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Adds a directed edge between two vertices.
+     *
      * @param from the source vertex
      * @param to the target vertex
      */
@@ -70,6 +74,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Removes edge between two vertices.
+     *
      * @param from the source vertex
      * @param to the target vertex
      */
@@ -82,6 +87,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Gets all neighbors of a vertex.
+     *
      * @param vertex the vertex to check
      * @return list of neighboring vertices
      */
@@ -100,6 +106,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Performs topological sorting of the graph.
+     *
      * @return vertices in topological order
      */
     @Override
@@ -109,13 +116,18 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Compares two graphs for equality.
+     *
      * @param obj the graph to compare with
      * @return true if graphs have same edges
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         AdjacencyMatrix other = (AdjacencyMatrix) obj;
 
         int maxSize = Math.max(matrix.length, other.matrix.length);
@@ -123,7 +135,9 @@ public class AdjacencyMatrix implements Graph {
             for (int j = 0; j < maxSize; j++) {
                 int thisVal = (i < matrix.length && j < matrix.length) ? matrix[i][j] : 0;
                 int otherVal = (i < other.matrix.length && j < other.matrix.length) ? other.matrix[i][j] : 0;
-                if (thisVal != otherVal) return false;
+                if (thisVal != otherVal) {
+                    return false;
+                }
             }
         }
         return true;
@@ -131,6 +145,7 @@ public class AdjacencyMatrix implements Graph {
 
     /**
      * Returns string representation of the matrix.
+     *
      * @return formatted matrix with row/column headers
      */
     @Override

@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class GraphFileReader {
     /**
      * Reads graph edges from file and adds them to graph.
+     *
      * @param graph the graph to populate
      * @param filename the file to read from
      */

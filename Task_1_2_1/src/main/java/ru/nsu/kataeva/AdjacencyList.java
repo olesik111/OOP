@@ -21,6 +21,7 @@ public class AdjacencyList implements Graph {
 
     /**
      * Adds a vertex to the graph if it doesn't exist.
+     *
      * @param vertex the vertex to add
      */
     @Override
@@ -32,6 +33,7 @@ public class AdjacencyList implements Graph {
 
     /**
      * Removes a vertex and all edges connected to it.
+     *
      * @param vertex the vertex to remove
      */
     @Override
@@ -52,6 +54,7 @@ public class AdjacencyList implements Graph {
     /**
      * Adds a directed edge between two vertices.
      * Creates vertices if they don't exist.
+     *
      * @param from the source vertex
      * @param to the target vertex
      */
@@ -64,6 +67,7 @@ public class AdjacencyList implements Graph {
 
     /**
      * Removes all edges from source to target vertex.
+     *
      * @param from the source vertex
      * @param to the target vertex
      */
@@ -83,6 +87,7 @@ public class AdjacencyList implements Graph {
 
     /**
      * Gets all neighbors of a vertex.
+     *
      * @param vertex the vertex to check
      * @return list of neighboring vertices
      */
@@ -97,6 +102,7 @@ public class AdjacencyList implements Graph {
 
     /**
      * Performs topological sorting of the graph.
+     *
      * @return vertices in topological order
      */
     @Override
@@ -106,29 +112,42 @@ public class AdjacencyList implements Graph {
 
     /**
      * Compares two graphs for equality.
+     *
      * @param obj the graph to compare with
      * @return true if graphs have same vertices and edges
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         AdjacencyList other = (AdjacencyList) obj;
 
-        if (adjList.size() != other.adjList.size()) return false;
+        if (adjList.size() != other.adjList.size()) {
+            return false;
+        }
 
         for (Map.Entry<Integer, List<Integer>> entry : adjList.entrySet()) {
             int vertex = entry.getKey();
             List<Integer> neighbors = entry.getValue();
 
-            if (!other.adjList.containsKey(vertex)) return false;
+            if (!other.adjList.containsKey(vertex)) {
+                return false;
+            }
 
             List<Integer> otherNeighbors = other.adjList.get(vertex);
-            if (neighbors.size() != otherNeighbors.size()) return false;
+            if (neighbors.size() != otherNeighbors.size()) {
+                return false;
+            }
 
             Collections.sort(neighbors);
             Collections.sort(otherNeighbors);
-            if (!neighbors.equals(otherNeighbors)) return false;
+            if (!neighbors.equals(otherNeighbors)) {
+                return false;
+            }
         }
 
         return true;
@@ -136,6 +155,7 @@ public class AdjacencyList implements Graph {
 
     /**
      * Returns string representation of the graph.
+     *
      * @return formatted graph structure
      */
     @Override
