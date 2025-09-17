@@ -150,4 +150,11 @@ class AdjacencyListTest {
         assertNotNull(graph.toString());
     }
 
+    @Test
+    void readNonExistentFileTest() {
+        Graph graph = new AdjacencyList();
+        GraphFileReader.readFromFile(graph, "nonexistent.txt");
+        assertNotNull(graph);
+    }
+
 }
