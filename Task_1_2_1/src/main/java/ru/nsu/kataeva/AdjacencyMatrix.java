@@ -17,6 +17,9 @@ public class AdjacencyMatrix<T> implements Graph<T> {
     private int[][] matrix;
     private int vertexCount;
 
+    /**
+     * Creates constructor.
+     */
     public AdjacencyMatrix() {
         vertexToIndex = new HashMap<>();
         indexToVertex = new HashMap<>();

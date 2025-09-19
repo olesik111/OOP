@@ -28,8 +28,12 @@ public class IncidenceMatrix<T> implements Graph<T> {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof Edge<?> other)) return false;
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof Edge<?> other)) {
+                return false;
+            }
             return Objects.equals(from, other.from) && Objects.equals(to, other.to);
         }
 
@@ -107,7 +111,9 @@ public class IncidenceMatrix<T> implements Graph<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof IncidenceMatrix<?> other)) {
             return false;
         }
