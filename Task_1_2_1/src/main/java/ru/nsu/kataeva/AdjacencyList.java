@@ -1,16 +1,18 @@
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Graph implementation using adjacency list representation.
  */
-public class AdjacencyList implements Graph {
-    private final Map<Integer, List<Integer>> adjList;
+public class AdjacencyList<T> implements Graph<T> {
+    private final Map<T, List<T>> adjList;
 
     /**
      * Creates an empty adjacency list graph.
@@ -25,7 +27,7 @@ public class AdjacencyList implements Graph {
      * @param vertex the vertex to add
      */
     @Override
-    public void addVertex(int vertex) {
+    public void addVertex(T vertex) {
         if (!adjList.containsKey(vertex)) {
             adjList.put(vertex, new ArrayList<>());
         }
@@ -37,17 +39,10 @@ public class AdjacencyList implements Graph {
      * @param vertex the vertex to remove
      */
     @Override
-    public void removeVertex(int vertex) {
+    public void removeVertex(T vertex) {
         adjList.remove(vertex);
-
-        for (List<Integer> neighbors : adjList.values()) {
-            List<Integer> toRemove = new ArrayList<>();
-            for (Integer n : neighbors) {
-                if (n == vertex) {
-                    toRemove.add(n);
-                }
-            }
-            neighbors.removeAll(toRemove);
+        for (List<T> neighbors : adjList.values()) {
+            neighbors.removeIf(v -> v.equals(vertex));
         }
     }
 
@@ -56,10 +51,10 @@ public class AdjacencyList implements Graph {
      * Creates vertices if they don't exist.
      *
      * @param from the source vertex
-     * @param to the target vertex
+     * @param to   the target vertex
      */
     @Override
-    public void addEdge(int from, int to) {
+    public void addEdge(T from, T to) {
         addVertex(from);
         addVertex(to);
         adjList.get(from).add(to);
@@ -69,19 +64,13 @@ public class AdjacencyList implements Graph {
      * Removes all edges from source to target vertex.
      *
      * @param from the source vertex
-     * @param to the target vertex
+     * @param to   the target vertex
      */
     @Override
-    public void removeEdge(int from, int to) {
+    public void removeEdge(T from, T to) {
         if (adjList.containsKey(from)) {
-            List<Integer> neighbors = adjList.get(from);
-            List<Integer> toRemove = new ArrayList<>();
-            for (Integer n : neighbors) {
-                if (n == to) {
-                    toRemove.add(n);
-                }
-            }
-            neighbors.removeAll(toRemove);
+            List<T> neighbors = adjList.get(from);
+            neighbors.removeIf(n -> n.equals(to));
         }
     }
 
@@ -92,12 +81,8 @@ public class AdjacencyList implements Graph {
      * @return list of neighboring vertices
      */
     @Override
-    public List<Integer> getNeighbors(int vertex) {
-        if (adjList.containsKey(vertex)) {
-            return adjList.get(vertex);
-        } else {
-            return new ArrayList<>();
-        }
+    public List<T> getNeighbors(T vertex) {
+        return adjList.getOrDefault(vertex, new ArrayList<>());
     }
 
     /**
@@ -106,8 +91,18 @@ public class AdjacencyList implements Graph {
      * @return vertices in topological order
      */
     @Override
-    public List<Integer> topologicalSort() {
+    public List<T> topologicalSort() {
         return GraphTopologicalSort.topologicalSort(this);
+    }
+
+    /**
+     * Returns all vertices of the graph.
+     *
+     * @return set of vertices
+     */
+    @Override
+    public Set<T> getVertices() {
+        return new HashSet<>(adjList.keySet());
     }
 
     /**
@@ -118,39 +113,38 @@ public class AdjacencyList implements Graph {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        AdjacencyList<?> other = (AdjacencyList<?>) obj;
+
+        if (adjList.size() != other.adjList.size()) return false;
+
+        for (Map.Entry<T, List<T>> entry : adjList.entrySet()) {
+            T vertex = entry.getKey();
+            List<T> neighbors = entry.getValue();
+
+            if (!other.adjList.containsKey(vertex)) return false;
+
+            List<?> otherNeighbors = other.adjList.get(vertex);
+            if (neighbors.size() != otherNeighbors.size()) return false;
+
+            if (!new HashSet<>(neighbors).equals(new HashSet<>(otherNeighbors))) return false;
         }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        AdjacencyList other = (AdjacencyList) obj;
-
-        if (adjList.size() != other.adjList.size()) {
-            return false;
-        }
-
-        for (Map.Entry<Integer, List<Integer>> entry : adjList.entrySet()) {
-            int vertex = entry.getKey();
-            List<Integer> neighbors = entry.getValue();
-
-            if (!other.adjList.containsKey(vertex)) {
-                return false;
-            }
-
-            List<Integer> otherNeighbors = other.adjList.get(vertex);
-            if (neighbors.size() != otherNeighbors.size()) {
-                return false;
-            }
-
-            Collections.sort(neighbors);
-            Collections.sort(otherNeighbors);
-            if (!neighbors.equals(otherNeighbors)) {
-                return false;
-            }
-        }
-
         return true;
+    }
+
+    /**
+     * Returns hash code for the graph.
+     * Throws exception as hash code implementation for graphs is complex
+     * and not needed for current use cases.
+     *
+     * @return hash code value
+     * @throws UnsupportedOperationException if called
+     */
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("Hash code not implemented for Graph objects");
     }
 
     /**
@@ -163,15 +157,14 @@ public class AdjacencyList implements Graph {
         StringBuilder sb = new StringBuilder();
         sb.append("AdjacencyListGraph:\n");
 
-        List<Integer> vertices = new ArrayList<>(adjList.keySet());
-        Collections.sort(vertices);
+        List<T> vertices = new ArrayList<>(adjList.keySet());
+        vertices.sort(Comparator.comparing(Object::toString));
 
-        for (int vertex : vertices) {
-            List<Integer> neighbors = new ArrayList<>(adjList.get(vertex));
-            Collections.sort(neighbors);
-            sb.append(String.format("%d -> %s\n", vertex, neighbors));
+        for (T vertex : vertices) {
+            List<T> neighbors = new ArrayList<>(adjList.get(vertex));
+            neighbors.sort(Comparator.comparing(Object::toString));
+            sb.append(String.format("%s -> %s\n", vertex, neighbors));
         }
-
         return sb.toString();
     }
 }

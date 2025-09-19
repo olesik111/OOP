@@ -1,30 +1,29 @@
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-/**
- * Graph implementation using adjacency matrix representation.
- */
-public class AdjacencyMatrix implements Graph {
+public class AdjacencyMatrix<T> implements Graph<T> {
+    private final Map<T, Integer> vertexToIndex;
+    private final Map<Integer, T> indexToVertex;
     private int[][] matrix;
     private int vertexCount;
 
-    /**
-     * Creates an adjacency matrix with initial size 10x10.
-     */
     public AdjacencyMatrix() {
+        vertexToIndex = new HashMap<>();
+        indexToVertex = new HashMap<>();
         matrix = new int[10][10];
+        vertexCount = 0;
     }
 
-    /**
-     * Ensures matrix can store up to given vertex index.
-     *
-     * @param vertex the vertex index to accommodate
-     */
-    private void ensureCapacity(int vertex) {
-        if (vertex >= matrix.length) {
-            int newSize = Math.max(vertex + 1, matrix.length * 2);
+    private void ensureCapacity(int size) {
+        if (size >= matrix.length) {
+            int newSize = Math.max(size + 1, matrix.length * 2);
             int[][] newMatrix = new int[newSize][newSize];
             for (int i = 0; i < matrix.length; i++) {
                 System.arraycopy(matrix[i], 0, newMatrix[i], 0, matrix.length);
@@ -33,144 +32,150 @@ public class AdjacencyMatrix implements Graph {
         }
     }
 
-    /**
-     * Adds a vertex to the graph.
-     *
-     * @param vertex the vertex to add
-     */
-    @Override
-    public void addVertex(int vertex) {
-        ensureCapacity(vertex);
-        vertexCount = Math.max(vertexCount, vertex + 1);
+    private int getVertexIndex(T vertex) {
+        if (!vertexToIndex.containsKey(vertex)) {
+            ensureCapacity(vertexCount);
+            vertexToIndex.put(vertex, vertexCount);
+            indexToVertex.put(vertexCount, vertex);
+            vertexCount++;
+        }
+        return vertexToIndex.get(vertex);
     }
 
-    /**
-     * Removes a vertex and all its edges.
-     *
-     * @param vertex the vertex to remove
-     */
+    private T getVertexFromIndex(int index) {
+        return indexToVertex.get(index);
+    }
+
     @Override
-    public void removeVertex(int vertex) {
-        if (vertex < matrix.length) {
-            for (int i = 0; i < matrix.length; i++) {
-                matrix[vertex][i] = 0;
-                matrix[i][vertex] = 0;
+    public void addVertex(T vertex) {
+        getVertexIndex(vertex);
+    }
+
+    @Override
+    public void removeVertex(T vertex) {
+        if (!vertexToIndex.containsKey(vertex)) {
+            return;
+        }
+
+        int index = vertexToIndex.get(vertex);
+        int lastIndex = vertexCount - 1;
+
+        if (index != lastIndex) {
+            int[] lastRow = new int[vertexCount];
+            int[] lastCol = new int[vertexCount];
+            for (int i = 0; i < vertexCount; i++) {
+                lastRow[i] = matrix[lastIndex][i];
+                lastCol[i] = matrix[i][lastIndex];
             }
+
+            for (int i = 0; i < vertexCount; i++) {
+                matrix[index][i] = lastRow[i];
+                matrix[i][index] = lastCol[i];
+            }
+
+            T lastVertex = indexToVertex.get(lastIndex);
+            vertexToIndex.put(lastVertex, index);
+            indexToVertex.put(index, lastVertex);
+        }
+
+        for (int i = 0; i < vertexCount; i++) {
+            matrix[lastIndex][i] = 0;
+            matrix[i][lastIndex] = 0;
+        }
+
+        vertexToIndex.remove(vertex);
+        indexToVertex.remove(lastIndex);
+        vertexCount--;
+    }
+
+    @Override
+    public void addEdge(T from, T to) {
+        int fromIndex = getVertexIndex(from);
+        int toIndex = getVertexIndex(to);
+        matrix[fromIndex][toIndex] = 1;
+    }
+
+    @Override
+    public void removeEdge(T from, T to) {
+        if (vertexToIndex.containsKey(from) && vertexToIndex.containsKey(to)) {
+            int fromIndex = vertexToIndex.get(from);
+            int toIndex = vertexToIndex.get(to);
+            matrix[fromIndex][toIndex] = 0;
         }
     }
 
-    /**
-     * Adds a directed edge between two vertices.
-     *
-     * @param from the source vertex
-     * @param to the target vertex
-     */
     @Override
-    public void addEdge(int from, int to) {
-        ensureCapacity(Math.max(from, to));
-        matrix[from][to] = 1;
-        vertexCount = Math.max(vertexCount, Math.max(from, to) + 1);
-    }
-
-    /**
-     * Removes edge between two vertices.
-     *
-     * @param from the source vertex
-     * @param to the target vertex
-     */
-    @Override
-    public void removeEdge(int from, int to) {
-        if (from < matrix.length && to < matrix.length) {
-            matrix[from][to] = 0;
-        }
-    }
-
-    /**
-     * Gets all neighbors of a vertex.
-     *
-     * @param vertex the vertex to check
-     * @return list of neighboring vertices
-     */
-    @Override
-    public List<Integer> getNeighbors(int vertex) {
-        List<Integer> neighbors = new ArrayList<>();
-        if (vertex < matrix.length) {
-            for (int i = 0; i < matrix.length; i++) {
-                if (matrix[vertex][i] == 1) {
-                    neighbors.add(i);
+    public List<T> getNeighbors(T vertex) {
+        List<T> neighbors = new ArrayList<>();
+        if (vertexToIndex.containsKey(vertex)) {
+            int vertexIndex = vertexToIndex.get(vertex);
+            for (int i = 0; i < vertexCount; i++) {
+                if (matrix[vertexIndex][i] == 1) {
+                    neighbors.add(getVertexFromIndex(i));
                 }
             }
         }
         return neighbors;
     }
 
-    /**
-     * Performs topological sorting of the graph.
-     *
-     * @return vertices in topological order
-     */
     @Override
-    public List<Integer> topologicalSort() {
+    public List<T> topologicalSort() {
         return GraphTopologicalSort.topologicalSort(this);
     }
 
-    /**
-     * Compares two graphs for equality.
-     *
-     * @param obj the graph to compare with
-     * @return true if graphs have same edges
-     */
+    @Override
+    public Set<T> getVertices() {
+        return new HashSet<>(vertexToIndex.keySet());
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (this == obj) return true;
+        if (!(obj instanceof AdjacencyMatrix<?> other)) return false;
+
+        if (!vertexToIndex.keySet().equals(other.vertexToIndex.keySet())) {
             return false;
         }
-        AdjacencyMatrix other = (AdjacencyMatrix) obj;
 
-        int maxSize = Math.max(matrix.length, other.matrix.length);
-        for (int i = 0; i < maxSize; i++) {
-            for (int j = 0; j < maxSize; j++) {
-                int thisVal = 0;
-                if (i < matrix.length && j < matrix[i].length) {
-                    thisVal = matrix[i][j];
-                }
+        @SuppressWarnings("unchecked")
+        AdjacencyMatrix<T> castedOther = (AdjacencyMatrix<T>) other;
 
-                int otherVal = 0;
-                if (i < other.matrix.length && j < other.matrix[i].length) {
-                    otherVal = other.matrix[i][j];
-                }
-                if (thisVal != otherVal) {
-                    return false;
-                }
+        for (T from : vertexToIndex.keySet()) {
+            List<T> thisNeighbors = getNeighbors(from);
+            List<T> otherNeighbors = castedOther.getNeighbors(from);
+
+            if (!new HashSet<>(thisNeighbors).equals(new HashSet<>(otherNeighbors))) {
+                return false;
             }
         }
         return true;
     }
 
-    /**
-     * Returns string representation of the matrix.
-     *
-     * @return formatted matrix with row/column headers
-     */
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("Hash code not implemented for Graph objects");
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AdjacencyMatrixGraph:\n");
-        int size = matrix.length;
 
-        sb.append("   ");
-        for (int i = 0; i < size; i++) {
-            sb.append(String.format("%2d ", i));
+        List<T> vertices = new ArrayList<>(vertexToIndex.keySet());
+        vertices.sort(Comparator.comparing(Object::toString));
+
+        sb.append("     ");
+        for (T vertex : vertices) {
+            sb.append(String.format("%5s ", vertex));
         }
         sb.append("\n");
 
-        for (int i = 0; i < size; i++) {
-            sb.append(String.format("%2d ", i));
-            for (int j = 0; j < size; j++) {
-                sb.append(String.format("%2d ", matrix[i][j]));
+        for (T from : vertices) {
+            sb.append(String.format("%5s ", from));
+            int fromIndex = vertexToIndex.get(from);
+            for (T to : vertices) {
+                int toIndex = vertexToIndex.get(to);
+                sb.append(String.format("%5d ", matrix[fromIndex][toIndex]));
             }
             sb.append("\n");
         }

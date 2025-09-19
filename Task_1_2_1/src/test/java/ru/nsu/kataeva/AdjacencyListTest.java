@@ -20,90 +20,90 @@ class AdjacencyListTest {
 
     @Test
     void testAddVertex() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addVertex(1);
-        graph.addVertex(2);
-        graph.addVertex(1);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("1");
 
-        assertTrue(graph.getNeighbors(1).isEmpty());
-        assertTrue(graph.getNeighbors(2).isEmpty());
+        assertTrue(graph.getNeighbors("1").isEmpty());
+        assertTrue(graph.getNeighbors("2").isEmpty());
     }
 
     @Test
     void testRemoveVertex() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 1);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addEdge("1", "2");
+        graph.addEdge("2", "3");
+        graph.addEdge("3", "1");
 
-        graph.removeVertex(2);
+        graph.removeVertex("2");
 
-        assertFalse(graph.getNeighbors(1).contains(2));
-        assertTrue(graph.getNeighbors(3).contains(1));
-        assertEquals(List.of(1), graph.getNeighbors(3));
+        assertFalse(graph.getNeighbors("1").contains("2"));
+        assertTrue(graph.getNeighbors("3").contains("1"));
+        assertEquals(List.of("1"), graph.getNeighbors("3"));
     }
 
     @Test
     void testAddEdge() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(2, 3);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addEdge("1", "2");
+        graph.addEdge("1", "3");
+        graph.addEdge("2", "3");
 
-        assertEquals(List.of(2, 3), graph.getNeighbors(1));
-        assertEquals(List.of(3), graph.getNeighbors(2));
-        assertTrue(graph.getNeighbors(3).isEmpty());
+        assertEquals(List.of("2", "3"), graph.getNeighbors("1"));
+        assertEquals(List.of("3"), graph.getNeighbors("2"));
+        assertTrue(graph.getNeighbors("3").isEmpty());
     }
 
     @Test
     void testRemoveEdge() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 2);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addEdge("1", "2");
+        graph.addEdge("1", "3");
+        graph.addEdge("1", "2");
 
-        graph.removeEdge(1, 2);
+        graph.removeEdge("1", "2");
 
-        assertEquals(List.of(3), graph.getNeighbors(1));
-        assertTrue(graph.getNeighbors(2).isEmpty());
+        assertEquals(List.of("3"), graph.getNeighbors("1"));
+        assertTrue(graph.getNeighbors("2").isEmpty());
     }
 
     @Test
     void testGetNeighbors() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(2, 4);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addEdge("1", "2");
+        graph.addEdge("1", "3");
+        graph.addEdge("2", "4");
 
-        assertEquals(List.of(2, 3), graph.getNeighbors(1));
-        assertEquals(List.of(4), graph.getNeighbors(2));
-        assertTrue(graph.getNeighbors(5).isEmpty());
+        assertEquals(List.of("2", "3"), graph.getNeighbors("1"));
+        assertEquals(List.of("4"), graph.getNeighbors("2"));
+        assertTrue(graph.getNeighbors("5").isEmpty());
     }
 
     @Test
     void testTopologicalSort() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 4);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addEdge("1", "2");
+        graph.addEdge("2", "3");
+        graph.addEdge("3", "4");
 
-        List<Integer> result = graph.topologicalSort();
-        assertTrue(result.indexOf(2) < result.indexOf(4));
-        assertTrue(result.indexOf(3) < result.indexOf(4));
+        List<String> result = graph.topologicalSort();
+        assertTrue(result.indexOf("2") < result.indexOf("4"));
+        assertTrue(result.indexOf("3") < result.indexOf("4"));
     }
 
     @Test
     void testEquals() {
-        AdjacencyList graph1 = new AdjacencyList();
-        graph1.addEdge(1, 2);
-        graph1.addEdge(1, 3);
+        AdjacencyList<String> graph1 = new AdjacencyList<>();
+        graph1.addEdge("1", "2");
+        graph1.addEdge("1", "3");
 
-        AdjacencyList graph2 = new AdjacencyList();
-        graph2.addEdge(1, 2);
-        graph2.addEdge(1, 3);
+        AdjacencyList<String> graph2 = new AdjacencyList<>();
+        graph2.addEdge("1", "2");
+        graph2.addEdge("1", "3");
 
-        AdjacencyList graph3 = new AdjacencyList();
-        graph3.addEdge(1, 2);
+        AdjacencyList<String> graph3 = new AdjacencyList<>();
+        graph3.addEdge("1", "2");
 
         assertEquals(graph1, graph2);
         assertNotEquals(graph1, graph3);
@@ -113,9 +113,9 @@ class AdjacencyListTest {
 
     @Test
     void testToString() {
-        AdjacencyList graph = new AdjacencyList();
-        graph.addEdge(2, 1);
-        graph.addEdge(1, 3);
+        AdjacencyList<String> graph = new AdjacencyList<>();
+        graph.addEdge("2", "1");
+        graph.addEdge("1", "3");
 
         String result = graph.toString();
         assertTrue(result.contains("1 -> [3]"));
@@ -128,7 +128,7 @@ class AdjacencyListTest {
 
     @Test
     void readValidGraphTest() throws Exception {
-        Graph graph = new AdjacencyList();
+        Graph<String> graph = new AdjacencyList<>();
         File testFile = tempDir.resolve("graph.txt").toFile();
 
         try (FileWriter writer = new FileWriter(testFile)) {
@@ -142,7 +142,7 @@ class AdjacencyListTest {
 
     @Test
     void readEmptyFileTest() throws Exception {
-        Graph graph = new AdjacencyList();
+        Graph<String> graph = new AdjacencyList<>();
         File testFile = tempDir.resolve("empty.txt").toFile();
         testFile.createNewFile();
 
@@ -152,7 +152,7 @@ class AdjacencyListTest {
 
     @Test
     void readNonExistentFileTest() {
-        Graph graph = new AdjacencyList();
+        Graph<String> graph = new AdjacencyList<>();
         GraphFileReader.readFromFile(graph, "nonexistent.txt");
         assertNotNull(graph);
     }

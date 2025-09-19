@@ -1,16 +1,43 @@
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Graph implementation using incidence matrix representation.
  */
-public class IncidenceMatrix implements Graph {
-    private final List<int[]> edges;
-    private final Set<Integer> vertices;
+public class IncidenceMatrix<T> implements Graph<T> {
+    private final List<Edge<T>> edges;
+    private final Set<T> vertices;
+
+    /**
+     * Internal class to represent an edge.
+     */
+    private static class Edge<T> {
+        T from;
+        T to;
+
+        Edge(T from, T to) {
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof Edge<?> other)) return false;
+            return Objects.equals(from, other.from) && Objects.equals(to, other.to);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(from, to);
+        }
+    }
 
     /**
      * Creates an empty incidence matrix graph.
@@ -20,168 +47,96 @@ public class IncidenceMatrix implements Graph {
         vertices = new HashSet<>();
     }
 
-    /**
-     * Adds a vertex to the graph.
-     *
-     * @param vertex the vertex to add
-     */
     @Override
-    public void addVertex(int vertex) {
-        vertices.add(vertex);
-    }
-
-    /**
-     * Removes a vertex and all edges connected to it.
-     *
-     * @param vertex the vertex to remove
-     */
-    @Override
-    public void removeVertex(int vertex) {
-        vertices.remove(vertex);
-
-        List<int[]> edgesToRemove = new ArrayList<>();
-
-        for (int[] edge : edges) {
-            if (edge[0] == vertex || edge[1] == vertex) {
-                edgesToRemove.add(edge);
-            }
+    public void addVertex(T vertex) {
+        if (vertex != null) {
+            vertices.add(vertex);
         }
-
-        edges.removeAll(edgesToRemove);
     }
 
-    /**
-     * Adds a directed edge between two vertices.
-     *
-     * @param from the source vertex
-     * @param to the target vertex
-     */
     @Override
-    public void addEdge(int from, int to) {
+    public void removeVertex(T vertex) {
+        if (vertex == null || !vertices.contains(vertex)) {
+            return;
+        }
+        vertices.remove(vertex);
+        edges.removeIf(edge -> edge.from.equals(vertex) || edge.to.equals(vertex));
+    }
+
+    @Override
+    public void addEdge(T from, T to) {
+        if (from == null || to == null) {
+            return;
+        }
         vertices.add(from);
         vertices.add(to);
-        edges.add(new int[]{from, to});
+        edges.add(new Edge<>(from, to));
     }
 
-    /**
-     * Removes edge between two vertices.
-     *
-     * @param from the source vertex
-     * @param to the target vertex
-     */
     @Override
-    public void removeEdge(int from, int to) {
-        List<int[]> edgesToRemove = new ArrayList<>();
-
-        for (int[] edge : edges) {
-            if (edge[0] == from && edge[1] == to) {
-                edgesToRemove.add(edge);
-            }
+    public void removeEdge(T from, T to) {
+        if (from == null || to == null) {
+            return;
         }
-
-        edges.removeAll(edgesToRemove);
+        edges.removeIf(edge -> edge.from.equals(from) && edge.to.equals(to));
     }
 
-    /**
-     * Gets all neighbors of a vertex.
-     *
-     * @param vertex the vertex to check
-     * @return list of neighboring vertices
-     */
     @Override
-    public List<Integer> getNeighbors(int vertex) {
-        List<Integer> neighbors = new ArrayList<>();
-        for (int[] edge : edges) {
-            if (edge[0] == vertex) {
-                neighbors.add(edge[1]);
+    public List<T> getNeighbors(T vertex) {
+        List<T> neighbors = new ArrayList<>();
+        if (vertex == null) {
+            return neighbors;
+        }
+        for (Edge<T> edge : edges) {
+            if (edge.from.equals(vertex)) {
+                neighbors.add(edge.to);
             }
         }
         return neighbors;
     }
 
-    /**
-     * Performs topological sorting of the graph.
-     *
-     * @return vertices in topological order
-     */
     @Override
-    public List<Integer> topologicalSort() {
+    public List<T> topologicalSort() {
         return GraphTopologicalSort.topologicalSort(this);
     }
 
-    /**
-     * Compares two graphs for equality.
-     *
-     * @param obj the graph to compare with
-     * @return true if graphs have same vertices and edges
-     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        IncidenceMatrix other = (IncidenceMatrix) obj;
-
-        if (!vertices.equals(other.vertices)) {
-            return false;
-        }
-        if (edges.size() != other.edges.size()) {
-            return false;
-        }
-
-        List<int[]> sortedEdges = new ArrayList<>(edges);
-        List<int[]> otherSortedEdges = new ArrayList<>(other.edges);
-
-        sortedEdges.sort((a, b) -> {
-            if (a[0] != b[0]) {
-                return Integer.compare(a[0], b[0]);
-            }
-            return Integer.compare(a[1], b[1]);
-        });
-
-        otherSortedEdges.sort((a, b) -> {
-            if (a[0] != b[0]) {
-                return Integer.compare(a[0], b[0]);
-            }
-            return Integer.compare(a[1], b[1]);
-        });
-
-        for (int i = 0; i < sortedEdges.size(); i++) {
-            int[] edge1 = sortedEdges.get(i);
-            int[] edge2 = otherSortedEdges.get(i);
-            if (edge1[0] != edge2[0] || edge1[1] != edge2[1]) {
-                return false;
-            }
-        }
-
-        return true;
+    public Set<T> getVertices() {
+        return new HashSet<>(vertices);
     }
 
-    /**
-     * Returns string representation of the graph.
-     *
-     * @return formatted vertices and edges
-     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof IncidenceMatrix<?> other)) return false;
+
+        if (!vertices.equals(other.vertices)) return false;
+        if (edges.size() != other.edges.size()) return false;
+
+        return new HashSet<>(edges).equals(new HashSet<>(other.edges));
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("Hash code not implemented for Graph objects");
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("IncidenceMatrixGraph:\n");
-        sb.append("Vertices: ").append(vertices).append("\n");
+
+        List<T> sortedVertices = new ArrayList<>(vertices);
+        sortedVertices.sort(Comparator.comparing(Object::toString));
+        sb.append("Vertices: ").append(sortedVertices).append("\n");
+
         sb.append("Edges:\n");
+        List<Edge<T>> sortedEdges = new ArrayList<>(edges);
+        sortedEdges.sort(Comparator.comparing((Edge<T> a) -> a.from.toString())
+                .thenComparing(a -> a.to.toString()));
 
-        List<int[]> sortedEdges = new ArrayList<>(edges);
-        sortedEdges.sort((a, b) -> {
-            if (a[0] != b[0]) {
-                return Integer.compare(a[0], b[0]);
-            }
-            return Integer.compare(a[1], b[1]);
-        });
-
-        for (int[] edge : sortedEdges) {
-            sb.append(String.format("  %d -> %d\n", edge[0], edge[1]));
+        for (Edge<T> edge : sortedEdges) {
+            sb.append(String.format("  %s -> %s%n", edge.from, edge.to));
         }
 
         return sb.toString();
