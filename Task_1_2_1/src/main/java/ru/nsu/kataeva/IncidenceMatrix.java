@@ -108,10 +108,16 @@ public class IncidenceMatrix<T> implements Graph<T> {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof IncidenceMatrix<?> other)) return false;
+        if (!(obj instanceof IncidenceMatrix<?> other)) {
+            return false;
+        }
 
-        if (!vertices.equals(other.vertices)) return false;
-        if (edges.size() != other.edges.size()) return false;
+        if (!vertices.equals(other.vertices)) {
+            return false;
+        }
+        if (edges.size() != other.edges.size()) {
+            return false;
+        }
 
         return new HashSet<>(edges).equals(new HashSet<>(other.edges));
     }

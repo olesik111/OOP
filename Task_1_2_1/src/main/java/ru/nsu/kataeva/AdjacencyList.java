@@ -113,23 +113,35 @@ public class AdjacencyList<T> implements Graph<T> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         AdjacencyList<?> other = (AdjacencyList<?>) obj;
 
-        if (adjList.size() != other.adjList.size()) return false;
+        if (adjList.size() != other.adjList.size()) {
+            return false;
+        }
 
         for (Map.Entry<T, List<T>> entry : adjList.entrySet()) {
             T vertex = entry.getKey();
             List<T> neighbors = entry.getValue();
 
-            if (!other.adjList.containsKey(vertex)) return false;
+            if (!other.adjList.containsKey(vertex)) {
+                return false;
+            }
 
             List<?> otherNeighbors = other.adjList.get(vertex);
-            if (neighbors.size() != otherNeighbors.size()) return false;
+            if (neighbors.size() != otherNeighbors.size()) {
+                return false;
+            }
 
-            if (!new HashSet<>(neighbors).equals(new HashSet<>(otherNeighbors))) return false;
+            if (!new HashSet<>(neighbors).equals(new HashSet<>(otherNeighbors))) {
+                return false;
+            }
         }
         return true;
     }

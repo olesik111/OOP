@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Adjacency matrix realization.
+ */
 public class AdjacencyMatrix<T> implements Graph<T> {
     private final Map<T, Integer> vertexToIndex;
     private final Map<Integer, T> indexToVertex;
@@ -130,8 +133,12 @@ public class AdjacencyMatrix<T> implements Graph<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof AdjacencyMatrix<?> other)) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof AdjacencyMatrix<?> other)) {
+            return false;
+        }
 
         if (!vertexToIndex.keySet().equals(other.vertexToIndex.keySet())) {
             return false;
