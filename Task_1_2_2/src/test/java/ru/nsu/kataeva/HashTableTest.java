@@ -77,7 +77,7 @@ public class HashTableTest {
     public void testEquals() {
         HashTable<String, Integer> table1 = new HashTable<>();
         HashTable<String, Integer> table2 = new HashTable<>();
-        HashTable<String, Integer> table3 = new HashTable<>();
+        final HashTable<String, Integer> table3 = new HashTable<>();
 
         table1.put("a", 1);
         table1.put("b", 2);

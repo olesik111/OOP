@@ -38,14 +38,15 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     /**
      * Resize if no space for new pair.
      */
-    private void resize(){
+    private void resize() {
         int newCap = table.length * 2;
         LinkedList<Pair<K, V>>[] newTable = new LinkedList[newCap];
 
         for (LinkedList<Pair<K, V>> elem : table) {
             if (elem != null) {
                 for (Pair<K, V> pair : elem) {
-                    int index = (pair.getKey() == null) ? 0 : Math.abs(pair.getKey().hashCode()) % newCap;
+                    int index = (pair.getKey() == null) ? 0
+                            : Math.abs(pair.getKey().hashCode()) % newCap;
                     if (newTable[index] == null) {
                         newTable[index] = new LinkedList<>();
                     }
@@ -62,7 +63,7 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
      * @param key key.
      * @param value value.
      */
-    public void put(K key, V value){
+    public void put(K key, V value) {
         if ((size + 1) > table.length * LOAD) {
             resize();
         }
@@ -112,7 +113,12 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         return get(key) != null;
     }
 
-    public void remove(K key){
+    /**
+     * Remove value by key.
+     *
+     * @param key key.
+     */
+    public void remove(K key) {
         int index = hash(key);
         if (table[index] != null) {
             var iterator = table[index].iterator();
@@ -143,11 +149,17 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof HashTable)) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof HashTable)) {
+            return false;
+        }
 
         HashTable<K, V> other = (HashTable<K, V>) obj;
-        if (this.size != other.size) return false;
+        if (this.size != other.size) {
+            return false;
+        }
 
         for (Map.Entry<K, V> entry : this) {
             K key = entry.getKey();
