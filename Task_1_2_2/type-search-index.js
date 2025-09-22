@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kataeva","l":"HashTable"},{"p":"ru.nsu.kataeva","l":"MyIterator"},{"p":"ru.nsu.kataeva","l":"Pair"}];updateSearchResults();
