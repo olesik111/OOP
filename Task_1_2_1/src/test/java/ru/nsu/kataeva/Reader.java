@@ -1,6 +1,7 @@
 package ru.nsu.kataeva;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -43,8 +44,10 @@ class ReaderTest {
     @Test
     void readNonExistentFileTest() {
         Graph<String> graph = new AdjacencyList<>();
-        GraphFileReader.readFromFile(graph, "nonexistent.txt");
-        assertNotNull(graph);
+        assertThrows(
+                java.io.FileNotFoundException.class,
+                () -> GraphFileReader.readFromFile(graph, "nonexistent.txt")
+        );
     }
 
 }

@@ -14,15 +14,14 @@ public class GraphFileReader {
      * @param graph    the graph to populate
      * @param filename the file to read from
      */
-    public static void readFromFile(Graph<String> graph, String filename) {
+    public static void readFromFile(Graph<String> graph, String filename)
+            throws FileNotFoundException {
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNext()) {
                 String from = scanner.next();
                 String to = scanner.next();
                 graph.addEdge(from, to);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + filename);
         }
     }
 }
