@@ -105,4 +105,28 @@ public class HashTableTest {
         assertTrue(str.startsWith("{"));
         assertTrue(str.endsWith("}"));
     }
+
+    @Test
+    void testEqualsIncompatibleTypes() {
+        HashTable<String, Integer> table1 = new HashTable<>();
+        table1.put("one", 1);
+        table1.put("two", 2);
+
+        HashTable<Double, String> table2 = new HashTable<>();
+        table2.put(1.0, "one");
+        table2.put(2.0, "two");
+
+        assertNotEquals(table1, table2);
+    }
+
+    @Test
+    void testStringIntegerVsStringString() {
+        HashTable<String, Integer> table1 = new HashTable<>();
+        table1.put("a", 1);
+
+        HashTable<String, String> table2 = new HashTable<>();
+        table2.put("a", "1");
+
+        assertNotEquals(table1, table2);
+    }
 }

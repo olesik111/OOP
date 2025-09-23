@@ -142,7 +142,7 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     /**
      * Get table.
      */
-    public LinkedList<Pair<K, V>>[] getTable() {
+    protected LinkedList<Pair<K, V>>[] getTable() {
         return table;
     }
 
@@ -175,6 +175,17 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     }
 
     @Override
+    public int hashCode() {
+        int result = 0;
+        for (Map.Entry<K, V> entry : this) {
+            K key = entry.getKey();
+            V value = entry.getValue();
+            result += Objects.hashCode(key) ^ Objects.hashCode(value);
+        }
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
         for (Map.Entry<K, V> entry : this) {
@@ -187,7 +198,7 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     /**
      * Modification counter.
      */
-    public int getModCount() {
+    protected int getModCount() {
         return modCount;
     }
 
