@@ -100,11 +100,9 @@ class GraphTest {
         Graph<String> copyGraph;
         if (graph instanceof AdjacencyList) {
             copyGraph = new AdjacencyList<>();
-        }
-        else if (graph instanceof AdjacencyMatrix) {
+        } else if (graph instanceof AdjacencyMatrix) {
             copyGraph = new AdjacencyMatrix<>();
-        }
-        else {
+        } else {
             copyGraph = new IncidenceMatrix<>();
         }
 
@@ -114,11 +112,9 @@ class GraphTest {
         Graph<String> differentGraph;
         if (graph instanceof AdjacencyList) {
             differentGraph = new AdjacencyList<>();
-        }
-        else if (graph instanceof AdjacencyMatrix) {
+        } else if (graph instanceof AdjacencyMatrix) {
             differentGraph = new AdjacencyMatrix<>();
-        }
-        else {
+        } else {
             differentGraph = new IncidenceMatrix<>();
         }
         differentGraph.addEdge("1", "2");
@@ -142,6 +138,21 @@ class GraphTest {
         assertTrue(result.contains("3"));
     }
 
+    @ParameterizedTest
+    @ArgumentsSource(GraphProviderNew.class)
+    void testGenericTypes(
+            Graph<String> stringGraph, Graph<Integer> integerGraph) {
+
+        stringGraph.addEdge("1", "2");
+        stringGraph.addEdge("1", "3");
+
+        integerGraph.addEdge(1, 2);
+        integerGraph.addEdge(1, 3);
+
+        assertNotEquals(stringGraph, integerGraph);
+        assertNotEquals(integerGraph, stringGraph);
+    }
+
     static class GraphProvider implements ArgumentsProvider {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
@@ -149,6 +160,17 @@ class GraphTest {
                     Arguments.of(new AdjacencyList<String>()),
                     Arguments.of(new AdjacencyMatrix<String>()),
                     Arguments.of(new IncidenceMatrix<String>())
+            );
+        }
+    }
+
+    static class GraphProviderNew implements ArgumentsProvider {
+        @Override
+        public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
+            return Stream.of(
+                    Arguments.of(new AdjacencyList<String>(), new AdjacencyList<Integer>()),
+                    Arguments.of(new AdjacencyMatrix<String>(), new AdjacencyMatrix<Integer>()),
+                    Arguments.of(new IncidenceMatrix<String>(), new IncidenceMatrix<Integer>())
             );
         }
     }
