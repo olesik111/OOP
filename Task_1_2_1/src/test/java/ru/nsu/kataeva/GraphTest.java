@@ -98,17 +98,29 @@ class GraphTest {
         graph.addEdge("1", "3");
 
         Graph<String> copyGraph;
-        if (graph instanceof AdjacencyList) copyGraph = new AdjacencyList<>();
-        else if (graph instanceof AdjacencyMatrix) copyGraph = new AdjacencyMatrix<>();
-        else copyGraph = new IncidenceMatrix<>();
+        if (graph instanceof AdjacencyList) {
+            copyGraph = new AdjacencyList<>();
+        }
+        else if (graph instanceof AdjacencyMatrix) {
+            copyGraph = new AdjacencyMatrix<>();
+        }
+        else {
+            copyGraph = new IncidenceMatrix<>();
+        }
 
         copyGraph.addEdge("1", "2");
         copyGraph.addEdge("1", "3");
 
         Graph<String> differentGraph;
-        if (graph instanceof AdjacencyList) differentGraph = new AdjacencyList<>();
-        else if (graph instanceof AdjacencyMatrix) differentGraph = new AdjacencyMatrix<>();
-        else differentGraph = new IncidenceMatrix<>();
+        if (graph instanceof AdjacencyList) {
+            differentGraph = new AdjacencyList<>();
+        }
+        else if (graph instanceof AdjacencyMatrix) {
+            differentGraph = new AdjacencyMatrix<>();
+        }
+        else {
+            differentGraph = new IncidenceMatrix<>();
+        }
         differentGraph.addEdge("1", "2");
 
         assertEquals(graph, copyGraph);
