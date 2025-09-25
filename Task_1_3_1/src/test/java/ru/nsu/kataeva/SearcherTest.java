@@ -32,7 +32,7 @@ public class SearcherTest {
     void testSimpleMatch() throws IOException {
         File file = createTempFile("abc abc abc");
         Searcher searcher = new Searcher(file.getAbsolutePath(), "abc");
-        List<Long> matches = searcher.findMatch();
+        final List<Long> matches = searcher.findMatch();
 
         ArrayList<Long> list = new ArrayList<>();
         list.add((long) 0);
@@ -46,7 +46,7 @@ public class SearcherTest {
     void testSimpleMatchRus() throws IOException {
         File file = createTempFile("бла бле бло");
         Searcher searcher = new Searcher(file.getAbsolutePath(), "бл");
-        List<Long> matches = searcher.findMatch();
+        final List<Long> matches = searcher.findMatch();
 
         ArrayList<Long> list = new ArrayList<>();
         list.add((long) 0);
@@ -67,7 +67,8 @@ public class SearcherTest {
 
     @Test
     void testBoundary() throws IOException {
-        String sb = "a".repeat(4095) +
+        String sb = "a".repeat(4095)
+                +
                 "abc";
         File file = createTempFile(sb);
 
