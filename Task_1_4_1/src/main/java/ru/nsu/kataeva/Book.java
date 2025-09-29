@@ -90,7 +90,7 @@ public class Book {
         }
 
         for (Grade grade : grades) {
-            if (grade.getType() == GradeType.DIPLOM && grade.getValue() != 5){
+            if (grade.getType() == GradeType.DIPLOM && grade.getValue() != 5) {
                 return false;
             }
 
@@ -106,7 +106,7 @@ public class Book {
                 }
             }
         }
-        return 0.75 <= res/cnt;
+        return 0.75 <= res / cnt;
     }
 
     /**
@@ -128,8 +128,8 @@ public class Book {
         }
 
         for (Grade grade : grades) {
-                if (grade.getValue() != 5){
-                    return false;
+            if (grade.getValue() != 5) {
+                return false;
             }
         }
         return true;
