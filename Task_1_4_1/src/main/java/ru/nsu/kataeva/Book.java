@@ -112,7 +112,7 @@ public class Book {
     /**
      * Check if you can get big stipendia.
      */
-    public boolean bigStipendia(){
+    public boolean bigStipendia() {
         if (isPaidEducation) {
             return false;
         }
