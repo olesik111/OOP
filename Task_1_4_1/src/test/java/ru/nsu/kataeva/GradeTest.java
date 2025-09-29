@@ -3,6 +3,9 @@ package ru.nsu.kataeva;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Grade test.
+ */
 public class GradeTest {
 
     @Test
