@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"ru.nsu.kataeva","c":"Searcher","l":"findMatch()"},{"p":"ru.nsu.kataeva","c":"Searcher","l":"Searcher(String, String)","u":"%3Cinit%3E(java.lang.String,java.lang.String)"}];updateSearchResults();
+memberSearchIndex = [{"p":"ru.nsu.kataeva","c":"Searcher","l":"findMatch(Reader, String)","u":"findMatch(java.io.Reader,java.lang.String)"},{"p":"ru.nsu.kataeva","c":"Searcher","l":"findMatch(String, String)","u":"findMatch(java.lang.String,java.lang.String)"}];updateSearchResults();
