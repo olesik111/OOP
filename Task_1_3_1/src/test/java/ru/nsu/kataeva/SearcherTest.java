@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +27,19 @@ public class SearcherTest {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(content);
         }
+        file.deleteOnExit();
         return file;
     }
 
     @Test
     void testSimpleMatch() throws IOException {
         File file = createTempFile("abc abc abc");
-        Searcher searcher = new Searcher(file.getAbsolutePath(), "abc");
-        final List<Long> matches = searcher.findMatch();
+        final List<Long> matches = Searcher.findMatch(file.getAbsolutePath(), "abc");
 
         ArrayList<Long> list = new ArrayList<>();
-        list.add((long) 0);
-        list.add((long) 4);
-        list.add((long) 8);
+        list.add(0L);
+        list.add(4L);
+        list.add(8L);
 
         assertEquals(list, matches);
     }
@@ -45,13 +47,12 @@ public class SearcherTest {
     @Test
     void testSimpleMatchRus() throws IOException {
         File file = createTempFile("бла бле бло");
-        Searcher searcher = new Searcher(file.getAbsolutePath(), "бл");
-        final List<Long> matches = searcher.findMatch();
+        final List<Long> matches = Searcher.findMatch(file.getAbsolutePath(), "бл");
 
         ArrayList<Long> list = new ArrayList<>();
-        list.add((long) 0);
-        list.add((long) 4);
-        list.add((long) 8);
+        list.add(0L);
+        list.add(4L);
+        list.add(8L);
 
         assertEquals(list, matches);
     }
@@ -59,8 +60,7 @@ public class SearcherTest {
     @Test
     void testNoMatch() throws IOException {
         File file = createTempFile("abcdefgh");
-        Searcher searcher = new Searcher(file.getAbsolutePath(), "z");
-        List<Long> matches = searcher.findMatch();
+        final List<Long> matches = Searcher.findMatch(file.getAbsolutePath(), "ac");
 
         assertEquals(List.of(), matches);
     }
@@ -72,11 +72,10 @@ public class SearcherTest {
                 "abc";
         File file = createTempFile(sb);
 
-        Searcher searcher = new Searcher(file.getAbsolutePath(), "abc");
-        List<Long> matches = searcher.findMatch();
+        final List<Long> matches = Searcher.findMatch(file.getAbsolutePath(), "abc");
 
         ArrayList<Long> list = new ArrayList<>();
-        list.add((long) 4095);
+        list.add(4095L);
 
         assertEquals(list, matches);
     }
@@ -92,13 +91,28 @@ public class SearcherTest {
 
         File file = createTempFile(sb.toString());
 
-        Searcher searcher = new Searcher(file.getAbsolutePath(), "xy");
-        List<Long> matches = searcher.findMatch();
+        final List<Long> matches = Searcher.findMatch(file.getAbsolutePath(), "xy");
 
         assertEquals(100, matches.size());
 
         assertEquals(100000, matches.get(0));
         assertEquals((100 * 100_000) + (99 * 2), matches.get(99));
     }
+
+    @Test
+    void testFromStringReader() throws IOException {
+        String input = "hello world, hello!";
+        try (Reader reader = new StringReader(input)) {
+            final List<Long> matches = Searcher.findMatch(reader, "hello");
+            ArrayList<Long> list = new ArrayList<>();
+            list.add(0L);
+            list.add(13L);
+
+            assertEquals(list, matches);
+        }
+
+
+    }
+
 
 }
