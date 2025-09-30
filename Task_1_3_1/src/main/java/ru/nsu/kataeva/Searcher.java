@@ -20,19 +20,20 @@ public class Searcher {
     }
 
     /**
-     Method to find matches in a file.
-
-     @param file file to check
-     @param pattern pattern to find
-     @return the list of indices
-     @throws IllegalArgumentException if an error occurs
+     *Method to find matches in a file.
+     *
+     * @param file file to check
+     * @param pattern pattern to find
+     * @return the list of indices
+     * @throws IllegalArgumentException if an error occurs
      */
     public static List<Long> findMatch(String file, String pattern) {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             return findMatch(reader, pattern);
         } catch (IOException e) {
-            throw new IllegalArgumentException("Please, check your file or path again." +
+            throw new IllegalArgumentException("Please, check your file or path again."
+                    +
                     "Error while reading file: " + file, e);
         }
     }
