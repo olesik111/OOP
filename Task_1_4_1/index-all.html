@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/nsu/kataeva/Book.html#addGrade(ru.nsu.kataeva.Grade)" class="member-name-link">addGrade(Grade)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Book.html" title="class in ru.nsu.kataeva">Book</a></dt>
@@ -79,6 +79,13 @@ loadScripts(document, 'script');</script>
 <div class="block">If you can study for free.</div>
 </dd>
 </dl>
+<h2 class="title" id="I:C">C</h2>
+<dl class="index">
+<dt><a href="ru/nsu/kataeva/Grade.html#countsForRedDiplom()" class="member-name-link">countsForRedDiplom()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Grade.html" title="class in ru.nsu.kataeva">Grade</a></dt>
+<dd>
+<div class="block">If not pass in the final semester than it goes for diplom.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
 <dt><a href="ru/nsu/kataeva/GradeType.html#DIFF_PASS" class="member-name-link">DIFF_PASS</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/GradeType.html" title="enum class in ru.nsu.kataeva">GradeType</a></dt>
@@ -104,9 +111,21 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
+<dt><a href="ru/nsu/kataeva/Subject.html#getFinalGradeType()" class="member-name-link">getFinalGradeType()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Subject.html" title="class in ru.nsu.kataeva">Subject</a></dt>
+<dd>
+<div class="block">Get the final type of passing.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Subject.html#getFinalSemester()" class="member-name-link">getFinalSemester()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Subject.html" title="class in ru.nsu.kataeva">Subject</a></dt>
+<dd>
+<div class="block">Get the final semester of subject.</div>
+</dd>
 <dt><a href="ru/nsu/kataeva/Grade.html#getMark()" class="member-name-link">getMark()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Grade.html" title="class in ru.nsu.kataeva">Grade</a></dt>
 <dd>
 <div class="block">Get value.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Subject.html#getName()" class="member-name-link">getName()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Subject.html" title="class in ru.nsu.kataeva">Subject</a></dt>
+<dd>
+<div class="block">Get name.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/Grade.html#getSemester()" class="member-name-link">getSemester()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Grade.html" title="class in ru.nsu.kataeva">Grade</a></dt>
 <dd>
@@ -130,13 +149,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Grade class realization.</div>
 </dd>
-<dt><a href="ru/nsu/kataeva/Grade.html#%3Cinit%3E(java.lang.String,ru.nsu.kataeva.GradeType,int,ru.nsu.kataeva.Mark)" class="member-name-link">Grade(String, GradeType, int, Mark)</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Grade.html" title="class in ru.nsu.kataeva">Grade</a></dt>
+<dt><a href="ru/nsu/kataeva/Grade.html#%3Cinit%3E(ru.nsu.kataeva.Subject,ru.nsu.kataeva.GradeType,int,ru.nsu.kataeva.Mark)" class="member-name-link">Grade(Subject, GradeType, int, Mark)</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Grade.html" title="class in ru.nsu.kataeva">Grade</a></dt>
 <dd>
 <div class="block">Constructor.</div>
 </dd>
 <dt><a href="ru/nsu/kataeva/GradeType.html" class="type-name-link" title="enum class in ru.nsu.kataeva">GradeType</a> - Enum Class in <a href="ru/nsu/kataeva/package-summary.html">ru.nsu.kataeva</a></dt>
 <dd>
 <div class="block">Types of grades.</div>
+</dd>
+</dl>
+<h2 class="title" id="I:I">I</h2>
+<dl class="index">
+<dt><a href="ru/nsu/kataeva/Grade.html#isFinal()" class="member-name-link">isFinal()</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Grade.html" title="class in ru.nsu.kataeva">Grade</a></dt>
+<dd>
+<div class="block">If the mark is final.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
@@ -164,6 +190,18 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="ru/nsu/kataeva/Mark.html#SATISFACTORY" class="member-name-link">SATISFACTORY</a> - Enum constant in enum class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Mark.html" title="enum class in ru.nsu.kataeva">Mark</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/kataeva/Book.html#setPaidEducation(boolean)" class="member-name-link">setPaidEducation(boolean)</a> - Method in class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Book.html" title="class in ru.nsu.kataeva">Book</a></dt>
+<dd>
+<div class="block">Setter for isPaidEducation.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Subject.html" class="type-name-link" title="class in ru.nsu.kataeva">Subject</a> - Class in <a href="ru/nsu/kataeva/package-summary.html">ru.nsu.kataeva</a></dt>
+<dd>
+<div class="block">Represents a subject with its final semester.</div>
+</dd>
+<dt><a href="ru/nsu/kataeva/Subject.html#%3Cinit%3E(java.lang.String,int,ru.nsu.kataeva.GradeType)" class="member-name-link">Subject(String, int, GradeType)</a> - Constructor for class ru.nsu.kataeva.<a href="ru/nsu/kataeva/Subject.html" title="class in ru.nsu.kataeva">Subject</a></dt>
+<dd>
+<div class="block">Constructor.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
@@ -186,7 +224,7 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>

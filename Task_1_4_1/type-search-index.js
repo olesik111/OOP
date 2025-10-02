@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kataeva","l":"Book"},{"p":"ru.nsu.kataeva","l":"Grade"},{"p":"ru.nsu.kataeva","l":"GradeType"},{"p":"ru.nsu.kataeva","l":"Mark"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kataeva","l":"Book"},{"p":"ru.nsu.kataeva","l":"Grade"},{"p":"ru.nsu.kataeva","l":"GradeType"},{"p":"ru.nsu.kataeva","l":"Mark"},{"p":"ru.nsu.kataeva","l":"Subject"}];updateSearchResults();
