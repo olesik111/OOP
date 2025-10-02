@@ -7,8 +7,7 @@ public class Grade {
     private final String subject;
     private final GradeType type;
     private final int semester;
-    private final int value;
-
+    private final Mark mark;
 
     /**
      * Constructor.
@@ -16,10 +15,13 @@ public class Grade {
      * @param subject subject.
      * @param type type.
      * @param semester semester.
-     * @param value value.
+     * @param mark mark.
      */
-    public Grade(String subject, GradeType type, int semester, int value) {
-        this.value = value;
+    public Grade(String subject, GradeType type, int semester, Mark mark) {
+        if (semester < 1) {
+            throw new IllegalArgumentException("Semester must be >= 1, but was: " + semester);
+        }
+        this.mark = mark;
         this.semester = semester;
         this.subject = subject;
         this.type = type;
@@ -49,7 +51,11 @@ public class Grade {
     /**
      * Get value.
      */
+    public Mark getMark() {
+        return mark;
+    }
+
     public int getValue() {
-        return value;
+        return mark.getValue();
     }
 }

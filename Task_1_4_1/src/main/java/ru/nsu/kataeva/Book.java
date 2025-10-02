@@ -1,137 +1,112 @@
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Grade book realization.
  */
 public class Book {
     private final List<Grade> grades = new ArrayList<>();
-    private final boolean isPaidEducation;
+    private boolean isPaidEducation;
+    private final String firstName;
+    private final String lastName;
 
-    /**
-     * Constructor.
-     *
-     * @param isPaidEducation is education paid.
-     */
-    public Book(boolean isPaidEducation) {
+    public Book(boolean isPaidEducation, String firstName, String lastName) {
         this.isPaidEducation = isPaidEducation;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    /**
-     * Add grade.
-     *
-     * @param grade grade to add.
-     */
     public void addGrade(Grade grade) {
         grades.add(grade);
     }
 
-    /**
-     * The average score of grade book.
-     */
     public double averageScore() {
-        double res = 0.0;
-        int cnt = 0;
-        for (Grade grade : grades) {
-            if ((!(grade.getType() == GradeType.PASS))) {
-                res += grade.getValue();
-                cnt++;
-            }
-        }
-        if (cnt == 0) {
-            return 0;
-        }
-        return res / cnt;
+        return grades.stream()
+                .filter(g -> g.getType() != GradeType.PASS)
+                .mapToInt(g -> g.getMark().getValue())
+                .average()
+                .orElse(0.0);
     }
 
-    /**
-     * Check for possibility to transfer to budget.
-     */
     public boolean budget() {
-        if (!isPaidEducation) {
-            return false;
-        }
-        if (grades.isEmpty()) {
+        if (!isPaidEducation || grades.isEmpty()) {
             return false;
         }
 
-        int maxSemester = 0;
-        for (Grade g : grades) {
-            if (g.getSemester() > maxSemester) {
-                maxSemester = g.getSemester();
-            }
-        }
+        int maxSemester = grades.stream()
+                .mapToInt(Grade::getSemester)
+                .max()
+                .orElse(0);
         int prevSem = maxSemester - 1;
 
-        for (Grade grade : grades) {
-            if (grade.getSemester() == maxSemester || grade.getSemester() == prevSem) {
-                if (grade.getType() == GradeType.EXAM && grade.getValue() < 4) {
-                    return false;
-                }
-                if (grade.getValue() == 2) {
-                    return false;
-                }
-            }
+        boolean possible = grades.stream()
+                .filter(g -> g.getSemester() == maxSemester || g.getSemester() == prevSem)
+                .noneMatch(g ->
+                        (g.getType() == GradeType.EXAM && g.getMark().getValue() < Mark.GOOD.getValue())
+                                || g.getMark() == Mark.FAIL);
+
+        if (possible) {
+            this.isPaidEducation = false;
         }
-        return true;
+        return possible;
     }
 
-    /**
-     * Check if you can get a red diploma.
-     */
     public boolean redDiplom() {
-        double res = 0.0;
-        int cnt = 0;
-
         if (grades.isEmpty()) {
             return false;
         }
 
-        for (Grade grade : grades) {
-            if (grade.getType() == GradeType.DIPLOM && grade.getValue() != 5) {
-                return false;
+        Map<String, Grade> finalGrades = new HashMap<>();
+        grades.forEach(grade -> {
+            Grade current = finalGrades.get(grade.getSubject());
+            if (current == null || grade.getSemester() > current.getSemester()) {
+                finalGrades.put(grade.getSubject(), grade);
             }
+        });
 
-            cnt++;
-
-            if (grade.getValue() < 4) {
-                return false;
-            }
-
-            if ((!(grade.getType() == GradeType.PASS))) {
-                if (grade.getValue() == 5) {
-                    res++;
-                }
-            }
+        if (finalGrades.values().stream()
+                .anyMatch(g -> g.getType() == GradeType.DIPLOM && g.getMark() != Mark.EXCELLENT)) {
+            return false;
         }
-        return 0.75 <= res / cnt;
+
+        if (finalGrades.values().stream()
+                .filter(g -> g.getType() != GradeType.PASS)
+                .anyMatch(g -> g.getMark().getValue() < Mark.GOOD.getValue())) {
+            return false;
+        }
+
+        long total = finalGrades.values().stream()
+                .filter(g -> g.getType() != GradeType.PASS)
+                .count();
+
+        if (total == 0) {
+            return false;
+        }
+
+        long excellent = finalGrades.values().stream()
+                .filter(g -> g.getType() != GradeType.PASS)
+                .filter(g -> g.getMark() == Mark.EXCELLENT)
+                .count();
+
+        return (double) excellent / total >= 0.75;
     }
 
-    /**
-     * Check if you can get big stipendia.
-     */
     public boolean bigStipendia() {
-        if (isPaidEducation) {
-            return false;
-        }
-        if (grades.isEmpty()) {
+        if (isPaidEducation || grades.isEmpty()) {
             return false;
         }
 
-        int maxSemester = 0;
-        for (Grade g : grades) {
-            if (g.getSemester() > maxSemester) {
-                maxSemester = g.getSemester();
-            }
-        }
+        int maxSemester = grades.stream()
+                .mapToInt(Grade::getSemester)
+                .max()
+                .orElse(0);
 
-        for (Grade grade : grades) {
-            if (grade.getValue() != 5) {
-                return false;
-            }
-        }
-        return true;
+        return grades.stream()
+                .filter(g -> g.getSemester() == maxSemester)
+                .allMatch(g -> g.getMark() == Mark.EXCELLENT);
     }
 }
