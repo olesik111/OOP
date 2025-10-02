@@ -13,11 +13,13 @@ public class Book {
     private boolean isPaidEducation;
     private final String firstName;
     private final String lastName;
+    private final int group;
 
-    public Book(boolean isPaidEducation, String firstName, String lastName) {
+    public Book(boolean isPaidEducation, String firstName, String lastName, int group) {
         this.isPaidEducation = isPaidEducation;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.group = group;
     }
 
     public void addGrade(Grade grade) {
