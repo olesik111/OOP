@@ -16,7 +16,7 @@ public class Book {
     private final int group;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param isPaidEducation is education paid.
      * @param firstName       name.
@@ -67,7 +67,8 @@ public class Book {
         boolean possible = grades.stream()
                 .filter(g -> g.getSemester() == maxSemester || g.getSemester() == prevSem)
                 .noneMatch(g ->
-                        (g.getType() == GradeType.EXAM && g.getMark().getValue() < Mark.GOOD.getValue())
+                        (g.getType() == GradeType.EXAM
+                                && g.getMark().getValue() < Mark.GOOD.getValue())
                                 || g.getMark() == Mark.FAIL);
 
         if (possible) {
