@@ -30,6 +30,8 @@ public enum Mark {
                 return mark;
             }
         }
-        throw new IllegalArgumentException("Invalid mark value: " + value + ". Allowed values: 2-5");
+        throw new IllegalArgumentException("Invalid mark value: "
+                + value
+                + ". Allowed values: 2-5");
     }
 }

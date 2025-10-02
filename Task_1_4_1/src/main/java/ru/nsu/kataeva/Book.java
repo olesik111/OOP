@@ -15,6 +15,14 @@ public class Book {
     private final String lastName;
     private final int group;
 
+    /**
+     * Constructor
+     *
+     * @param isPaidEducation is education paid.
+     * @param firstName       name.
+     * @param lastName        surname.
+     * @param group           group.
+     */
     public Book(boolean isPaidEducation, String firstName, String lastName, int group) {
         this.isPaidEducation = isPaidEducation;
         this.firstName = firstName;
@@ -22,10 +30,18 @@ public class Book {
         this.group = group;
     }
 
+    /**
+     * Add grade to the book.
+     *
+     * @param grade grade to add.
+     */
     public void addGrade(Grade grade) {
         grades.add(grade);
     }
 
+    /**
+     * Average score of book.
+     */
     public double averageScore() {
         return grades.stream()
                 .filter(g -> g.getType() != GradeType.PASS)
@@ -34,6 +50,9 @@ public class Book {
                 .orElse(0.0);
     }
 
+    /**
+     * If you can study for free.
+     */
     public boolean budget() {
         if (!isPaidEducation || grades.isEmpty()) {
             return false;
@@ -57,6 +76,9 @@ public class Book {
         return possible;
     }
 
+    /**
+     * If you have a possibility to get a red diploma now.
+     */
     public boolean redDiplom() {
         if (grades.isEmpty()) {
             return false;
@@ -97,6 +119,9 @@ public class Book {
         return (double) excellent / total >= 0.75;
     }
 
+    /**
+     * If you can get a bigger stipendia.
+     */
     public boolean bigStipendia() {
         if (isPaidEducation || grades.isEmpty()) {
             return false;
