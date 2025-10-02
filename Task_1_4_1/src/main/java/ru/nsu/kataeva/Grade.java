@@ -4,7 +4,7 @@ package ru.nsu.kataeva;
  * Grade class realization.
  */
 public class Grade {
-    private final String subject;
+    private final Subject subject;
     private final GradeType type;
     private final int semester;
     private final Mark mark;
@@ -17,7 +17,7 @@ public class Grade {
      * @param semester semester.
      * @param mark mark.
      */
-    public Grade(String subject, GradeType type, int semester, Mark mark) {
+    public Grade(Subject subject, GradeType type, int semester, Mark mark) {
         if (semester < 1) {
             throw new IllegalArgumentException("Semester must be >= 1, but was: " + semester);
         }
@@ -30,7 +30,7 @@ public class Grade {
     /**
      * Get subject.
      */
-    public String getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
@@ -57,5 +57,19 @@ public class Grade {
 
     public int getValue() {
         return mark.getValue();
+    }
+
+    /**
+     * If the mark is final.
+     */
+    public boolean isFinal() {
+        return semester == subject.getFinalSemester();
+    }
+
+    /**
+     * If not pass in the final semester than it goes for diplom.
+     */
+    public boolean countsForRedDiplom() {
+        return subject.getFinalGradeType() != GradeType.PASS;
     }
 }

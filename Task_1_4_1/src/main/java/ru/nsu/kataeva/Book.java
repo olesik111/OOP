@@ -1,9 +1,9 @@
 package ru.nsu.kataeva;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Grade book realization.
@@ -40,6 +40,13 @@ public class Book {
     }
 
     /**
+     * Setter for isPaidEducation.
+     */
+    public void setPaidEducation(boolean isPaidEducation) {
+        this.isPaidEducation = isPaidEducation;
+    }
+
+    /**
      * Average score of book.
      */
     public double averageScore() {
@@ -72,7 +79,7 @@ public class Book {
                                 || g.getMark() == Mark.FAIL);
 
         if (possible) {
-            this.isPaidEducation = false;
+            setPaidEducation(false);
         }
         return possible;
     }
@@ -85,40 +92,59 @@ public class Book {
             return false;
         }
 
-        Map<String, Grade> finalGrades = new HashMap<>();
-        grades.forEach(grade -> {
-            Grade current = finalGrades.get(grade.getSubject());
-            if (current == null || grade.getSemester() > current.getSemester()) {
-                finalGrades.put(grade.getSubject(), grade);
-            }
-        });
+        Map<Subject, Grade> finalGrades = grades.stream()
+                .filter(Grade::isFinal)
+                .collect(Collectors.toMap(
+                        Grade::getSubject,
+                        grade -> grade,
+                        (existing, replacement) -> replacement
+                ));
 
-        if (finalGrades.values().stream()
-                .anyMatch(g -> g.getType() == GradeType.DIPLOM && g.getMark() != Mark.EXCELLENT)) {
+        boolean allPassesOk = grades.stream()
+                .filter(Grade::isFinal)
+                .filter(g -> g.getSubject().getFinalGradeType() == GradeType.PASS)
+                .allMatch(g -> g.getMark() != Mark.FAIL);
+        if (!allPassesOk) {
             return false;
         }
 
-        if (finalGrades.values().stream()
-                .filter(g -> g.getType() != GradeType.PASS)
-                .anyMatch(g -> g.getMark().getValue() < Mark.GOOD.getValue())) {
+        boolean badDiplom = finalGrades.values().stream()
+                .anyMatch(g -> g.getType() == GradeType.DIPLOM && g.getMark() != Mark.EXCELLENT);
+        if (badDiplom) {
             return false;
         }
 
-        long total = finalGrades.values().stream()
-                .filter(g -> g.getType() != GradeType.PASS)
-                .count();
-
-        if (total == 0) {
+        boolean hasSatisfactory = finalGrades.values().stream()
+                .filter(g -> g.getType() == GradeType.EXAM || g.getType() == GradeType.DIFF_PASS)
+                .anyMatch(g -> g.getMark() == Mark.SATISFACTORY);
+        if (hasSatisfactory) {
             return false;
         }
 
-        long excellent = finalGrades.values().stream()
-                .filter(g -> g.getType() != GradeType.PASS)
+        long currentExcellent = finalGrades.values().stream()
+                .filter(Grade::countsForRedDiplom)
                 .filter(g -> g.getMark() == Mark.EXCELLENT)
                 .count();
 
-        return (double) excellent / total >= 0.75;
+        long remainingFinals = grades.stream()
+                .map(Grade::getSubject)
+                .filter(s -> s.getFinalGradeType() != GradeType.PASS)
+                .filter(s -> !finalGrades.containsKey(s))
+                .distinct()
+                .count();
+
+        long potentialExcellent = currentExcellent + remainingFinals;
+
+        long totalFinals = grades.stream()
+                .map(Grade::getSubject)
+                .filter(s -> s.getFinalGradeType() != GradeType.PASS)
+                .distinct()
+                .count();
+
+        return (double) potentialExcellent / totalFinals >= 0.75;
     }
+
+
 
     /**
      * If you can get a bigger stipendia.

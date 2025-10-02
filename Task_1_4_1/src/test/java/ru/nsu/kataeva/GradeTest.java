@@ -11,8 +11,11 @@ public class GradeTest {
 
     @Test
     public void testExamGrade() {
-        Grade g = new Grade("Math", GradeType.EXAM, 1, Mark.EXCELLENT);
-        assertEquals("Math", g.getSubject());
+        Subject subj = new Subject("Math", 1, GradeType.EXAM);
+        Grade g = new Grade(subj, GradeType.EXAM, 1, Mark.EXCELLENT);
+
+        assertEquals(subj, g.getSubject());
+        assertEquals("Math", g.getSubject().getName());
         assertEquals(GradeType.EXAM, g.getType());
         assertEquals(1, g.getSemester());
         assertEquals(5, g.getValue());
