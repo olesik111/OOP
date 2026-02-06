@@ -26,7 +26,7 @@ public class Threads {
 
             threads[i] = new Thread(() -> {
                 for (int j = start; j < end && !found.get(); j++) {
-                    if (notPrime(numbers[j])) {
+                    if (!Prime.isPrime(numbers[j])) {
                         found.set(true);
                         break;
                     }
@@ -39,23 +39,5 @@ public class Threads {
             t.join();
         }
         return found.get();
-    }
-
-    /**
-     * Checking isf certain number is prime.
-     *
-     * @param number - to check.
-     * @return - prime or not.
-     */
-    private static boolean notPrime(long number) {
-        if (number == 1) {
-            return true;
-        }
-        for (long i = 2; i * i <= number; i++) {
-            if (number % i == 0) {
-                return true;
-            }
-        }
-        return false;
     }
 }
