@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kataeva","l":"Sequence"},{"p":"ru.nsu.kataeva","l":"Streams"},{"p":"ru.nsu.kataeva","l":"Threads"}];updateSearchResults();
