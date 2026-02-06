@@ -35,7 +35,9 @@ public class Threads {
             threads[i].start();
         }
 
-        for (Thread t : threads) t.join();
+        for (Thread t : threads) {
+            t.join();
+        }
         return found.get();
     }
 
