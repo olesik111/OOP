@@ -1,5 +1,8 @@
 package ru.nsu.kataeva;
 
+/**
+ * Class with a function of checking if prime.
+ */
 public class Prime {
 
     /**
