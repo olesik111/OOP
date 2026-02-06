@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Tests {
+public class BigTest {
     private final long[] primes = {
             10000019L, 10000079L, 10000103L, 10000139L, 10000141L,
             10000169L, 10000189L, 10000223L, 10000229L, 10000247L,
