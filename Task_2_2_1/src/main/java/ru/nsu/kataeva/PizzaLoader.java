@@ -28,7 +28,7 @@ public class PizzaLoader {
             while (scanner.hasNext()) {
                 String line = scanner.next();
 
-                if (scanner.hasNextInt()){
+                if (scanner.hasNextInt()) {
                     int value = scanner.nextInt();
 
                     switch (line) {
@@ -47,6 +47,9 @@ public class PizzaLoader {
                         case "pizzaDuration": {
                             loader.pizzaDuration = value;
                             break;
+                        }
+                        default: {
+                            System.out.println("Invalid input");
                         }
                     }
                 }
