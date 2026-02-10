@@ -32,10 +32,22 @@ public class PizzaLoader {
                     int value = scanner.nextInt();
 
                     switch (line) {
-                        case "bakersCount": loader.bakersCount = value; break;
-                        case "couriersCount": loader.couriersCount = value; break;
-                        case "warehouseCapacity": loader.warehouseCapacity = value; break;
-                        case "pizzaDuration": loader.pizzaDuration = value; break;
+                        case "bakersCount": {
+                            loader.bakersCount = value;
+                            break;
+                        }
+                        case "couriersCount": {
+                            loader.couriersCount = value;
+                            break;
+                        }
+                        case "warehouseCapacity": {
+                            loader.warehouseCapacity = value;
+                            break;
+                        }
+                        case "pizzaDuration": {
+                            loader.pizzaDuration = value;
+                            break;
+                        }
                     }
                 }
             }

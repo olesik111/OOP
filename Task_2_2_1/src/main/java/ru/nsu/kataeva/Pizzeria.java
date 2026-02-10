@@ -9,6 +9,7 @@ import java.util.List;
 public class Pizzeria {
     /**
      * Main class.
+     *
      * @param args args.
      */
     public static void main(String[] args) {
