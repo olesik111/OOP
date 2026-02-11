@@ -50,7 +50,6 @@ public class OrderQueue<T> {
         notifyAll();
         return t;
     }
-
     /**
      * Take as much as can.
      *
