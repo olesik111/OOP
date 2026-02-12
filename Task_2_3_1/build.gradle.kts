@@ -12,12 +12,6 @@ repositories {
     mavenCentral()
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(18)
-    }
-}
-
 application {
     mainClass.set("ru.nsu.kataeva.HelloApplication")
 }
