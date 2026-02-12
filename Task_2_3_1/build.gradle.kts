@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("application")
     id("org.openjfx.javafxplugin") version "0.0.13"
+    id("jacoco")
 }
 
 group = "ru.nsu.kataeva"
