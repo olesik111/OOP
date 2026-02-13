@@ -2,6 +2,8 @@ package ru.nsu.kataeva;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.StringReader;
 import org.junit.jupiter.api.Test;
@@ -39,13 +41,14 @@ class PizzaLoaderTest {
         assertEquals(3, loader.couriers.get(0).backpackCapacity);
     }
 
+
     @Test
-    void testLoadEmpty() {
-        String emptyJson = "{}";
-        PizzaLoader loader = PizzaLoader.load(new StringReader(emptyJson));
-        assertNotNull(loader);
-        assertEquals(0, loader.warehouseCapacity);
-        assertEquals(null, loader.bakers);
-        assertEquals(null, loader.couriers);
+    void testLoadInvalid() {
+        String invalidJson = "{ \"warehouseCapacity\": 20, \"bakers\": [ ";
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> PizzaLoader.load(new StringReader(invalidJson))
+        );
+        assertTrue(thrown.getMessage().contains("Problem with config"));
     }
 }
