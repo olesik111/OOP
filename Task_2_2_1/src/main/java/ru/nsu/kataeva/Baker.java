@@ -41,7 +41,7 @@ public class Baker extends Thread {
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        }finally {
+        } finally {
             System.out.println(getName() + " went away");
         }
     }

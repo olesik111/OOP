@@ -13,16 +13,16 @@ class PizzaLoaderTest {
 
     @Test
     void testLoad() {
-        String json = "{\n" +
-                "  \"warehouseCapacity\": 20,\n" +
-                "  \"bakers\": [\n" +
-                "    {\"id\": 1, \"speed\": 500},\n" +
-                "    {\"id\": 2, \"speed\": 600}\n" +
-                "  ],\n" +
-                "  \"couriers\": [\n" +
-                "    {\"id\": 1, \"backpackCapacity\": 3}\n" +
-                "  ]\n" +
-                "}";
+        String json = "{\n"
+                + "  \"warehouseCapacity\": 20,\n"
+                + "  \"bakers\": [\n"
+                + "    {\"id\": 1, \"speed\": 500},\n"
+                + "    {\"id\": 2, \"speed\": 600}\n"
+                + "  ],\n"
+                + "  \"couriers\": [\n"
+                + "    {\"id\": 1, \"backpackCapacity\": 3}\n"
+                + "  ]\n"
+                + "}";
 
         PizzaLoader loader = PizzaLoader.load(new StringReader(json));
 
