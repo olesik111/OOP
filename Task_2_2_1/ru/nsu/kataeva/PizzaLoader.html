@@ -42,7 +42,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
@@ -80,6 +80,28 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li>
+<section class="nested-class-summary" id="nested-class-summary">
+<h2>Nested Class Summary</h2>
+<div class="caption"><span>Nested Classes</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="PizzaLoader.BakerConfig.html" class="type-name-link" title="class in ru.nsu.kataeva">PizzaLoader.BakerConfig</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Baker from json.</div>
+</div>
+<div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="PizzaLoader.CourierConfig.html" class="type-name-link" title="class in ru.nsu.kataeva">PizzaLoader.CourierConfig</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Courier from json.</div>
+</div>
+</div>
+</section>
+</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li>
 <section class="field-summary" id="field-summary">
@@ -89,18 +111,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>int</code></div>
-<div class="col-second even-row-color"><code><a href="#bakersCount" class="member-name-link">bakersCount</a></code></div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PizzaLoader.BakerConfig.html" title="class in ru.nsu.kataeva">PizzaLoader.BakerConfig</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#bakers" class="member-name-link">bakers</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>int</code></div>
-<div class="col-second odd-row-color"><code><a href="#couriersCount" class="member-name-link">couriersCount</a></code></div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PizzaLoader.CourierConfig.html" title="class in ru.nsu.kataeva">PizzaLoader.CourierConfig</a>&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="#couriers" class="member-name-link">couriers</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>int</code></div>
-<div class="col-second even-row-color"><code><a href="#pizzaDuration" class="member-name-link">pizzaDuration</a></code></div>
+<div class="col-second even-row-color"><code><a href="#warehouseCapacity" class="member-name-link">warehouseCapacity</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>int</code></div>
-<div class="col-second odd-row-color"><code><a href="#warehouseCapacity" class="member-name-link">warehouseCapacity</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -129,7 +148,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="PizzaLoader.html" title="class in ru.nsu.kataeva">PizzaLoader</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#load(java.lang.String)" class="member-name-link">load</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#load(java.io.Reader)" class="member-name-link">load</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">To construct pizzeria.</div>
 </div>
@@ -151,27 +170,21 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="bakersCount">
-<h3>bakersCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">bakersCount</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="couriersCount">
-<h3>couriersCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">couriersCount</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="warehouseCapacity">
 <h3>warehouseCapacity</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">warehouseCapacity</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="pizzaDuration">
-<h3>pizzaDuration</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">pizzaDuration</span></div>
+<section class="detail" id="bakers">
+<h3>bakers</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PizzaLoader.BakerConfig.html" title="class in ru.nsu.kataeva">PizzaLoader.BakerConfig</a>&gt;</span>&nbsp;<span class="element-name">bakers</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="couriers">
+<h3>couriers</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PizzaLoader.CourierConfig.html" title="class in ru.nsu.kataeva">PizzaLoader.CourierConfig</a>&gt;</span>&nbsp;<span class="element-name">couriers</span></div>
 </section>
 </li>
 </ul>
@@ -197,13 +210,13 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="load(java.lang.String)">
+<section class="detail" id="load(java.io.Reader)">
 <h3>load</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PizzaLoader.html" title="class in ru.nsu.kataeva">PizzaLoader</a></span>&nbsp;<span class="element-name">load</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PizzaLoader.html" title="class in ru.nsu.kataeva">PizzaLoader</a></span>&nbsp;<span class="element-name">load</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</span></div>
 <div class="block">To construct pizzeria.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>filename</code> - to read config.</dd>
+<dd><code>reader</code> - to read config.</dd>
 <dt>Returns:</dt>
 <dd>the pizzeria.</dd>
 </dl>
