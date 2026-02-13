@@ -38,4 +38,14 @@ class PizzaLoaderTest {
         assertEquals(1, loader.couriers.get(0).id);
         assertEquals(3, loader.couriers.get(0).backpackCapacity);
     }
+
+    @Test
+    void testLoadEmpty() {
+        String emptyJson = "{}";
+        PizzaLoader loader = PizzaLoader.load(new StringReader(emptyJson));
+        assertNotNull(loader);
+        assertEquals(0, loader.warehouseCapacity);
+        assertEquals(null, loader.bakers);
+        assertEquals(null, loader.couriers);
+    }
 }
