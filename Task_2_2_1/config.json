@@ -1,6 +1,12 @@
 {
-  "bakersCount": 3,
-  "couriersCount": 2,
   "warehouseCapacity": 10,
-  "pizzaDuration": 2000
+  "bakers": [
+    { "id": 1, "speed": 1000 },
+    { "id": 2, "speed": 1500 },
+    { "id": 3, "speed": 800 }
+  ],
+  "couriers": [
+    { "id": 1, "backpackCapacity": 2 },
+    { "id": 2, "backpackCapacity": 4 }
+  ]
 }

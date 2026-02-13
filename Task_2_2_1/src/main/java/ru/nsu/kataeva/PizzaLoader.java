@@ -1,62 +1,46 @@
 package ru.nsu.kataeva;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
 
 /**
  * Pizza loader class.
  */
 public class PizzaLoader {
-    public int bakersCount = 3;
-    public int couriersCount = 1;
-    public int warehouseCapacity = 5;
-    public int pizzaDuration = 1000;
+    public int warehouseCapacity;
+    public List<BakerConfig> bakers;
+    public List<CourierConfig> couriers;
+
+    /**
+     * Baker from json.
+     */
+    public static class BakerConfig {
+        public int id;
+        public int speed;
+    }
+
+    /**
+     * Courier from json.
+     */
+    public static class CourierConfig {
+        public int id;
+        public int backpackCapacity;
+    }
 
     /**
      * To construct pizzeria.
      *
-     * @param filename to read config.
+     * @param reader to read config.
      * @return the pizzeria.
      */
-    public static PizzaLoader load(String filename) {
-        PizzaLoader loader = new PizzaLoader();
-
-        File file = new File(filename);
-        try (Scanner scanner = new Scanner(file)) {
-            scanner.useDelimiter("[^a-zA-Z0-9+]");
-            while (scanner.hasNext()) {
-                String line = scanner.next();
-
-                if (scanner.hasNextInt()) {
-                    int value = scanner.nextInt();
-
-                    switch (line) {
-                        case "bakersCount": {
-                            loader.bakersCount = value;
-                            break;
-                        }
-                        case "couriersCount": {
-                            loader.couriersCount = value;
-                            break;
-                        }
-                        case "warehouseCapacity": {
-                            loader.warehouseCapacity = value;
-                            break;
-                        }
-                        case "pizzaDuration": {
-                            loader.pizzaDuration = value;
-                            break;
-                        }
-                        default: {
-                            System.out.println("Invalid input");
-                        }
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+    public static PizzaLoader load(Reader reader) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(reader, PizzaLoader.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Problem with config", e);
         }
-        return loader;
     }
 }

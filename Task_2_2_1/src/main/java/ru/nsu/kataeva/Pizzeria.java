@@ -1,5 +1,8 @@
 package ru.nsu.kataeva;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,28 +10,39 @@ import java.util.List;
  * Pizzeria class.
  */
 public class Pizzeria {
+
+    private static final int INFINITE_CAPACITY = -1;
+
     /**
      * Main class.
      *
      * @param args args.
      */
     public static void main(String[] args) {
-        PizzaLoader loader = new PizzaLoader();
+        PizzaLoader loader;
 
-        OrderQueue<Order> orders = new OrderQueue<>(-1);
+        try (Reader reader = new FileReader("config.json")) {
+            loader = PizzaLoader.load(reader);
+        } catch (IOException e) {
+            System.err.println("Problem with config file: " + e.getMessage());
+            return;
+        }
+
+        OrderQueue<Order> orders = new OrderQueue<>(INFINITE_CAPACITY);
         OrderQueue<Order> warehouse = new OrderQueue<>(loader.warehouseCapacity);
 
-        List<Thread> staff = new ArrayList<>();
+        List<Thread> bakers = new ArrayList<>();
+        List<Thread> couriers = new ArrayList<>();
 
-        for (int i = 0; i < loader.bakersCount; i++) {
-            Baker b = new Baker(i + 1, 1000, orders, warehouse);
-            staff.add(b);
+        for (PizzaLoader.BakerConfig bakerConfig : loader.bakers) {
+            Baker b = new Baker(bakerConfig.id, bakerConfig.speed, orders, warehouse);
+            bakers.add(b);
             b.start();
         }
 
-        for (int i = 0; i < loader.couriersCount; i++) {
-            Courier c = new Courier(i + 1, i + 1, warehouse);
-            staff.add(c);
+        for (PizzaLoader.CourierConfig courierConfig : loader.couriers) {
+            Courier c = new Courier(courierConfig.id, courierConfig.backpackCapacity, warehouse);
+            couriers.add(c);
             c.start();
         }
 
@@ -37,12 +51,11 @@ public class Pizzeria {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     Order order = new Order(id++);
-                    order.setState("CREATED");
                     orders.put(order);
                     Thread.sleep(700);
                 }
             } catch (InterruptedException e) {
-                System.out.println("ORDERS STOPPED");
+                Thread.currentThread().interrupt();
             }
         });
 
@@ -50,25 +63,33 @@ public class Pizzeria {
 
         try {
             System.out.println("=== START WORKING ===");
-            Thread.sleep(10000);
+            Thread.sleep(7000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
 
-        System.out.println("\n=== END WORKING ===");
+        System.out.println("=== SOON WE WILL FINISH WORKING ===");
 
         clientGenerator.interrupt();
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        orders.close();
+        for (Thread b : bakers) {
+            try {
+                b.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
-        System.out.println("=== CLOSED ===");
-        for (Thread worker : staff) {
-            worker.interrupt();
+        warehouse.close();
+        for (Thread c : couriers) {
+            try {
+                c.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
+        System.out.println("=== PIZZERIA CLOSED ===");
     }
 }

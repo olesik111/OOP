@@ -13,6 +13,7 @@ import java.util.Queue;
 public class OrderQueue<T> {
     private final Queue<T> queue = new LinkedList<>();
     private final int capacity;
+    private boolean closed = false;
 
     /**
      * Constructor.
@@ -24,14 +25,28 @@ public class OrderQueue<T> {
     }
 
     /**
-     * Put pizza in queue.
+     * Put item in queue.
      *
      * @param t type.
      * @throws InterruptedException exc.
      */
     public synchronized void put(T t) throws InterruptedException {
+        put(t, null);
+    }
+
+    /**
+     * Put item in queue and action atomically.
+     *
+     * @param t type.
+     * @param action before adding to queue.
+     * @throws InterruptedException exc.
+     */
+    public synchronized void put(T t, Runnable action) throws InterruptedException {
         while (queue.size() >= capacity && capacity > 0) {
             wait();
+        }
+        if (action != null) {
+            action.run();
         }
         queue.add(t);
         notifyAll();
@@ -44,6 +59,9 @@ public class OrderQueue<T> {
      */
     public synchronized T take() throws InterruptedException {
         while (queue.isEmpty()) {
+            if (closed) {
+                return null;
+            }
             wait();
         }
         T t = queue.poll();
@@ -60,6 +78,9 @@ public class OrderQueue<T> {
      */
     public synchronized List<T> takeTheMost(int limit) throws InterruptedException {
         while (queue.isEmpty()) {
+            if (closed) {
+                return new ArrayList<>();
+            }
             wait();
         }
         List<T> list = new ArrayList<>();
@@ -68,6 +89,14 @@ public class OrderQueue<T> {
         }
         notifyAll();
         return list;
+    }
+
+    /**
+     * Pizzeria is closed. Finish the work.
+     */
+    public synchronized void close() {
+        closed = true;
+        notifyAll();
     }
 
     /**

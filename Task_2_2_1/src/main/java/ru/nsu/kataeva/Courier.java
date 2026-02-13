@@ -8,6 +8,7 @@ import java.util.List;
 public class Courier extends Thread {
     private final int backpackCapacity;
     private final OrderQueue<Order> warehouse;
+    private static final int DELIVERY_TIME_MS = 1000;
 
     /**
      * Constructor.
@@ -30,16 +31,21 @@ public class Courier extends Thread {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 List<Order> items = warehouse.takeTheMost(backpackCapacity);
-                for (Order item : items) {
-                    item.setState("DELIVIRING");
+                if (items.isEmpty()) {
+                    break;
                 }
-                Thread.sleep(1000);
                 for (Order item : items) {
-                    item.setState("DELIVIRED");
+                    item.setState(States.DELIVERING);
+                }
+                Thread.sleep(DELIVERY_TIME_MS);
+                for (Order item : items) {
+                    item.setState(States.DELIVERED);
                 }
             }
         } catch (InterruptedException e) {
-            System.out.println("Courier went away.");
+            Thread.currentThread().interrupt();
+        } finally {
+            System.out.println(getName() + " went away");
         }
     }
 }

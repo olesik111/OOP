@@ -31,14 +31,18 @@ public class Baker extends Thread {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 Order order = orders.take();
-                order.setState("BAKING");
+                if (order == null) {
+                    break;
+                }
+                order.setState(States.BAKING);
                 Thread.sleep(speed);
-                order.setState("READY");
-                warehouse.put(order);
-                order.setState("IN_WAREHOUSE");
+                order.setState(States.READY);
+                warehouse.put(order, () -> order.setState(States.IN_WAREHOUSE));
             }
         } catch (InterruptedException e) {
-            System.out.println("Baker went away");
+            Thread.currentThread().interrupt();
+        }finally {
+            System.out.println(getName() + " went away");
         }
     }
 
