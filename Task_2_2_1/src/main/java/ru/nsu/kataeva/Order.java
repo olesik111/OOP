@@ -5,7 +5,7 @@ package ru.nsu.kataeva;
  */
 public class Order {
     private final int id;
-    private States state;
+    private OrderState state;
 
     /**
      * Constructor.
@@ -14,7 +14,7 @@ public class Order {
      */
     public Order(int id) {
         this.id = id;
-        this.state = States.CREATED;
+        this.state = OrderState.CREATED;
     }
 
     /**
@@ -22,7 +22,7 @@ public class Order {
      *
      * @param stateNew to set.
      */
-    public synchronized void setState(States stateNew) {
+    public synchronized void setState(OrderState stateNew) {
         this.state = stateNew;
         System.out.println("Order state " + this.id + " changed to " + stateNew);
     }
@@ -41,7 +41,7 @@ public class Order {
      *
      * @return state.
      */
-    public synchronized States getState() {
+    public synchronized OrderState getState() {
         return state;
     }
 }

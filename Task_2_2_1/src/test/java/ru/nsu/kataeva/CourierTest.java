@@ -22,8 +22,8 @@ class CourierTest {
         Thread.sleep(1500);
 
         assertTrue(warehouse.isEmpty());
-        assertEquals(States.DELIVERED, order1.getState());
-        assertEquals(States.DELIVERED, order2.getState());
+        assertEquals(OrderState.DELIVERED, order1.getState());
+        assertEquals(OrderState.DELIVERED, order2.getState());
 
         courier.interrupt();
         courier.join();

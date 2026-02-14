@@ -3,6 +3,7 @@ package ru.nsu.kataeva;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 
 /**
@@ -42,8 +43,16 @@ public class OrderQueue<T> {
      * @throws InterruptedException exc.
      */
     public synchronized void put(T t, Runnable action) throws InterruptedException {
+
+        if (closed) {
+            throw new IllegalStateException("We are closed. Come tomorrow please");
+        }
+
         while (queue.size() >= capacity && capacity > 0) {
             wait();
+            if (closed) {
+                throw new IllegalStateException("We are closed. Come tomorrow please");
+            }
         }
         if (action != null) {
             action.run();
@@ -57,16 +66,16 @@ public class OrderQueue<T> {
      *
      * @throws InterruptedException exc.
      */
-    public synchronized T take() throws InterruptedException {
+    public synchronized Optional<T> take() throws InterruptedException {
         while (queue.isEmpty()) {
             if (closed) {
-                return null;
+                return Optional.empty();
             }
             wait();
         }
         T t = queue.poll();
         notifyAll();
-        return t;
+        return Optional.of(t);
     }
 
     /**

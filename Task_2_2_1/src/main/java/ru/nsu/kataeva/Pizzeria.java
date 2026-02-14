@@ -63,7 +63,7 @@ public class Pizzeria {
 
         try {
             System.out.println("=== START WORKING ===");
-            Thread.sleep(7000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

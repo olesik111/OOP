@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -20,8 +21,9 @@ class OrderQueueTest {
         queue.put(order);
         assertFalse(queue.isEmpty());
 
-        Order taken = queue.take();
-        assertEquals(order, taken);
+        Optional<Order> taken = queue.take();
+        assertTrue(taken.isPresent());
+        assertEquals(order, taken.get());
         assertTrue(queue.isEmpty());
     }
 

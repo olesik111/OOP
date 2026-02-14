@@ -35,11 +35,11 @@ public class Courier extends Thread {
                     break;
                 }
                 for (Order item : items) {
-                    item.setState(States.DELIVERING);
+                    item.setState(OrderState.DELIVERING);
                 }
                 Thread.sleep(DELIVERY_TIME_MS);
                 for (Order item : items) {
-                    item.setState(States.DELIVERED);
+                    item.setState(OrderState.DELIVERED);
                 }
             }
         } catch (InterruptedException e) {

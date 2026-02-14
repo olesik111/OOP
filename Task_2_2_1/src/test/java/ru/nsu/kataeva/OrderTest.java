@@ -13,9 +13,9 @@ class OrderTest {
         Order order = new Order(5);
 
         assertEquals(5, order.getId());
-        assertEquals(States.CREATED, order.getState());
+        assertEquals(OrderState.CREATED, order.getState());
 
-        order.setState(States.BAKING);
-        assertEquals(States.BAKING, order.getState());
+        order.setState(OrderState.BAKING);
+        assertEquals(OrderState.BAKING, order.getState());
     }
 }

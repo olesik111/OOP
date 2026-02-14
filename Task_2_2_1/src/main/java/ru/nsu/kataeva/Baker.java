@@ -1,5 +1,7 @@
 package ru.nsu.kataeva;
 
+import java.util.Optional;
+
 /**
  * Baker class.
  */
@@ -30,14 +32,15 @@ public class Baker extends Thread {
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                Order order = orders.take();
-                if (order == null) {
+                Optional<Order> orderOpt = orders.take();
+                if (orderOpt.isEmpty()) {
                     break;
                 }
-                order.setState(States.BAKING);
+                Order order = orderOpt.get();
+                order.setState(OrderState.BAKING);
                 Thread.sleep(speed);
-                order.setState(States.READY);
-                warehouse.put(order, () -> order.setState(States.IN_WAREHOUSE));
+                order.setState(OrderState.READY);
+                warehouse.put(order, () -> order.setState(OrderState.IN_WAREHOUSE));
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -45,5 +48,4 @@ public class Baker extends Thread {
             System.out.println(getName() + " went away");
         }
     }
-
 }

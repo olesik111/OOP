@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -22,9 +23,11 @@ class BakerTest {
 
         assertTrue(orders.isEmpty());
         assertFalse(warehouse.isEmpty());
-        Order processedOrder = warehouse.take();
+        Optional<Order> processedOrderOpt = warehouse.take();
+        assertTrue(processedOrderOpt.isPresent());
+        Order processedOrder = processedOrderOpt.get();
         assertEquals(1, processedOrder.getId());
-        assertEquals(States.IN_WAREHOUSE, processedOrder.getState());
+        assertEquals(OrderState.IN_WAREHOUSE, processedOrder.getState());
 
         baker.interrupt();
         baker.join();
