@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Game model building.
+ */
 public class GameModel {
     private final int width;
     private final int height;
@@ -14,11 +17,19 @@ public class GameModel {
     private final LinkedList<Point> snake = new LinkedList<>();
     private final List<Point> food = new ArrayList<>();
 
-    private Direction direction =  Direction.DOWN;
+    private Direction direction = Direction.DOWN;
     private boolean gameOver = false;
     private boolean won = false;
     private final Random random = new Random();
 
+    /**
+     * Constructor of game model.
+     *
+     * @param width     width.
+     * @param height    height.
+     * @param target    length to win.
+     * @param foodCount apples at the screen in a moment.
+     */
     public GameModel(int width, int height, int target, int foodCount) {
         this.width = width;
         this.height = height;
@@ -27,6 +38,9 @@ public class GameModel {
         reset();
     }
 
+    /**
+     * Restart the game.
+     */
     public void reset() {
         snake.clear();
         food.clear();
@@ -38,11 +52,14 @@ public class GameModel {
         spawnFood();
     }
 
+    /**
+     * Spawn the needed value of apples.
+     */
     private void spawnFood() {
         while (food.size() < foodCount) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
-            Point  p = new Point(x, y);
+            Point p = new Point(x, y);
 
             if (!snake.contains(p) && !food.contains(p)) {
                 food.add(p);
@@ -50,6 +67,11 @@ public class GameModel {
         }
     }
 
+    /**
+     * Your direction.
+     *
+     * @param directionNew to check if legal and to return.
+     */
     public void directionCheck(Direction directionNew) {
         if (direction == Direction.UP && directionNew == Direction.DOWN) {
             return;
@@ -66,8 +88,11 @@ public class GameModel {
         this.direction = directionNew;
     }
 
+    /**
+     * To check the newest state of screen.
+     */
     public void update() {
-        if (gameOver ||  won) {
+        if (gameOver || won) {
             return;
         }
 
@@ -95,7 +120,7 @@ public class GameModel {
             }
         }
 
-        if (newHead.x < 0 ||  newHead.x >= width || newHead.y < 0 || newHead.y >= height) {
+        if (newHead.x < 0 || newHead.x >= width || newHead.y < 0 || newHead.y >= height) {
             gameOver = true;
             return;
         }
@@ -120,9 +145,40 @@ public class GameModel {
         }
     }
 
-    public List<Point> getSnake() { return snake; }
-    public List<Point> getFood() { return food; }
-    public boolean gameOver() { return gameOver; }
-    public boolean won() { return won; }
+    /**
+     * Get snake body.
+     *
+     * @return body.
+     */
+    public List<Point> getSnake() {
+        return snake;
+    }
+
+    /**
+     * Get food coordinates.
+     *
+     * @return food.
+     */
+    public List<Point> getFood() {
+        return food;
+    }
+
+    /**
+     * If game over.
+     *
+     * @return game over.
+     */
+    public boolean gameOver() {
+        return gameOver;
+    }
+
+    /**
+     * If you won.
+     *
+     * @return won.
+     */
+    public boolean won() {
+        return won;
+    }
 
 }
