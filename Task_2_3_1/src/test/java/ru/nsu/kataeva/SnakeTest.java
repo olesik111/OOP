@@ -24,7 +24,7 @@ public class SnakeTest {
         Point initialHead = model.getSnake().get(0);
         model.directionCheck(Direction.RIGHT);
 
-        Point foodPos = new Point(initialHead.x + 1, initialHead.y);
+        Point foodPos = new Point(initialHead.xCoord + 1, initialHead.yCoord);
         model.getFood().add(foodPos);
 
         model.update();

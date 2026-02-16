@@ -4,18 +4,18 @@ package ru.nsu.kataeva;
  * Coordinate.
  */
 public class Point {
-    public final int x;
-    public final int y;
+    public final int xCoord;
+    public final int yCoord;
 
     /**
      * Point constructor.
      *
-     * @param x x.
-     * @param y y.
+     * @param xCoord x.
+     * @param yCoord y.
      */
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Point(int xCoord, int yCoord) {
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Point {
             return false;
         }
         Point point = (Point) o;
-        return x == point.x && y == point.y;
+        return xCoord == point.xCoord && yCoord == point.yCoord;
     }
 
 
