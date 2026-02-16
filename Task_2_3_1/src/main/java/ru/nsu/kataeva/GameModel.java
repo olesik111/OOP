@@ -101,32 +101,33 @@ public class GameModel {
 
         switch (direction) {
             case UP: {
-                newHead = new Point(head.xCoord, head.yCoord - 1);
+                newHead = new Point(head.xcoord, head.ycoord - 1);
                 break;
             }
             case DOWN: {
-                newHead = new Point(head.xCoord, head.yCoord + 1);
+                newHead = new Point(head.xcoord, head.ycoord + 1);
                 break;
             }
             case LEFT: {
-                newHead = new Point(head.xCoord - 1, head.yCoord);
+                newHead = new Point(head.xcoord - 1, head.ycoord);
                 break;
             }
             case RIGHT: {
-                newHead = new Point(head.xCoord + 1, head.yCoord);
+                newHead = new Point(head.xcoord + 1, head.ycoord);
                 break;
             }
             default: {
             }
         }
 
-        if (newHead.xCoord < 0 || newHead.xCoord >= width || newHead.yCoord < 0 || newHead.yCoord >= height) {
+        if (newHead.xcoord < 0 || newHead.xcoord >= width
+                || newHead.ycoord < 0 || newHead.ycoord >= height) {
             gameOver = true;
             return;
         }
 
         for (int i = 0; i < snake.size() - 1; i++) {
-            if (snake.get(i).xCoord == newHead.xCoord && snake.get(i).yCoord == newHead.yCoord) {
+            if (snake.get(i).xcoord == newHead.xcoord && snake.get(i).ycoord == newHead.ycoord) {
                 gameOver = true;
                 return;
             }

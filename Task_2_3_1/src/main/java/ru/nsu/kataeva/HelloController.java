@@ -52,14 +52,11 @@ public class HelloController {
         System.out.println("KeyCode: " + code);
         if (code == KeyCode.W || code == KeyCode.UP) {
             gameModel.directionCheck(Direction.UP);
-        }
-        else if (code == KeyCode.S || code == KeyCode.DOWN) {
+        } else if (code == KeyCode.S || code == KeyCode.DOWN) {
             gameModel.directionCheck(Direction.DOWN);
-        }
-        else if (code == KeyCode.A || code == KeyCode.LEFT) {
+        } else if (code == KeyCode.A || code == KeyCode.LEFT) {
             gameModel.directionCheck(Direction.LEFT);
-        }
-        else if (code == KeyCode.D || code == KeyCode.RIGHT) {
+        } else if (code == KeyCode.D || code == KeyCode.RIGHT) {
             gameModel.directionCheck(Direction.RIGHT);
         }
 
@@ -90,12 +87,13 @@ public class HelloController {
 
         gc.setFill(Color.RED);
         for (Point food : gameModel.getFood()) {
-            gc.fillOval(food.xCoord * CELL_SIZE, food.yCoord * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            gc.fillOval(food.xcoord * CELL_SIZE, food.ycoord * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
 
         gc.setFill(Color.LIMEGREEN);
         for (Point part : gameModel.getSnake()) {
-            gc.fillRect(part.xCoord * CELL_SIZE, part.yCoord * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
+            gc.fillRect(part.xcoord * CELL_SIZE, part.ycoord * CELL_SIZE,
+                    CELL_SIZE - 2, CELL_SIZE - 2);
         }
     }
 }
