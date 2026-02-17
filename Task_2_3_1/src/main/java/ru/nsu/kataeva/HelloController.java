@@ -21,6 +21,10 @@ public class HelloController {
     private GameModel gameModel;
     private Timeline timeline;
     private static final int CELL_SIZE = 20;
+    private static final int TARGET_LENGTH = 10;
+    private static final int FOOD_COUNT = 3;
+    private static final int UPDATE_INTERVAL_MS = 150;
+    private static final int SNAKE_PADDING = 2;
 
     /**
      * Init the controller.
@@ -28,15 +32,15 @@ public class HelloController {
     public void initialize() {
         int gridW = (int) gameCanvas.getWidth() / CELL_SIZE;
         int gridH = (int) gameCanvas.getHeight() / CELL_SIZE;
-        gameModel = new GameModel(gridW, gridH, 10, 3);
-
+        gameModel = new GameModel(gridW, gridH, TARGET_LENGTH, FOOD_COUNT);
+        statusLabel.textProperty().bind(gameModel.scoreProperty().asString("Length: %d"));
         gameCanvas.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.setOnKeyPressed(this::handleInput);
             }
         });
 
-        timeline = new Timeline(new KeyFrame(Duration.millis(150), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(UPDATE_INTERVAL_MS), e -> {
             gameModel.update();
             draw();
             checkGameStatus();
@@ -51,30 +55,30 @@ public class HelloController {
         KeyCode code = event.getCode();
         System.out.println("KeyCode: " + code);
         if (code == KeyCode.W || code == KeyCode.UP) {
-            gameModel.directionCheck(Direction.UP);
+            gameModel.setDirection(Direction.UP);
         } else if (code == KeyCode.S || code == KeyCode.DOWN) {
-            gameModel.directionCheck(Direction.DOWN);
+            gameModel.setDirection(Direction.DOWN);
         } else if (code == KeyCode.A || code == KeyCode.LEFT) {
-            gameModel.directionCheck(Direction.LEFT);
+            gameModel.setDirection(Direction.LEFT);
         } else if (code == KeyCode.D || code == KeyCode.RIGHT) {
-            gameModel.directionCheck(Direction.RIGHT);
+            gameModel.setDirection(Direction.RIGHT);
         }
 
         if (code == KeyCode.R && (gameModel.gameOver() || gameModel.won())) {
             gameModel.reset();
             timeline.play();
-            statusLabel.setText("Score: 0");
+            statusLabel.textProperty().bind(gameModel.scoreProperty().asString("Length: %d"));
         }
     }
 
     private void checkGameStatus() {
-        statusLabel.setText("Length: " + gameModel.getSnake().size());
 
         if (gameModel.gameOver()) {
-            timeline.stop();
+            statusLabel.textProperty().unbind();
             statusLabel.setText("Game Over! Press 'R'");
         } else if (gameModel.won()) {
             timeline.stop();
+            statusLabel.textProperty().unbind();
             statusLabel.setText("You Won! Press 'R'");
         }
     }
@@ -93,7 +97,7 @@ public class HelloController {
         gc.setFill(Color.LIMEGREEN);
         for (Point part : gameModel.getSnake()) {
             gc.fillRect(part.xcoord * CELL_SIZE, part.ycoord * CELL_SIZE,
-                    CELL_SIZE - 2, CELL_SIZE - 2);
+                    CELL_SIZE - SNAKE_PADDING, CELL_SIZE - SNAKE_PADDING);
         }
     }
 }

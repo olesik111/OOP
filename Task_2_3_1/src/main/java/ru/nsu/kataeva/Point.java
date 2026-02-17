@@ -1,5 +1,7 @@
 package ru.nsu.kataeva;
 
+import java.util.Objects;
+
 /**
  * Coordinate.
  */
@@ -35,6 +37,18 @@ public class Point {
         Point point = (Point) o;
         return xcoord == point.xcoord && ycoord == point.ycoord;
     }
+
+    /**
+     * Hash code.
+     *
+     * @return hash code of point.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(xcoord, ycoord);
+    }
+
+
 
 
 }

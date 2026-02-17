@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * Game model building.
@@ -14,13 +16,14 @@ public class GameModel {
     private final int target;
     private final int foodCount;
 
-    private final LinkedList<Point> snake = new LinkedList<>();
+    private Snake snake;
     private final List<Point> food = new ArrayList<>();
 
-    private Direction direction = Direction.DOWN;
+    private Direction direction = Direction.UP;
     private boolean gameOver = false;
     private boolean won = false;
     private final Random random = new Random();
+    private final IntegerProperty score = new SimpleIntegerProperty(1);
 
     /**
      * Constructor of game model.
@@ -31,6 +34,16 @@ public class GameModel {
      * @param foodCount apples at the screen in a moment.
      */
     public GameModel(int width, int height, int target, int foodCount) {
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Width and height must be positive.");
+        }
+        int totalCells = width * height;
+        if (target <= 0 || target > totalCells) {
+            throw new IllegalArgumentException("Target must be positive and <= width * height.");
+        }
+        if (foodCount < 0 || foodCount > (totalCells - target + 1)) {
+            throw new IllegalArgumentException("Not enough free cells to spawn foodCount.");
+        }
         this.width = width;
         this.height = height;
         this.target = target;
@@ -42,13 +55,13 @@ public class GameModel {
      * Restart the game.
      */
     public void reset() {
-        snake.clear();
         food.clear();
         direction = Direction.UP;
         gameOver = false;
         won = false;
 
-        snake.add(new Point(width / 2, height / 2));
+        snake = new Snake(new Point(width / 2, height / 2));
+        score.set(1);
         spawnFood();
     }
 
@@ -56,14 +69,19 @@ public class GameModel {
      * Spawn the needed value of apples.
      */
     private void spawnFood() {
-        while (food.size() < foodCount) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            Point p = new Point(x, y);
-
-            if (!snake.contains(p) && !food.contains(p)) {
-                food.add(p);
+        List<Point> freeCells = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Point p = new Point(x, y);
+                if (!snake.contains(p) && !food.contains(p)) {
+                    freeCells.add(p);
+                }
             }
+        }
+
+        while (food.size() < foodCount && !freeCells.isEmpty()) {
+            int index = random.nextInt(freeCells.size());
+            food.add(freeCells.remove(index));
         }
     }
 
@@ -72,20 +90,31 @@ public class GameModel {
      *
      * @param directionNew to check if legal and to return.
      */
-    public void directionCheck(Direction directionNew) {
+    public boolean directionCheck(Direction directionNew) {
         if (direction == Direction.UP && directionNew == Direction.DOWN) {
-            return;
+            return false;
         }
         if (direction == Direction.DOWN && directionNew == Direction.UP) {
-            return;
+            return false;
         }
         if (direction == Direction.LEFT && directionNew == Direction.RIGHT) {
-            return;
+            return false;
         }
         if (direction == Direction.RIGHT && directionNew == Direction.LEFT) {
-            return;
+            return false;
         }
-        this.direction = directionNew;
+        return true;
+    }
+
+    /**
+     * Set new direction if legal.
+     *
+     * @param directionNew new direction.
+     */
+    public void setDirection(Direction directionNew) {
+        if (directionCheck(directionNew)) {
+            this.direction = directionNew;
+        }
     }
 
     /**
@@ -96,7 +125,7 @@ public class GameModel {
             return;
         }
 
-        Point head = snake.getFirst();
+        Point head = snake.getHead();
         Point newHead = null;
 
         switch (direction) {
@@ -126,24 +155,32 @@ public class GameModel {
             return;
         }
 
-        for (int i = 0; i < snake.size() - 1; i++) {
-            if (snake.get(i).xcoord == newHead.xcoord && snake.get(i).ycoord == newHead.ycoord) {
-                gameOver = true;
-                return;
-            }
+        if (snake.collision(newHead)) {
+            gameOver = true;
+            return;
         }
-        snake.addFirst(newHead);
 
         if (food.contains(newHead)) {
             food.remove(newHead);
+            snake.grow(newHead);
+            score.set(snake.getBody().size());
             spawnFood();
         } else {
-            snake.removeLast();
+            snake.move(newHead);
         }
 
-        if (snake.size() == target) {
+        if (snake.getBody().size() == target) {
             won = true;
         }
+    }
+
+    /**
+     * Get for binding.
+     *
+     * @return score.
+     */
+    public IntegerProperty scoreProperty() {
+        return score;
     }
 
     /**
@@ -152,7 +189,7 @@ public class GameModel {
      * @return body.
      */
     public List<Point> getSnake() {
-        return snake;
+        return snake.getBody();
     }
 
     /**
