@@ -37,8 +37,8 @@ public class SnakeTest {
 
     @Test
     void testWallCollision() {
-        GameModel smallModel = new GameModel(3, 3, 10, 0);
-        smallModel.setDirection(Direction.UP);
+        GameModel smallModel = new GameModel(3, 3, 2, 0);
+        smallModel.setDirection(Direction.DOWN);
         smallModel.update();
         smallModel.update();
         assertTrue(smallModel.gameOver());
