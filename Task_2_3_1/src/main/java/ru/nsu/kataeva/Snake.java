@@ -29,11 +29,27 @@ public class Snake {
     }
 
     /**
+     * Validate if the new head is next to the current head.
+     *
+     * @param newHead point to validate.
+     */
+    private void validate(Point newHead) {
+        Point head = getHead();
+        int dx = Math.abs(head.xcoord - newHead.xcoord);
+        int dy = Math.abs(head.ycoord - newHead.ycoord);
+
+        if (dx + dy != 1) {
+            throw new IllegalArgumentException("error with head.");
+        }
+    }
+
+    /**
      * Move to new cell.
      *
      * @param newHead new head.
      */
     public void move(Point newHead) {
+        validate(newHead);
         body.add(0, newHead);
         body.remove(body.size() - 1);
     }
@@ -44,6 +60,7 @@ public class Snake {
      * @param newHead new head.
      */
     public void grow(Point newHead) {
+        validate(newHead);
         body.add(0, newHead);
     }
 
