@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ru.nsu.kataeva.HelloController"
+      style="-fx-background-color: #2c3e50;">
+
+    <Label fx:id="statusLabel" text="Score: 0" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="20.0"/>
+        </font>
+    </Label>
+
+    <Canvas fx:id="gameCanvas" width="600" height="400" focusTraversable="true"/>
+
+    <Label text="Controls: WASD or Arrows. R to Restart" textFill="#bdc3c7"/>
+</VBox>
